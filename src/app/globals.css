@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+Ethiopic:wght@300;400;600&display=swap');
+
+/* ── CSS Custom Properties (mirrors Tailwind tokens) ────────── */
+:root {
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+  --font-dm-sans:   "DM Sans", system-ui, sans-serif;
+  --font-ethiopic:  "Abyssinica SIL", "Noto Serif Ethiopic", "Nyala", serif;
+
+  --color-deep:    #051F20;
+  --color-dark:    #0B2B26;
+  --color-mid:     #163832;
+  --color-forest:  #235347;
+  --color-sage:    #8EB69B;
+  --color-mint:    #E8F5E9;
+  --color-mist:    #DAF1DE;
+  --color-gold:    #C9A96E;
+  --color-crimson: #C0392B;
+}
+
+/* ── Amharic locale — apply Ethiopic font globally ─────────── */
+:lang(am) {
+  font-family: var(--font-ethiopic);
+  line-height: 1.75;
+}
+:lang(am) h1, :lang(am) h2, :lang(am) h3 {
+  font-family: var(--font-ethiopic);
+  line-height: 1.45;
+}
+
+/* ── Glassmorphism utility ──────────────────────────────────── */
+@layer utilities {
+  .glass {
+    background: rgba(5, 31, 32, 0.72);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(142, 182, 155, 0.15);
+  }
+  .glass-mint {
+    background: rgba(232, 245, 233, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(142, 182, 155, 0.2);
+  }
+  .font-ethiopic {
+    font-family: var(--font-ethiopic);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ── Grain overlay ──────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.42;
+  mix-blend-mode: overlay;
+}
+
+/* ── Smooth locale text transition ─────────────────────────── */
+.locale-fade {
+  transition: opacity 0.22s ease;
+}
+.locale-fade.switching {
+  opacity: 0;
+}
+
+/* ── Scroll progress bar ────────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--color-sage), var(--color-forest));
+  transform-origin: bottom;
+  z-index: 1000;
+  border-radius: 2px 2px 0 0;
+}
+
+/* ── Custom scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-deep); }
+::-webkit-scrollbar-thumb { background: var(--color-forest); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-sage); }
+
+html { scroll-behavior: smooth; }

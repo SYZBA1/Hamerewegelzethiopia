@@ -1,0 +1,176 @@
+"use client";
+
+import { useState } from "react";
+import { useLang } from "@/context/LanguageContext";
+import { Reveal } from "@/components/PageComponents";
+import clsx from "clsx";
+
+interface Content {
+  heroTag: string; heroTitle: string; heroSub: string;
+  studentLabel: string; teacherLabel: string; adminLabel: string;
+  emailLabel: string; passwordLabel: string;
+  loginBtn: string; forgot: string;
+  registerPrompt: string; registerLink: string;
+  featuresTitle: string;
+  features: string[];
+}
+
+const ROLE_ICONS = ["👨‍🎓", "👩‍🏫", "⚙️"];
+
+export default function LMSClient({ locale, c }: { locale: string; c: Content }) {
+  const isAm = locale === "am";
+  const [role, setRole] = useState(0);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+
+  const roles = [c.studentLabel, c.teacherLabel, c.adminLabel];
+
+  const inputSt = {
+    width: "100%", padding: ".8rem 1rem",
+    background: "rgba(255,255,255,.06)",
+    border: "1px solid rgba(142,182,155,.2)",
+    borderRadius: 9, color: "#DAF1DE", outline: "none",
+    fontSize: ".9rem", transition: "border-color .2s, box-shadow .2s",
+  };
+
+  return (
+    <div style={{ background: "linear-gradient(135deg, #051F20 0%, #0B2B26 50%, #163832 100%)", minHeight: "100vh" }}>
+
+      {/* Hero band */}
+      <div style={{ padding: "7rem 2.5rem 4rem", borderBottom: "1px solid rgba(142,182,155,.07)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
+          <Reveal>
+            <p className={clsx(isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.62rem] uppercase tracking-[.28em]")}
+              style={{ color: "#C9A96E", display: "flex", alignItems: "center", justifyContent: "center", gap: ".6rem", marginBottom: "1rem" }}>
+              <span style={{ display: "block", width: "2rem", height: 1, background: "#C9A96E" }} />
+              {c.heroTag}
+              <span style={{ display: "block", width: "2rem", height: 1, background: "#C9A96E" }} />
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h1 className={clsx("font-serif font-semibold text-white", isAm && "font-ethiopic leading-[1.4]")}
+              style={{ fontSize: "clamp(2rem,4.5vw,3.4rem)", marginBottom: "1.2rem", lineHeight: 1.08 }}>
+              {c.heroTitle}
+            </h1>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className={clsx("max-w-[46ch] mx-auto", isAm ? "font-ethiopic text-[.88rem]" : "font-sans text-[.96rem]")}
+              style={{ color: "rgba(218,241,222,.6)", lineHeight: 1.85 }}>
+              {c.heroSub}
+            </p>
+          </Reveal>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div style={{ padding: "5rem 2.5rem", maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }}>
+
+        {/* Login card */}
+        <Reveal direction="left">
+          <div style={{ background: "rgba(11,43,38,.5)", borderRadius: 20, padding: "2.5rem", border: "1px solid rgba(142,182,155,.12)", backdropFilter: "blur(10px)" }}>
+
+            {/* Role tabs */}
+            <div style={{ display: "flex", borderRadius: 10, overflow: "hidden", border: "1px solid rgba(142,182,155,.18)", marginBottom: "1.8rem" }}>
+              {roles.map((r, i) => (
+                <button key={i} onClick={() => setRole(i)}
+                  className={clsx(isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.68rem] uppercase tracking-[.08em]")}
+                  style={{ flex: 1, padding: ".6rem", border: "none", cursor: "pointer", transition: "all .2s", fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", gap: ".4rem",
+                    background: role === i ? "#235347" : "transparent",
+                    color: role === i ? "#DAF1DE" : "rgba(218,241,222,.45)" }}>
+                  <span>{ROLE_ICONS[i]}</span> {r}
+                </button>
+              ))}
+            </div>
+
+            {/* Role indicator */}
+            <div style={{ display: "flex", alignItems: "center", gap: ".6rem", marginBottom: "1.5rem", padding: ".7rem 1rem", background: "rgba(35,83,71,.15)", borderRadius: 8, border: "1px solid rgba(142,182,155,.1)" }}>
+              <span style={{ fontSize: "1.2rem" }}>{ROLE_ICONS[role]}</span>
+              <p className={clsx(isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.72rem]")}
+                style={{ color: "#8EB69B" }}>
+                {isAm ? `${roles[role]} ሆነው እየገቡ ነው` : `Signing in as ${roles[role]}`}
+              </p>
+            </div>
+
+            {/* Email */}
+            <div style={{ marginBottom: "1.2rem" }}>
+              <label className={clsx("block mb-1.5", isAm ? "font-ethiopic text-[.76rem]" : "font-sans text-[.62rem] uppercase tracking-[.14em]")}
+                style={{ color: "rgba(218,241,222,.5)" }}>{c.emailLabel}</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)}
+                style={inputSt}
+                onFocus={e => { e.target.style.borderColor = "#8EB69B"; e.target.style.boxShadow = "0 0 0 3px rgba(142,182,155,.1)"; }}
+                onBlur={e => { e.target.style.borderColor = "rgba(142,182,155,.2)"; e.target.style.boxShadow = "none"; }}
+              />
+            </div>
+
+            {/* Password */}
+            <div style={{ marginBottom: "1.6rem" }}>
+              <label className={clsx("block mb-1.5", isAm ? "font-ethiopic text-[.76rem]" : "font-sans text-[.62rem] uppercase tracking-[.14em]")}
+                style={{ color: "rgba(218,241,222,.5)" }}>{c.passwordLabel}</label>
+              <div style={{ position: "relative" }}>
+                <input type={showPass ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)}
+                  style={{ ...inputSt, paddingRight: "3rem" }}
+                  onFocus={e => { e.target.style.borderColor = "#8EB69B"; e.target.style.boxShadow = "0 0 0 3px rgba(142,182,155,.1)"; }}
+                  onBlur={e => { e.target.style.borderColor = "rgba(142,182,155,.2)"; e.target.style.boxShadow = "none"; }}
+                />
+                <button type="button" onClick={() => setShowPass(v => !v)}
+                  style={{ position: "absolute", right: ".9rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "rgba(218,241,222,.4)", fontSize: ".9rem" }}>
+                  {showPass ? "🙈" : "👁"}
+                </button>
+              </div>
+            </div>
+
+            {/* Login button */}
+            <button className={clsx(isAm ? "font-ethiopic text-[.9rem]" : "font-sans text-[.8rem] uppercase tracking-[.12em]")}
+              style={{ width: "100%", padding: "1rem", borderRadius: 10, background: "linear-gradient(135deg,#D4A853,#C9A96E)", color: "#051F20", border: "none", cursor: "pointer", fontWeight: 700, boxShadow: "0 0 24px rgba(201,169,110,.45)", transition: "all .25s", marginBottom: "1rem" }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 44px rgba(201,169,110,.75)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(201,169,110,.45)"; e.currentTarget.style.transform = "none"; }}>
+              {c.loginBtn}
+            </button>
+
+            {/* Forgot + register */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <button className={clsx(isAm ? "font-ethiopic text-[.74rem]" : "font-sans text-[.68rem]")}
+                style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(218,241,222,.38)", transition: "color .2s" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#8EB69B")}
+                onMouseLeave={e => (e.currentTarget.style.color = "rgba(218,241,222,.38)")}>
+                {c.forgot}
+              </button>
+              <p className={clsx(isAm ? "font-ethiopic text-[.74rem]" : "font-sans text-[.68rem]")}
+                style={{ color: "rgba(218,241,222,.38)" }}>
+                {c.registerPrompt}{" "}
+                <button style={{ background: "none", border: "none", cursor: "pointer", color: "#8EB69B", textDecoration: "underline" }}>{c.registerLink}</button>
+              </p>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Features */}
+        <Reveal direction="right">
+          <div>
+            <h2 className={clsx("font-serif font-semibold mb-8", isAm && "font-ethiopic")}
+              style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", color: "#DAF1DE" }}>
+              {c.featuresTitle}
+            </h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {c.features.map((f, i) => (
+                <Reveal key={i} delay={i * 0.08} direction="right">
+                  <div style={{ display: "flex", alignItems: "center", gap: ".9rem", padding: "1rem 1.2rem", background: "rgba(11,43,38,.4)", borderRadius: 10, border: "1px solid rgba(142,182,155,.08)", transition: "all .25s" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(142,182,155,.22)"; (e.currentTarget as HTMLDivElement).style.background = "rgba(35,83,71,.15)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(142,182,155,.08)"; (e.currentTarget as HTMLDivElement).style.background = "rgba(11,43,38,.4)"; }}>
+                    <span style={{ width: 20, height: 20, borderRadius: "50%", background: "#235347", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: ".55rem", color: "#8EB69B" }}>✓</span>
+                    <span className={clsx(isAm ? "font-ethiopic text-[.84rem]" : "font-sans text-[.88rem]")}
+                      style={{ color: "rgba(218,241,222,.75)" }}>{f}</span>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
+      {/* Mobile responsive */}
+      <style>{`@media(max-width:768px){ .lms-grid{grid-template-columns:1fr !important} }`}</style>
+    </div>
+  );
+}
