@@ -41,18 +41,22 @@ const LanguageContext = createContext<LanguageContextValue>({
   isSwitching: false,
 });
 
+function normalizeLocale(locale?: string | Lang): Lang {
+  return locale === "am" || locale === "en" ? locale : "am";
+}
+
 export function LanguageProvider({
   children,
   initialLang,
   initialLocale,
 }: {
   children: ReactNode;
-  initialLang?: Lang;
-  initialLocale?: Lang;
+  initialLang?: Lang | string;
+  initialLocale?: Lang | string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const initial = initialLang ?? initialLocale ?? "am";
+  const initial = normalizeLocale(initialLang ?? initialLocale ?? "am");
   const [lang, setLangState] = useState<Lang>(initial);
   const [isSwitching, setIsSwitching] = useState(false);
   const [isPending, startTransition] = useTransition();

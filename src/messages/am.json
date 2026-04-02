@@ -374,5 +374,13 @@
     "f4": "የአካዳሚክ ሂደትዎን ይከታተሉ",
     "f5": "የምስክር ወረቀቶችን ያውርዱ",
     "f6": "ከፋካልቲ ጋር ይገናኙ"
+  },
+  "lms-dashboard": {
+    "welcome": "እንኳን ደህና መጡ፣ {name}!",
+    "enrolled_courses": "የተመዘገቡ ኮርሶች",
+    "completed_courses": "የተጠናቀቁ ኮርሶች",
+    "pending_assignments": "ያልተሰሩ ምደባዎች",
+    "recent_activity": "የቅርቡ ተግባራት",
+    "continue_learning": "ትምህርትን ያስቀጥሉ"
   }
 }

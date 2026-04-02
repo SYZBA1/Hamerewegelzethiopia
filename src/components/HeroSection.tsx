@@ -43,7 +43,7 @@ export default function HeroSection() {
           playsInline
           preload="auto"
         >
-          <source src="/herosection.mp4" type="video/mp4" />
+          {/* <source src="/herosection.mp4" type="video/mp4" /> */}
         </video>
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-deep/85 via-deep/40 to-transparent" />

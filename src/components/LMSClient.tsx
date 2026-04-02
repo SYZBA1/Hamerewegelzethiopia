@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLang } from "@/context/LanguageContext";
 import { Reveal } from "@/components/PageComponents";
 import clsx from "clsx";
@@ -18,13 +19,35 @@ interface Content {
 const ROLE_ICONS = ["👨‍🎓", "👩‍🏫", "⚙️"];
 
 export default function LMSClient({ locale, c }: { locale: string; c: Content }) {
+  const router = useRouter();
   const isAm = locale === "am";
   const [role, setRole] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState("");
 
   const roles = [c.studentLabel, c.teacherLabel, c.adminLabel];
+
+  // Mock users
+  const mockUsers = {
+    student: { email: "student@hamerewongel.org", password: "password123" },
+    teacher: { email: "teacher@hamerewongel.org", password: "password123" },
+    admin: { email: "admin@hamerewongel.org", password: "password123" }
+  };
+
+  const handleLogin = () => {
+    const roleKey = ['student', 'teacher', 'admin'][role];
+    const user = mockUsers[roleKey as keyof typeof mockUsers];
+    if (email === user.email && password === user.password) {
+      // Store user in localStorage
+      localStorage.setItem('lms_user', JSON.stringify({ role: roleKey, email }));
+      // Redirect to dashboard
+      router.push(`/${locale}/lms/dashboard`);
+    } else {
+      setError(isAm ? "ትክክለኛ ኢሜል ወይም የይለፍ ቃል አልሆነም" : "Invalid email or password");
+    }
+  };
 
   const inputSt = {
     width: "100%", padding: ".8rem 1rem",
@@ -92,6 +115,12 @@ export default function LMSClient({ locale, c }: { locale: string; c: Content })
               </p>
             </div>
 
+            {error && (
+              <div style={{ marginBottom: "1.2rem", padding: ".7rem", background: "rgba(255,0,0,.1)", border: "1px solid rgba(255,0,0,.2)", borderRadius: 8, color: "#ff6b6b" }}>
+                {error}
+              </div>
+            )}
+
             {/* Email */}
             <div style={{ marginBottom: "1.2rem" }}>
               <label className={clsx("block mb-1.5", isAm ? "font-ethiopic text-[.76rem]" : "font-sans text-[.62rem] uppercase tracking-[.14em]")}
@@ -123,6 +152,7 @@ export default function LMSClient({ locale, c }: { locale: string; c: Content })
             {/* Login button */}
             <button className={clsx(isAm ? "font-ethiopic text-[.9rem]" : "font-sans text-[.8rem] uppercase tracking-[.12em]")}
               style={{ width: "100%", padding: "1rem", borderRadius: 10, background: "linear-gradient(135deg,#D4A853,#C9A96E)", color: "#051F20", border: "none", cursor: "pointer", fontWeight: 700, boxShadow: "0 0 24px rgba(201,169,110,.45)", transition: "all .25s", marginBottom: "1rem" }}
+              onClick={handleLogin}
               onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 44px rgba(201,169,110,.75)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(201,169,110,.45)"; e.currentTarget.style.transform = "none"; }}>
               {c.loginBtn}

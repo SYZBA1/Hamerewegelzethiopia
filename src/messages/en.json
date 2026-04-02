@@ -374,5 +374,13 @@
     "f4": "Track your academic progress",
     "f5": "Download certificates",
     "f6": "Connect with faculty"
+  },
+  "lms-dashboard": {
+    "welcome": "Welcome back, {name}!",
+    "enrolled_courses": "Enrolled Courses",
+    "completed_courses": "Completed Courses",
+    "pending_assignments": "Pending Assignments",
+    "recent_activity": "Recent Activity",
+    "continue_learning": "Continue Learning"
   }
 }
