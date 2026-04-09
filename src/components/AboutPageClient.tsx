@@ -223,9 +223,9 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
               <RevealSection key={i} delay={0.3 + i * 0.12}>
                 <p
                   className={clsx(
-                    "leading-[1.9] text-deep/68",
-                    isAm ? "font-ethiopic text-[0.9rem]" : "font-sans text-[0.96rem]",
-                    i === 0 && "text-[1.02rem] text-deep/78 font-medium"
+                    "leading-[1.9] text-[#000000]",
+                    isAm ? "font-ethiopic text-[#000000]" : "font-sans text-[0.96rem]",
+                    i === 0 && "text-[1.02rem] text-[#000000] font-medium"
                   )}
                 >
                   {p}
@@ -322,7 +322,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
                     {/* Description */}
                     <p
                       className={clsx(
-                        "text-deep/62 leading-relaxed",
+                        "text-[#000000] leading-relaxed",
                         isAm ? "font-ethiopic text-[0.82rem]" : "font-sans text-[0.84rem]"
                       )}
                     >

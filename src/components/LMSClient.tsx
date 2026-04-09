@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import { useLang } from "@/context/LanguageContext";
-import { Reveal } from "@/components/PageComponents";
+import { useAuth } from "@/context/AuthContext";
 import clsx from "clsx";
 
 interface Content {
@@ -18,8 +18,9 @@ interface Content {
 
 const ROLE_ICONS = ["👨‍🎓", "👩‍🏫", "⚙️"];
 
-export default function LMSClient({ locale, c }: { locale: string; c: Content }) {
+const LMSClient = memo(function LMSClient({ locale, c }: { locale: string; c: Content }) {
   const router = useRouter();
+  const { login } = useAuth();
   const isAm = locale === "am";
   const [role, setRole] = useState(0);
   const [email, setEmail] = useState("");
@@ -36,18 +37,16 @@ export default function LMSClient({ locale, c }: { locale: string; c: Content })
     admin: { email: "admin@hamerewongel.org", password: "password123" }
   };
 
-  const handleLogin = () => {
-    const roleKey = ['student', 'teacher', 'admin'][role];
-    const user = mockUsers[roleKey as keyof typeof mockUsers];
+  const handleLogin = useCallback(() => {
+    const roleKey = ['student', 'teacher', 'admin'][role] as keyof typeof mockUsers;
+    const user = mockUsers[roleKey];
     if (email === user.email && password === user.password) {
-      // Store user in localStorage
-      localStorage.setItem('lms_user', JSON.stringify({ role: roleKey, email }));
-      // Redirect to dashboard
+      login({ role: roleKey, email });
       router.push(`/${locale}/lms/dashboard`);
     } else {
       setError(isAm ? "ትክክለኛ ኢሜል ወይም የይለፍ ቃል አልሆነም" : "Invalid email or password");
     }
-  };
+  }, [role, email, password, login, router, locale, isAm]);
 
   const inputSt = {
     width: "100%", padding: ".8rem 1rem",
@@ -63,26 +62,20 @@ export default function LMSClient({ locale, c }: { locale: string; c: Content })
       {/* Hero band */}
       <div style={{ padding: "7rem 2.5rem 4rem", borderBottom: "1px solid rgba(142,182,155,.07)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
-          <Reveal>
-            <p className={clsx(isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.62rem] uppercase tracking-[.28em]")}
-              style={{ color: "#C9A96E", display: "flex", alignItems: "center", justifyContent: "center", gap: ".6rem", marginBottom: "1rem" }}>
-              <span style={{ display: "block", width: "2rem", height: 1, background: "#C9A96E" }} />
-              {c.heroTag}
-              <span style={{ display: "block", width: "2rem", height: 1, background: "#C9A96E" }} />
-            </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className={clsx("font-serif font-semibold text-white", isAm && "font-ethiopic leading-[1.4]")}
-              style={{ fontSize: "clamp(2rem,4.5vw,3.4rem)", marginBottom: "1.2rem", lineHeight: 1.08 }}>
-              {c.heroTitle}
-            </h1>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className={clsx("max-w-[46ch] mx-auto", isAm ? "font-ethiopic text-[.88rem]" : "font-sans text-[.96rem]")}
-              style={{ color: "rgba(218,241,222,.6)", lineHeight: 1.85 }}>
-              {c.heroSub}
-            </p>
-          </Reveal>
+          <p className={clsx(isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.62rem] uppercase tracking-[.28em]")}
+            style={{ color: "#C9A96E", display: "flex", alignItems: "center", justifyContent: "center", gap: ".6rem", marginBottom: "1rem" }}>
+            <span style={{ display: "block", width: "2rem", height: 1, background: "#C9A96E" }} />
+            {c.heroTag}
+            <span style={{ display: "block", width: "2rem", height: 1, background: "#C9A96E" }} />
+          </p>
+          <h1 className={clsx("font-serif font-semibold text-white", isAm && "font-ethiopic leading-[1.4]")}
+            style={{ fontSize: "clamp(2rem,4.5vw,3.4rem)", marginBottom: "1.2rem", lineHeight: 1.08 }}>
+            {c.heroTitle}
+          </h1>
+          <p className={clsx("max-w-[46ch] mx-auto", isAm ? "font-ethiopic text-[.88rem]" : "font-sans text-[.96rem]")}
+            style={{ color: "rgba(218,241,222,.6)", lineHeight: 1.85 }}>
+            {c.heroSub}
+          </p>
         </div>
       </div>
 
@@ -90,8 +83,7 @@ export default function LMSClient({ locale, c }: { locale: string; c: Content })
       <div style={{ padding: "5rem 2.5rem", maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }}>
 
         {/* Login card */}
-        <Reveal direction="left">
-          <div style={{ background: "rgba(11,43,38,.5)", borderRadius: 20, padding: "2.5rem", border: "1px solid rgba(142,182,155,.12)", backdropFilter: "blur(10px)" }}>
+        <div style={{ background: "rgba(11,43,38,.5)", borderRadius: 20, padding: "2.5rem", border: "1px solid rgba(142,182,155,.12)" }}>
 
             {/* Role tabs */}
             <div style={{ display: "flex", borderRadius: 10, overflow: "hidden", border: "1px solid rgba(142,182,155,.18)", marginBottom: "1.8rem" }}>
@@ -173,34 +165,31 @@ export default function LMSClient({ locale, c }: { locale: string; c: Content })
               </p>
             </div>
           </div>
-        </Reveal>
 
         {/* Features */}
-        <Reveal direction="right">
-          <div>
+        <div>
             <h2 className={clsx("font-serif font-semibold mb-8", isAm && "font-ethiopic")}
               style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", color: "#DAF1DE" }}>
               {c.featuresTitle}
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {c.features.map((f, i) => (
-                <Reveal key={i} delay={i * 0.08} direction="right">
-                  <div style={{ display: "flex", alignItems: "center", gap: ".9rem", padding: "1rem 1.2rem", background: "rgba(11,43,38,.4)", borderRadius: 10, border: "1px solid rgba(142,182,155,.08)", transition: "all .25s" }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(142,182,155,.22)"; (e.currentTarget as HTMLDivElement).style.background = "rgba(35,83,71,.15)"; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(142,182,155,.08)"; (e.currentTarget as HTMLDivElement).style.background = "rgba(11,43,38,.4)"; }}>
-                    <span style={{ width: 20, height: 20, borderRadius: "50%", background: "#235347", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: ".55rem", color: "#8EB69B" }}>✓</span>
-                    <span className={clsx(isAm ? "font-ethiopic text-[.84rem]" : "font-sans text-[.88rem]")}
-                      style={{ color: "rgba(218,241,222,.75)" }}>{f}</span>
-                  </div>
-                </Reveal>
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: ".9rem", padding: "1rem 1.2rem", background: "rgba(11,43,38,.4)", borderRadius: 10, border: "1px solid rgba(142,182,155,.08)", transition: "all .25s" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(142,182,155,.22)"; (e.currentTarget as HTMLDivElement).style.background = "rgba(35,83,71,.15)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(142,182,155,.08)"; (e.currentTarget as HTMLDivElement).style.background = "rgba(11,43,38,.4)"; }}>
+                  <span style={{ width: 20, height: 20, borderRadius: "50%", background: "#235347", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: ".55rem", color: "#8EB69B" }}>✓</span>
+                  <span className={clsx(isAm ? "font-ethiopic text-[.84rem]" : "font-sans text-[.88rem]")}
+                    style={{ color: "rgba(218,241,222,.75)" }}>{f}</span>
+                </div>
               ))}
             </div>
           </div>
-        </Reveal>
       </div>
 
       {/* Mobile responsive */}
       <style>{`@media(max-width:768px){ .lms-grid{grid-template-columns:1fr !important} }`}</style>
     </div>
   );
-}
+});
+
+export default LMSClient;

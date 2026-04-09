@@ -92,7 +92,7 @@ export const translations: Record<Lang, Translations> = {
       contact: "አግናኝ",
       departments: "ክፍሎች",
       lms: "ማስተማሪያ",
-      donate: "ለእግዚአብሔር እገዛ",
+      donate: "ልግስና",
     },
     hero: {
       eyebrow: "እንኳን ደህና መጣችሁ",
@@ -116,7 +116,7 @@ export const translations: Record<Lang, Translations> = {
         library: "ላይብረሪ",
         contact: "አግናኝ",
         lms: "ማስተማሪያ",
-        donate: "ለእግዚአብሔር እገዛ",
+        donate: "ልግስና",
       },
       copyright: "© 2026 ሐመረ ወንጌል ዘኢትዮጵያ",
       followUs: "እኛን ይከታቱ",

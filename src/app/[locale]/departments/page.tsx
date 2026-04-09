@@ -26,7 +26,6 @@ export default async function DepartmentsPage({ params }: { params: Promise<{ lo
       { title: t("e1_title"), duration: t("e1_duration"), badge: "1–2 yr" },
       { title: t("e2_title"), duration: t("e2_duration"), badge: "4 yr" },
       { title: t("e3_title"), duration: t("e3_duration"), badge: "2 yr" },
-      { title: t("e4_title"), duration: t("e4_duration"), badge: "+" },
     ],
     branches: ([1,2,3,4,5,6] as const).map(i => ({
       name: t(`b${i}_name` as any), loc: t(`b${i}_loc` as any), detail: t(`b${i}_detail` as any),

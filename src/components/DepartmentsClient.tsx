@@ -17,7 +17,8 @@ interface Content {
   explore: string;
 }
 
-const PROG_COLORS = ["#235347", "#163832", "#0B2B26", "#235347"];
+const PROG_COLORS = ["#235347", "#163832", "#0B2B26"];
+const PROGRAMS = ["diploma", "degree", "masters"];
 const BRANCH_ICONS = ["🏛", "⛪", "⛪", "⛪", "⛪", "✈"];
 
 export default function DepartmentsClient({ locale, c }: { locale: string; c: Content }) {
@@ -32,7 +33,7 @@ export default function DepartmentsClient({ locale, c }: { locale: string; c: Co
       <section style={{ background: "#ffffff", padding: "5rem 2.5rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <Reveal><SectionTitle>{c.ministriesTitle}</SectionTitle></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(340px,1fr))", gap: "1.4rem" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {c.ministries.map((m, i) => (
               <Reveal key={i} delay={i * 0.06}>
                 <div
@@ -57,19 +58,21 @@ export default function DepartmentsClient({ locale, c }: { locale: string; c: Co
       <section style={{ background: "#E8F5E9", padding: "5rem 2.5rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <Reveal><SectionTitle>{c.educationTitle}</SectionTitle></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))", gap: "1.2rem" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {c.eduProgs.map((ep, i) => (
               <Reveal key={i} delay={i * 0.08}>
-                <div style={{ background: PROG_COLORS[i], borderRadius: 14, padding: "2rem 1.8rem", color: "#DAF1DE", textAlign: "center", transition: "transform .3s" }}
-                  onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"}
-                  onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = "none"}>
-                  <span style={{ display: "inline-block", fontSize: ".52rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", padding: ".18rem .55rem", borderRadius: 20, background: "rgba(142,182,155,.15)", color: "#8EB69B", border: "1px solid rgba(142,182,155,.2)", marginBottom: ".8rem" }}>
-                    {ep.badge}
-                  </span>
-                  <h3 className={clsx("font-serif font-semibold", isAm && "font-ethiopic")}
-                    style={{ fontSize: "1.1rem", marginBottom: ".4rem", lineHeight: isAm ? 1.4 : 1.15 }}>{ep.title}</h3>
-                  <p className="font-sans" style={{ fontSize: ".75rem", color: "rgba(142,182,155,.7)", letterSpacing: ".06em" }}>{ep.duration}</p>
-                </div>
+                <Link href={`${base}/lms/login?program=${PROGRAMS[i]}`}>
+                  <div style={{ background: PROG_COLORS[i], borderRadius: 14, padding: "2rem 1.8rem", color: "#DAF1DE", textAlign: "center", transition: "transform .3s", cursor: "pointer" }}
+                    onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"}
+                    onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = "none"}>
+                    <span style={{ display: "inline-block", fontSize: ".52rem", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", padding: ".18rem .55rem", borderRadius: 20, background: "rgba(142,182,155,.15)", color: "#8EB69B", border: "1px solid rgba(142,182,155,.2)", marginBottom: ".8rem" }}>
+                      {ep.badge}
+                    </span>
+                    <h3 className={clsx("font-serif font-semibold", isAm && "font-ethiopic")}
+                      style={{ fontSize: "1.1rem", marginBottom: ".4rem", lineHeight: isAm ? 1.4 : 1.15 }}>{ep.title}</h3>
+                    <p className="font-sans" style={{ fontSize: ".75rem", color: "rgba(142,182,155,.7)", letterSpacing: ".06em" }}>{ep.duration}</p>
+                  </div>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -80,14 +83,14 @@ export default function DepartmentsClient({ locale, c }: { locale: string; c: Co
       <section style={{ background: "#ffffff", padding: "5rem 2.5rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <Reveal><SectionTitle>{c.branchesTitle}</SectionTitle></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(310px,1fr))", gap: "1.2rem" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {c.branches.map((b, i) => (
               <Reveal key={i} delay={i * 0.06}>
                 <div style={{ background: "#E8F5E9", borderRadius: 14, padding: "1.8rem", border: "1.5px solid transparent", transition: "all .3s" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(35,83,71,.3)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "transparent"; (e.currentTarget as HTMLDivElement).style.transform = "none"; }}>
                   <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
-                    <span style={{ fontSize: "1.8rem", opacity: .6, flexShrink: 0 }}>{BRANCH_ICONS[i]}</span>
+                    <span style={{ fontSize: "1.8rem", opacity: .6, flexShrink: 0 }}>{BRANCH_ICONS[i] ?? "📌"}</span>
                     <div>
                       <h3 className={clsx("font-serif font-semibold", isAm && "font-ethiopic")}
                         style={{ fontSize: "1.05rem", color: "#051F20", marginBottom: ".25rem" }}>{b.name}</h3>

@@ -1,28 +1,34 @@
-import { getTranslations } from "next-intl/server";
-import { LanguageProvider } from "@/context/LanguageContext";
-import LocaleFadeWrapper from "@/components/LocaleFadeWrapper";
-import Navbar from "@/components/Navbar";
-import ScrollProgress from "@/components/ScrollProgress";
-import Footer from "@/components/Footer";
-import LMSClient from "@/components/LMSClient";
-import type { Locale } from "@/context/LanguageContext";
+import Link from "next/link";
 
-export default async function LMSPage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
-  const { locale } = await Promise.resolve(params) as { locale: Locale };
-  const t = await getTranslations({ locale, namespace: "lms" });
-  const c = {
-    heroTag: t("hero_tag"), heroTitle: t("hero_title"), heroSub: t("hero_sub"),
-    studentLabel: t("student_label"), teacherLabel: t("teacher_label"), adminLabel: t("admin_label"),
-    emailLabel: t("email_label"), passwordLabel: t("password_label"),
-    loginBtn: t("login_btn"), forgot: t("forgot"),
-    registerPrompt: t("register_prompt"), registerLink: t("register_link"),
-    featuresTitle: t("features_title"),
-    features: [t("f1"), t("f2"), t("f3"), t("f4"), t("f5"), t("f6")],
-  };
+export default function LMSIndexPage() {
   return (
-    <LanguageProvider initialLocale={locale}>
-      <ScrollProgress /><Navbar />
-      <LocaleFadeWrapper><main className="pt-20"><LMSClient locale={locale} c={c} /></main><Footer /></LocaleFadeWrapper>
-    </LanguageProvider>
+    <main className="mx-auto flex min-h-screen w-full items-center justify-center p-4">
+      <div className="w-full max-w-3xl rounded-2xl border border-white/20 bg-[#163832]/80 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-md">
+        <h1 className="text-center text-4xl font-bold text-white">LMS Portal</h1>
+        <p className="mt-3 text-center text-sm text-[#c0ddc8]">A spiritual learning experience. Login or register to begin.</p>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <Link
+            href="/lms/login"
+            className="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 px-6 py-3 text-center font-semibold text-[#091913] shadow-lg shadow-amber-400/30 hover:shadow-[0_0_25px_rgba(250,202,21,0.65)]"
+          >
+            Login
+          </Link>
+          <Link
+            href="/lms/register"
+            className="rounded-xl border border-white/20 bg-[#0B2B26]/80 px-6 py-3 text-center font-semibold text-white hover:bg-[#235347]"
+          >
+            Register
+          </Link>
+        </div>
+
+        <div className="mt-8 rounded-xl border border-white/10 bg-white/10 p-4 text-center text-sm text-[#c7e2d3]">
+          <p className="font-semibold text-white">Try sample credentials</p>
+          <p>Student: student@example.com / Password123!</p>
+          <p>Teacher: teacher@example.com / Teacher123!</p>
+          <p>Administrator: admin@example.com / Admin123!</p>
+        </div>
+      </div>
+    </main>
   );
 }

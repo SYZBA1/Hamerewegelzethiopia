@@ -101,9 +101,9 @@ export default function MegaMenu({ isOpen, locale, onMouseEnter, onMouseLeave }:
           {/* Col 2 — Education */}
           <motion.div variants={colV} className="flex flex-col gap-0.5 px-4">
             <ColHead title={t.edu_title} sub="Education Programs" />
-            <Item href={`${base}/departments`} icon="📜" label={t.edu.diploma}  badge="1–2yr" />
-            <Item href={`${base}/departments`} icon="🎓" label={t.edu.degree}   badge="4yr"   />
-            <Item href={`${base}/departments`} icon="🏛" label={t.edu.masters}  badge="2yr"   />
+            <Item href={`${base}/lms/login?program=diploma`} icon="📜" label={t.edu.diploma}  badge="1–2yr" />
+            <Item href={`${base}/lms/login?program=degree`} icon="🎓" label={t.edu.degree}   badge="4yr"   />
+            <Item href={`${base}/lms/login?program=masters`} icon="🏛" label={t.edu.masters}  badge="2yr"   />
             <Item href={`${base}/library`}     icon="📚" label={t.edu.library}               />
           </motion.div>
 

@@ -1,29 +1,37 @@
-import { getTranslations } from "next-intl/server";
-import { LanguageProvider } from "@/context/LanguageContext";
-import LocaleFadeWrapper from "@/components/LocaleFadeWrapper";
-import Navbar from "@/components/Navbar";
-import ScrollProgress from "@/components/ScrollProgress";
-import Footer from "@/components/Footer";
-import LMSDashboardClient from "@/components/LMSDashboardClient";
-import type { Locale } from "@/context/LanguageContext";
+"use client";
 
-export default async function LMSDashboardPage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
-  const { locale } = await Promise.resolve(params) as { locale: Locale };
-  const t = await getTranslations({ locale, namespace: "lms-dashboard" });
-  const c = {
-    welcome: t("welcome"),
-    stats: {
-      enrolled: t("enrolled_courses"),
-      completed: t("completed_courses"),
-      pending: t("pending_assignments")
-    },
-    recentActivity: t("recent_activity"),
-    continueLearning: t("continue_learning")
-  };
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+
+export default function LMSDashboardPage() {
+  const router = useRouter();
+  const pathname = usePathname() || "";
+  const locale = pathname.split("/")[1] || "";
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const auth = localStorage.getItem("lmsAuth");
+    if (!auth) {
+      router.replace(`/${locale}/lms/login`);
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(auth);
+      const role = parsed?.user?.role?.toLowerCase();
+      if (!role) {
+        router.replace(`/${locale}/lms/login`);
+        return;
+      }
+      router.replace(`/${locale}/lms/dashboard/${role}`);
+    } catch {
+      router.replace(`/${locale}/lms/login`);
+    }
+  }, [locale, router]);
+
   return (
-    <LanguageProvider initialLocale={locale}>
-      <ScrollProgress /><Navbar />
-      <LocaleFadeWrapper><main className="pt-20"><LMSDashboardClient locale={locale} c={c} /></main><Footer /></LocaleFadeWrapper>
-    </LanguageProvider>
+    <main className="mx-auto flex min-h-screen items-center justify-center text-white">
+      {isLoading && <p className="text-lg text-[#c0ddc8]">Redirecting to your role dashboard...</p>}
+    </main>
   );
 }

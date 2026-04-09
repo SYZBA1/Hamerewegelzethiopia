@@ -30,7 +30,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center px-14 pt-20 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-4 md:px-14 pt-20 overflow-hidden"
     >
       {/* ── Background video with Ken Burns ── */}
       <div className="absolute inset-0 overflow-hidden">

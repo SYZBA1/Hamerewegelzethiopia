@@ -1,0 +1,55 @@
+﻿
+> hwz-ministry@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+  - Experiments (use with caution):
+    ┬╖ cpus
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ Γ£ô Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                         Size     First Load JS
+Γöî Γùï /                                               142 B          87.5 kB
+Γö£ Γùï /_not-found                                     873 B          88.2 kB
+Γö£ ╞Æ /[locale]                                       4.34 kB         149 kB
+Γö£ ╞Æ /[locale]/about                                 5.41 kB         150 kB
+Γö£ ╞Æ /[locale]/blog                                  2.96 kB         147 kB
+Γö£ ╞Æ /[locale]/contact                               3.82 kB         148 kB
+Γö£ ╞Æ /[locale]/departments                           2.89 kB         147 kB
+Γö£ ╞Æ /[locale]/departments/administrative-structure  210 B           144 kB
+Γö£ ╞Æ /[locale]/donate                                3.32 kB         148 kB
+Γö£ ╞Æ /[locale]/library                               3.98 kB         148 kB
+Γö£ ╞Æ /[locale]/lms                                   294 B          96.3 kB
+Γö£ ╞Æ /[locale]/lms/assignments                       516 B          87.9 kB
+Γö£ ╞Æ /[locale]/lms/certificates                      524 B          87.9 kB
+Γö£ ╞Æ /[locale]/lms/courses                           1.15 kB        97.2 kB
+Γö£ ╞Æ /[locale]/lms/courses/[id]                      1.58 kB        97.6 kB
+Γö£ ╞Æ /[locale]/lms/dashboard                         644 B            88 kB
+Γö£ ╞Æ /[locale]/lms/dashboard/[role]                  1.81 kB        97.8 kB
+Γö£ ╞Æ /[locale]/lms/forgot-password                   1.33 kB        97.4 kB
+Γö£ ╞Æ /[locale]/lms/login                             2.12 kB        98.1 kB
+Γö£ ╞Æ /[locale]/lms/messages                          501 B          87.9 kB
+Γö£ ╞Æ /[locale]/lms/register                          1.73 kB        97.8 kB
+Γö£ ╞Æ /[locale]/lms/settings                          522 B          87.9 kB
+Γöö ╞Æ /[locale]/sermons                               3.53 kB         148 kB
++ First Load JS shared by all                       87.4 kB
+  Γö£ chunks/117-594fdc565f6a7aa2.js                  31.7 kB
+  Γö£ chunks/fd9d1056-f50df0e8bb38365d.js             53.6 kB
+  Γöö other shared chunks (total)                     1.99 kB
+
+
+╞Æ Middleware                                        39.3 kB
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

@@ -9,18 +9,18 @@ export const metadata: Metadata = {
   description: "Living by Faith, known by Love, and a voice of Hope",
 };
 
-const locales = ["am", "en"];
+const locales = ["am", "en"] as const;
+
+type LocaleParams = { locale: string };
 
 export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }> | { locale: string };
+  params: LocaleParams;
 }) {
-  // Support both Next.js 14 and 15 params handling
-  const resolvedParams = await Promise.resolve(params);
-  const locale = resolvedParams.locale;
+  const locale = params.locale as typeof locales[number];
 
   if (!locales.includes(locale)) notFound();
 
