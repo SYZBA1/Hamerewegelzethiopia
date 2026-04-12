@@ -11,12 +11,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.pinterest.com",
+        hostname: "images.unsplash.com",
       },
     ],
   },
   webpack(config) {
     config.parallelism = 1;
+    // Disable webpack cache to prevent memory issues
+    config.cache = false;
     return config;
   },
 };

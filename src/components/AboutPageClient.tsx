@@ -489,7 +489,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
               <div className="flex flex-wrap justify-center gap-4">
                 {/* Apply */}
                 <Link
-                  href={href("/lms")}
+                  href={href("/lms/login")}
                   className={clsx(
                     "group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold",
                     "bg-forest text-mist shadow-[0_4px_24px_rgba(35,83,71,.35)]",

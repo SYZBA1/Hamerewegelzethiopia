@@ -34,7 +34,7 @@ export default function LMSLayout({ children }: { children: ReactNode }) {
       <div className="relative min-h-screen bg-[#051F20] text-white">
         {/* Optimized background image using Next.js Image */}
         <Image
-          src="https://www.pinterest.com/pin/289637819767325667/"
+          src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1800&q=80"
           alt="Background"
           fill
           className="object-cover opacity-80"

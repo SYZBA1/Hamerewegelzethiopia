@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 };
 
 const locales = ["am", "en"] as const;
-
-type LocaleParams = { locale: string };
+type Locale = (typeof locales)[number];
+type LocaleParams = { locale: Locale };
 
 export default async function LocaleLayout({
   children,
@@ -20,11 +20,11 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: LocaleParams;
 }) {
-  const locale = params.locale as typeof locales[number];
+  const locale = params.locale;
 
-  if (!locales.includes(locale)) notFound();
+  if (!locales.includes(locale as (typeof locales)[number])) notFound();
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
     <html lang={locale}>

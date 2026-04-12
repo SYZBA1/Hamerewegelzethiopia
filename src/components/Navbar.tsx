@@ -90,7 +90,7 @@ export default function Navbar() {
   const mobileLinks = [
     ...mainLinks,
     { key: "departments", path: "/departments" },
-    { key: "lms",         path: "/lms" },
+    { key: "lms",         path: "/lms/login" },
     { key: "donate",      path: "/donate" },
   ];
 
@@ -137,7 +137,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Link href={h("/lms")} className={clsx(
+          <Link href={h("/lms/login")} className={clsx(
             "hidden sm:block px-4 py-2 rounded-sm border border-sage/40 text-sage",
             "transition-all duration-250 hover:bg-sage hover:text-deep",
             lang === "am" ? "font-ethiopic text-[0.78rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.1em]"

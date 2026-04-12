@@ -16,16 +16,46 @@ import {
   User,
   LogOut,
   Menu,
+  Users,
+  BarChart3,
+  DollarSign,
+  FileText,
+  CheckSquare,
+  Calendar,
+  TrendingUp,
 } from "lucide-react";
 
-const navItems = [
-  { href: "/lms/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/lms/courses", label: "My Courses", icon: BookOpen },
-  { href: "/lms/assignments", label: "Assignments", icon: CircleDashed },
-  { href: "/lms/certificates", label: "Certificates", icon: ShieldCheck },
-  { href: "/lms/messages", label: "Messages", icon: MessageCircle },
-  { href: "/lms/settings", label: "Settings", icon: Settings },
-];
+type RoleKey = "student" | "teacher" | "administrator";
+
+const navItemsByRole: Record<RoleKey, Array<{ href: string; label: string; icon: any }>> = {
+  student: [
+    { href: "/lms/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/lms/courses", label: "My Courses", icon: BookOpen },
+    { href: "/lms/assignments", label: "Assignments", icon: CircleDashed },
+    { href: "/lms/certificates", label: "Certificates", icon: ShieldCheck },
+    { href: "/lms/messages", label: "Messages", icon: MessageCircle },
+    { href: "/lms/settings", label: "Settings", icon: Settings },
+  ],
+  teacher: [
+    { href: "/lms/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/lms/courses", label: "My Courses", icon: BookOpen },
+    { href: "/lms/assignments", label: "Assignments", icon: CircleDashed },
+    { href: "/lms/students", label: "Students", icon: Users },
+    { href: "/lms/attendance", label: "Attendance", icon: Calendar },
+    { href: "/lms/messages", label: "Messages", icon: MessageCircle },
+    { href: "/lms/analytics", label: "Analytics", icon: BarChart3 },
+    { href: "/lms/settings", label: "Settings", icon: Settings },
+  ],
+  administrator: [
+    { href: "/lms/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/lms/users", label: "Users Management", icon: Users },
+    { href: "/lms/courses", label: "Courses Management", icon: BookOpen },
+    { href: "/lms/analytics", label: "Analytics", icon: BarChart3 },
+    { href: "/lms/revenue", label: "Revenue", icon: DollarSign },
+    { href: "/lms/messages", label: "Messages", icon: MessageCircle },
+    { href: "/lms/settings", label: "Settings", icon: Settings },
+  ],
+};
 
 const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: boolean; onToggle: () => void }) {
   const pathname = usePathname();
@@ -33,7 +63,22 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
   const router = useRouter();
   const activePath = pathname || "/lms/dashboard";
 
-  const items = useMemo(() => navItems, []);
+  // Get user role from localStorage (similar to dashboard logic)
+  const getUserRole = useCallback(() => {
+    try {
+      const auth = localStorage.getItem("lmsAuth");
+      if (auth) {
+        const parsed = JSON.parse(auth);
+        return parsed?.user?.role?.toLowerCase() || "student";
+      }
+    } catch {
+      // fallback
+    }
+    return "student";
+  }, []);
+
+  const userRole = getUserRole() as RoleKey;
+  const items = useMemo(() => navItemsByRole[userRole] || navItemsByRole.student, [userRole]);
 
   const handleLogout = useCallback(() => {
     logout();

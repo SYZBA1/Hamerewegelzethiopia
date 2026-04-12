@@ -25,7 +25,7 @@ export default function Footer() {
   ] as const;
 
   const col3 = [
-    { key: "lms",    path: "/lms" },
+    { key: "lms",    path: "/lms/login" },
     { key: "donate", path: "/donate" },
   ] as const;
 

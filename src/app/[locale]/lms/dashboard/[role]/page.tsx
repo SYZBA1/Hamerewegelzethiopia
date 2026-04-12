@@ -3,13 +3,89 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import DashboardHeader from "@/components/lms/DashboardHeader";
+import DashboardStats from "@/components/lms/DashboardStats";
+import DashboardCourses from "@/components/lms/DashboardCourses";
+import DashboardActivity from "@/components/lms/DashboardActivity";
+import TeacherAssignments from "@/components/lms/TeacherAssignments";
+import AdminQuickActions from "@/components/lms/AdminQuickActions";
 
 type RoleKey = "student" | "teacher" | "administrator";
 
-const cardData: Record<RoleKey, { enrolled: number; completed: number; pending: number; title: string }> = {
-  student: { enrolled: 5, completed: 2, pending: 3, title: "Student Dashboard" },
-  teacher: { enrolled: 12, completed: 6, pending: 2, title: "Teacher Dashboard" },
-  administrator: { enrolled: 24, completed: 14, pending: 5, title: "Admin Dashboard" },
+const roleConfig: Record<RoleKey, {
+  title: string;
+  subtitle: string;
+  stats: Array<{ label: string; value: number }>;
+  coursesTitle: string;
+  courses: Array<{ title: string; progress: number }>;
+  activities: string[];
+  primaryAction?: { label: string; href: string };
+}> = {
+  student: {
+    title: "Student Dashboard",
+    subtitle: "Welcome back, {name}. Continue your spiritual journey.",
+    stats: [
+      { label: "Enrolled", value: 5 },
+      { label: "Completed", value: 2 },
+      { label: "Pending", value: 3 },
+    ],
+    coursesTitle: "Continue Learning",
+    courses: [
+      { title: "Introduction to Theology", progress: 75 },
+      { title: "Biblical Studies", progress: 45 },
+      { title: "Church History", progress: 90 },
+    ],
+    activities: [
+      "Completed lesson 3 of Biblical Studies",
+      "Asked a question in Church History forum",
+      "Uploaded assignment for Introduction to Theology",
+    ],
+    primaryAction: { label: "My Courses", href: "/lms/courses" },
+  },
+  teacher: {
+    title: "Teacher Dashboard",
+    subtitle: "Welcome back, {name}. Manage your courses and students.",
+    stats: [
+      { label: "Active Courses", value: 4 },
+      { label: "Total Students", value: 156 },
+      { label: "Assignments to Grade", value: 23 },
+    ],
+    coursesTitle: "Course Management",
+    courses: [
+      { title: "Advanced Biblical Studies", progress: 85 },
+      { title: "Theology 201", progress: 60 },
+      { title: "Church Leadership", progress: 95 },
+    ],
+    activities: [
+      "Graded 5 assignments for Biblical Studies",
+      "Created new lesson in Theology 201",
+      "Responded to 3 student questions",
+      "Updated course syllabus for Church Leadership",
+    ],
+    primaryAction: { label: "Manage Courses", href: "/lms/courses" },
+  },
+  administrator: {
+    title: "Admin Dashboard",
+    subtitle: "Welcome back, {name}. Oversee system operations.",
+    stats: [
+      { label: "Total Users", value: 1247 },
+      { label: "Active Courses", value: 28 },
+      { label: "Revenue This Month", value: 15420 },
+    ],
+    coursesTitle: "System Overview",
+    courses: [
+      { title: "User Engagement", progress: 78 },
+      { title: "Course Completion Rate", progress: 65 },
+      { title: "System Performance", progress: 92 },
+    ],
+    activities: [
+      "Processed 12 new user registrations",
+      "Generated monthly analytics report",
+      "Resolved 3 system tickets",
+      "Updated course catalog with 5 new courses",
+    ],
+    primaryAction: { label: "User Management", href: "/lms/users" },
+  },
 };
 
 export default function LMSDashboardRolePage({ params }: { params: { role: string } }) {
@@ -22,16 +98,7 @@ export default function LMSDashboardRolePage({ params }: { params: { role: strin
   const [loading, setLoading] = useState(true);
 
   const roleKey = (role?.toLowerCase() || "student") as RoleKey;
-  const roleContent = cardData[roleKey];
-
-  const progressCourses = useMemo(
-    () => [
-      { title: "Introduction to Theology", progress: 75 },
-      { title: "Biblical Studies", progress: 45 },
-      { title: "Church History", progress: 90 },
-    ],
-    [],
-  );
+  const config = roleConfig[roleKey];
 
   useEffect(() => {
     const auth = localStorage.getItem("lmsAuth");
@@ -72,67 +139,19 @@ export default function LMSDashboardRolePage({ params }: { params: { role: strin
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6">
-      <div className="flex flex-col gap-4 rounded-2xl border border-white/20 bg-[#163832]/60 p-5 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-white">{roleContent.title}</h1>
-          <p className="text-sm text-[#cbe6ce]">Welcome back, {user?.name || "Learner"}. Continue your spiritual journey.</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link
-            href={`/${locale}/lms/courses`}
-            className="rounded-xl border border-white/20 bg-[#0B2B26]/80 px-4 py-2 text-sm font-semibold text-[#cbe6ce] hover:bg-[#235347]"
-          >
-            My Courses
-          </Link>
-          <button
-            type="button"
-            onClick={logout}
-            className="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-2 text-sm font-bold text-[#091913] shadow-lg shadow-amber-400/40"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
+      <DashboardHeader
+        title={config.title}
+        subtitle={config.subtitle}
+        userName={user?.name || "Learner"}
+        primaryAction={config.primaryAction}
+        secondaryAction={{ label: "Logout", onClick: logout }}
+      />
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-black/20">
-          <p className="text-xs uppercase tracking-widest text-[#8EB69B]">Enrolled</p>
-          <p className="mt-2 text-3xl font-bold text-white">{roleContent.enrolled}</p>
-        </div>
-        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-black/20">
-          <p className="text-xs uppercase tracking-widest text-[#8EB69B]">Completed</p>
-          <p className="mt-2 text-3xl font-bold text-white">{roleContent.completed}</p>
-        </div>
-        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-black/20">
-          <p className="text-xs uppercase tracking-widest text-[#8EB69B]">Pending</p>
-          <p className="mt-2 text-3xl font-bold text-white">{roleContent.pending}</p>
-        </div>
-      </div>
+      <DashboardStats stats={config.stats} />
 
-      <div className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-black/20">
-        <h2 className="text-xl font-semibold text-white">Continue Learning</h2>
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {progressCourses.map((course) => (
-            <div key={course.title} className="rounded-xl border border-white/20 bg-[#0B2B26]/70 p-4">
-              <h3 className="text-sm font-semibold text-[#c8ddcb]">{course.title}</h3>
-              <div className="mt-2 h-2 w-full rounded-full bg-white/20">
-                <div className="h-full rounded-full bg-gradient-to-r from-amber-400 to-yellow-500" style={{ width: `${course.progress}%` }} />
-              </div>
-              <p className="mt-2 text-xs text-[#cbe6ce]">{course.progress}% Complete</p>
-              <button className="mt-3 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-500 px-3 py-2 text-xs font-semibold text-[#091913]">Resume</button>
-            </div>
-          ))}
-        </div>
-      </div>
+      <DashboardCourses title={config.coursesTitle} courses={config.courses} />
 
-      <div className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-black/20">
-        <h2 className="text-xl font-semibold text-white">Recent Activity</h2>
-        <ul className="mt-3 space-y-2 text-sm text-[#cbe6ce]">
-          <li>• Completed lesson 3 of Biblical Studies</li>
-          <li>• Asked a question in Church History forum</li>
-          <li>• Uploaded assignment for Introduction to Theology</li>
-        </ul>
-      </div>
+      <DashboardActivity title="Recent Activity" activities={config.activities} />
     </div>
   );
 }

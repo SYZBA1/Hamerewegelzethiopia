@@ -1,11 +1,7 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function LMSIndexPage() {
-  return (
-    <main className="mx-auto flex min-h-screen w-full items-center justify-center p-4">
-      <div className="w-full max-w-3xl rounded-2xl border border-white/20 bg-[#163832]/80 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-md">
-        <h1 className="text-center text-4xl font-bold text-white">LMS Portal</h1>
-        <p className="mt-3 text-center text-sm text-[#c0ddc8]">A spiritual learning experience. Login or register to begin.</p>
+export default function LMSIndexPage({ params }: { params: { locale: string } }) {
+  redirect(`/${params.locale}/lms/login`);
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <Link

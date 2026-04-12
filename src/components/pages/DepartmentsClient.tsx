@@ -180,7 +180,7 @@ export default function DepartmentsClient({ locale, c }: { locale: string; c: C 
                 {c.ctaTitle}
               </h2>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href={h("/lms")} className={clsx("group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold",
+                <Link href={h("/lms/login")} className={clsx("group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold",
                   "bg-forest text-mist shadow-[0_4px_24px_rgba(35,83,71,.35)] hover:bg-mid hover:-translate-y-0.5 transition-all",
                   isAm ? "font-ethiopic text-[0.9rem]" : "font-sans text-[0.82rem] uppercase tracking-[0.1em]")}>
                   {c.ctaLms}<ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
