@@ -12,7 +12,7 @@ import React, {
 } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-export type Locale = "am" | "en";
+export type Locale = "en" | "am";
 export type Lang = Locale;
 
 const STORAGE_KEY = "hwz-lang";
@@ -33,8 +33,8 @@ interface LanguageContextValue {
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
-  lang: "am",
-  locale: "am",
+  lang: "en",
+  locale: "en",
   toggleLang: () => {},
   setLang: () => {},
   isPending: false,
@@ -42,7 +42,7 @@ const LanguageContext = createContext<LanguageContextValue>({
 });
 
 function normalizeLocale(locale?: string | Lang): Lang {
-  return locale === "am" || locale === "en" ? locale : "am";
+  return locale === "am" ? "am" : "en";
 }
 
 export function LanguageProvider({
@@ -56,7 +56,7 @@ export function LanguageProvider({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const initial = normalizeLocale(initialLang ?? initialLocale ?? "am");
+  const initial = normalizeLocale(initialLang ?? initialLocale ?? "en");
   const [lang, setLangState] = useState<Lang>(initial);
   const [isSwitching, setIsSwitching] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -67,8 +67,7 @@ export function LanguageProvider({
   const navigate = useCallback(
     (next: Lang) => {
       const stripped = pathname.replace(/^\/(am|en)/, "") || "/";
-      const newPath = next === "am" ? stripped : `/en${stripped}`;
-      router.push(newPath);
+      router.push(`/${next}${stripped}`);
     },
     [pathname, router]
   );
@@ -100,13 +99,13 @@ export function LanguageProvider({
   );
 
   const toggleLang = useCallback(() => {
-    setLang(lang === "am" ? "en" : "am");
+    setLang(lang === "en" ? "am" : "en");
   }, [lang, setLang]);
 
   // On first render, load saved language and sync the URL
   useEffect(() => {
     const stored = window.localStorage?.getItem(STORAGE_KEY) as Lang | null;
-    if (stored && stored !== lang && (stored === "am" || stored === "en")) {
+    if (stored && stored !== lang && (stored === "en" || stored === "am")) {
       setLang(stored);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

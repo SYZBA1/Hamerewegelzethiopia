@@ -46,7 +46,7 @@ const LMSClient = memo(function LMSClient({ locale, c }: { locale: string; c: Co
     } else {
       setError(isAm ? "ትክክለኛ ኢሜል ወይም የይለፍ ቃል አልሆነም" : "Invalid email or password");
     }
-  }, [role, email, password, login, router, locale, isAm]);
+  }, [role, email, password, login, router, locale, isAm, mockUsers]);
 
   const inputSt = {
     width: "100%", padding: ".8rem 1rem",
@@ -57,7 +57,7 @@ const LMSClient = memo(function LMSClient({ locale, c }: { locale: string; c: Co
   };
 
   return (
-    <div style={{ background: "linear-gradient(135deg, #051F20 0%, #0B2B26 50%, #163832 100%)", minHeight: "100vh" }}>
+    <div style={{ background: "linear-gradient(135deg, #0C342C 0%, #076653 40%, #051F20 100%)", minHeight: "100vh" }}>
 
       {/* Hero band */}
       <div style={{ padding: "7rem 2.5rem 4rem", borderBottom: "1px solid rgba(142,182,155,.07)" }}>
@@ -143,10 +143,10 @@ const LMSClient = memo(function LMSClient({ locale, c }: { locale: string; c: Co
 
             {/* Login button */}
             <button className={clsx(isAm ? "font-ethiopic text-[.9rem]" : "font-sans text-[.8rem] uppercase tracking-[.12em]")}
-              style={{ width: "100%", padding: "1rem", borderRadius: 10, background: "linear-gradient(135deg,#D4A853,#C9A96E)", color: "#051F20", border: "none", cursor: "pointer", fontWeight: 700, boxShadow: "0 0 24px rgba(201,169,110,.45)", transition: "all .25s", marginBottom: "1rem" }}
+              style={{ width: "100%", padding: "1rem", borderRadius: 10, background: "linear-gradient(180deg,#E3EF26 0%,#076653 55%,#0C342C 100%)", color: "#FFFDEE", border: "none", cursor: "pointer", fontWeight: 700, boxShadow: "0 0 24px rgba(7,102,83,.45)", transition: "all .25s", marginBottom: "1rem" }}
               onClick={handleLogin}
-              onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 44px rgba(201,169,110,.75)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(201,169,110,.45)"; e.currentTarget.style.transform = "none"; }}>
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 44px rgba(227,239,38,.45)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(7,102,83,.45)"; e.currentTarget.style.transform = "none"; }}>
               {c.loginBtn}
             </button>
 

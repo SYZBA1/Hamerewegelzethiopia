@@ -86,10 +86,10 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
   }, [logout, router]);
 
   return (
-    <nav className={`h-full ${isCollapsed ? "w-16" : "w-56"} border-r border-white/15 bg-[#051F20]/90 transition-all duration-300`}>
+    <nav className={`h-full ${isCollapsed ? "w-16" : "w-56"} border-r border-white/15 bg-gradient-to-b from-[#0C342C] to-[#076653] transition-all duration-300`}>
       <div className="flex items-center justify-between gap-2 px-3 py-3">
-        {!isCollapsed && <h2 className="text-sm font-semibold text-[#8EB69B]">LMS Menu</h2>}
-        <button onClick={onToggle} className="rounded-md p-1 text-slate-200 hover:bg-[#0B2B26]/80">
+        {!isCollapsed && <h2 className="text-sm font-semibold text-[#E2FBCE]">LMS Menu</h2>}
+        <button onClick={onToggle} className="rounded-md p-1 text-[#E2FBCE] hover:bg-white/10">
           <Menu size={16} />
         </button>
       </div>
@@ -102,8 +102,8 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
                 href={item.href}
                 className={`flex items-center gap-3 rounded-lg px-2 py-2 text-sm ${
                   active
-                    ? "bg-[#0B2B26] text-white"
-                    : "text-slate-300 hover:bg-[#163832] hover:text-[#8EB69B]"
+                    ? "bg-gradient-to-r from-[#E3EF26] to-[#076653] text-white"
+                    : "text-[#E2FBCE] hover:bg-white/10 hover:text-white"
                 }`}
               >
                 <item.icon size={18} />
@@ -117,14 +117,14 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
       <div className="mt-auto flex flex-col gap-2 p-3">
         <Link
           href="/lms/messages"
-          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-amber-200"
+          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-[#E2FBCE] hover:bg-white/10 hover:text-white"
         >
           <User size={18} />
           {!isCollapsed && "Profile"}
         </Link>
         <button
           type="button"
-          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-amber-200"
+          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-[#E2FBCE] hover:bg-white/10 hover:text-white"
           onClick={handleLogout}
         >
           <LogOut size={18} />

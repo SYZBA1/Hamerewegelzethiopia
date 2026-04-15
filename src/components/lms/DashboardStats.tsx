@@ -15,9 +15,9 @@ const DashboardStats = memo(function DashboardStats({ stats }: DashboardStatsPro
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {stats.map((stat, index) => (
-        <div key={index} className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-black/20">
-          <p className="text-xs uppercase tracking-widest text-[#8EB69B]">{stat.label}</p>
-          <p className="mt-2 text-3xl font-bold text-white">{stat.value}</p>
+        <div key={index} className="card-gradient-glass p-5 shadow-lg shadow-[#E3EF26]/10">
+          <p className="text-xs uppercase tracking-widest text-[#E2FBCE]">{stat.label}</p>
+          <p className="mt-2 text-3xl font-bold text-[#FFFDEE]">{stat.value}</p>
         </div>
       ))}
     </div>

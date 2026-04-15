@@ -10,16 +10,24 @@ const config: Config = {
     extend: {
       colors: {
         // ── HWZ Brand Palette ──────────────────────
-        deep:    "#051F20",   // Primary dark bg / nav
-        dark:    "#0B2B26",   // Secondary bg
-        mid:     "#163832",   // Card surfaces
-        forest:  "#235347",   // Accent / borders
-        sage:    "#8EB69B",   // Highlight / CTA text
-        mint:    "#E8F5E9",   // Light neutral surface
-        mist:    "#DAF1DE",   // Soft text
-        gold:    "#C9A96E",   // Accent (LEARN MORE hover)
-        crimson: "#C0392B",   // SUPPORT US
-        "crimson-glow": "#E74C3C",
+        deep:    "#0C342C",
+        dark:    "#076653",
+        mid:     "#076653",
+        forest:  "#076653",
+        sage:    "#E2FBCE",
+        mint:    "#FFFDEE",
+        mist:    "#E2FBCE",
+        gold:    "#E3EF26",
+        crimson: "#E3EF26",
+        "crimson-glow": "#E3EF26",
+        // Lumme (client palette)
+        lumme: {
+          cream: "#FFFDEE",
+          lime: "#E3EF26",
+          mint: "#E2FBCE",
+          forest: "#076653",
+          night: "#0C342C",
+        },
       },
       fontFamily: {
         serif:    ["Cormorant Garamond", "Georgia", "serif"],
@@ -44,12 +52,12 @@ const config: Config = {
       },
       keyframes: {
         pulseGold: {
-          "0%,100%": { boxShadow: "0 0 22px rgba(201,169,110,.5), 0 4px 20px rgba(0,0,0,.3)" },
-          "50%":     { boxShadow: "0 0 45px rgba(201,169,110,.85), 0 8px 30px rgba(0,0,0,.4)" },
+          "0%,100%": { boxShadow: "0 0 22px rgba(227,239,38,.35), 0 4px 20px rgba(0,0,0,.3)" },
+          "50%":     { boxShadow: "0 0 45px rgba(227,239,38,.6), 0 8px 30px rgba(0,0,0,.4)" },
         },
         pulseRed: {
-          "0%,100%": { boxShadow: "0 0 22px rgba(192,57,43,.45), 0 4px 20px rgba(0,0,0,.35)" },
-          "50%":     { boxShadow: "0 0 48px rgba(231,76,60,.8), 0 8px 28px rgba(0,0,0,.45)" },
+          "0%,100%": { boxShadow: "0 0 22px rgba(227,239,38,.35), 0 4px 20px rgba(0,0,0,.35)" },
+          "50%":     { boxShadow: "0 0 48px rgba(227,239,38,.7), 0 8px 28px rgba(0,0,0,.45)" },
         },
         fadeInUp: {
           from: { opacity: "0", transform: "translateY(22px)" },

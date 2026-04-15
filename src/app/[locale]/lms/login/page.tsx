@@ -217,7 +217,7 @@ export default function LMSLoginPage() {
         <button
           type="submit"
           disabled={!canSubmit || loading}
-          className="w-full rounded-3xl bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-3 text-sm font-bold text-[#091913] shadow-xl shadow-amber-500/25 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-3xl bg-gradient-to-b from-[#E3EF26] via-[#076653] to-[#0C342C] px-4 py-3 text-sm font-bold text-[#FFFDEE] shadow-xl shadow-[#076653]/30 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? 'Signing in...' : 'Sign In'}
         </button>

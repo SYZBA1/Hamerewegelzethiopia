@@ -11,15 +11,62 @@
   --font-dm-sans:   "DM Sans", system-ui, sans-serif;
   --font-ethiopic:  "Abyssinica SIL", "Noto Serif Ethiopic", "Nyala", serif;
 
-  --color-deep:    #051F20;
-  --color-dark:    #0B2B26;
-  --color-mid:     #163832;
-  --color-forest:  #235347;
-  --color-sage:    #8EB69B;
-  --color-mint:    #E8F5E9;
-  --color-mist:    #DAF1DE;
-  --color-gold:    #C9A96E;
-  --color-crimson: #C0392B;
+  --color-deep:    #0C342C;
+  --color-dark:    #076653;
+  --color-mid:     #076653;
+  --color-forest:  #076653;
+  --color-sage:    #E2FBCE;
+  --color-mint:    #FFFDEE;
+  --color-mist:    #E2FBCE;
+  --color-gold:    #E3EF26;
+  --color-crimson: #E3EF26;
+  /* Lumme palette */
+  --lumme-cream: #FFFDEE;
+  --lumme-lime: #E3EF26;
+  --lumme-mint: #E2FBCE;
+  --lumme-forest: #076653;
+  --lumme-night: #0C342C;
+}
+
+/* Global gradient system */
+.gradient-primary {
+  background: linear-gradient(to right, #FFFDEE, #E3EF26);
+}
+.gradient-secondary {
+  background: linear-gradient(to right, #E2FBCE, #076653);
+}
+.gradient-accent {
+  background: linear-gradient(to right, #E3EF26, #0C342C);
+}
+.bg-main-gradient {
+  background: linear-gradient(to bottom, #0C342C, #076653);
+}
+.bg-section-gradient {
+  background: linear-gradient(to right, #E2FBCE, #076653);
+}
+.btn-lumme,
+.btn-primary-gradient {
+  background: linear-gradient(to right, #FFFDEE, #E3EF26);
+  color: #0C342C;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-lumme:hover,
+.btn-primary-gradient:hover {
+  box-shadow: 0 0 20px rgba(227, 239, 38, 0.6);
+  transform: scale(1.03);
+}
+.card-gradient-glass {
+  background: linear-gradient(to bottom, rgba(226, 251, 206, 0.2), rgba(7, 102, 83, 0.4));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+.text-gradient-highlight {
+  background: linear-gradient(to right, #FFFDEE, #E3EF26);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ── Amharic locale — apply Ethiopic font globally ─────────── */
@@ -35,10 +82,10 @@
 /* ── Glassmorphism utility ──────────────────────────────────── */
 @layer utilities {
   .glass {
-    background: rgba(5, 31, 32, 0.72);
+    background: linear-gradient(to bottom, rgba(12, 52, 44, 0.85), rgba(7, 102, 83, 0.8));
     backdrop-filter: blur(16px) saturate(1.4);
     -webkit-backdrop-filter: blur(16px) saturate(1.4);
-    border: 1px solid rgba(142, 182, 155, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
   .glass-mint {
     background: rgba(232, 245, 233, 0.08);

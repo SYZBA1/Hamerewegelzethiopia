@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Living by Faith, known by Love, and a voice of Hope",
 };
 
-const locales = ["am", "en"] as const;
+const locales = ["en", "am"] as const;
 type Locale = (typeof locales)[number];
 type LocaleParams = { locale: Locale };
 
@@ -28,7 +28,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body style={{ margin: 0, background: "#051F20", color: "#DAF1DE" }}>
+      <body style={{ margin: 0, background: "linear-gradient(to bottom, #0C342C, #076653)", color: "#E2FBCE" }}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

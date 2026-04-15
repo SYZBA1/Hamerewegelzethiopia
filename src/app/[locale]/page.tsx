@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MissionSection from "@/components/MissionSection";
 import ZSectionsContainer from "@/components/ZSectionsContainer";
+import ModelLogoSection from "@/components/ModelLogoSection";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 import type { Locale } from "@/context/LanguageContext";
@@ -23,7 +24,7 @@ async function StatsBar({ locale }: { locale: string }) {
       {stats.map(({ num, key }) => (
         <div key={key} style={{ flex:"1", minWidth:"130px", padding:"1.8rem 1rem", textAlign:"center", borderRight:"1px solid rgba(142,182,155,.08)" }}>
           <div style={{ fontFamily:"Cormorant Garamond,serif", fontSize:"2.2rem", fontWeight:600, color:"#8EB69B", lineHeight:1 }}>{num}</div>
-          <div style={{ fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"rgba(218,241,222,.45)", marginTop:"0.4rem", fontFamily: locale==="am" ? "Noto Serif Ethiopic,serif" : "DM Sans,sans-serif" }}>{t(key)}</div>
+          <div style={{ fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"rgba(218,241,222,.45)", marginTop:"0.4rem", fontFamily: "DM Sans,sans-serif" }}>{t(key)}</div>
         </div>
       ))}
     </div>
@@ -42,6 +43,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <HeroSection />
           <StatsBar locale={locale} />
           <div style={{ height:"80px", background:"linear-gradient(to bottom, #0B2B26, #ffffff)" }} />
+          <ModelLogoSection />
           <ZSectionsContainer locale={locale} />
           <MissionSection />
         </main>

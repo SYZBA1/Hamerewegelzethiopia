@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { AuthProvider } from "@/context/AuthContext";
 
 // Dynamically import components to reduce initial bundle
@@ -31,18 +30,15 @@ export default function LMSLayout({ children }: { children: ReactNode }) {
 
   return (
     <AuthProvider>
-      <div className="relative min-h-screen bg-[#051F20] text-white">
-        {/* Optimized background image using Next.js Image */}
-        <Image
-          src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1800&q=80"
-          alt="Background"
-          fill
-          className="object-cover opacity-80"
-          priority
-          sizes="100vw"
+      <div className="relative min-h-screen bg-main-gradient text-white">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1800&q=80')",
+          }}
         />
-        {/* Solid background for performance */}
-        <div className="absolute inset-0 bg-[#051F20]/80" />
+        <div className="absolute inset-0 bg-[#0C342C]/70 backdrop-blur-sm" />
 
         <div className="relative z-10 min-h-screen">
           {isAuthRoute ? (

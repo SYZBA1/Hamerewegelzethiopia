@@ -11,8 +11,8 @@ interface AuthShellProps {
 
 export default function LMSAuthShell({ landingPath, sideContent, children }: AuthShellProps) {
   return (
-    <main className="grid min-h-screen w-full grid-cols-1 gap-6 bg-[#051F20] p-4 sm:p-6 md:grid-cols-2 lg:p-8">
-      <section className="relative hidden overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#051F20] via-[#163832] to-[#235347] p-8 text-white shadow-[0_40px_120px_rgba(0,0,0,0.55)] md:flex md:flex-col md:justify-between">
+    <main className="bg-main-gradient grid min-h-screen w-full grid-cols-1 gap-6 p-4 sm:p-6 md:grid-cols-2 lg:p-8">
+      <section className="relative hidden overflow-hidden rounded-[2rem] bg-gradient-to-b from-[#0C342C] to-[#076653] p-8 text-white shadow-[0_40px_120px_rgba(0,0,0,0.55)] md:flex md:flex-col md:justify-between">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-16 top-10 h-56 w-56 rounded-full bg-[#8EB69B]/15 blur-3xl" />
           <div className="absolute right-8 top-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
@@ -24,10 +24,10 @@ export default function LMSAuthShell({ landingPath, sideContent, children }: Aut
         </div>
       </section>
 
-      <section className="relative flex min-h-[calc(100vh-4rem)] flex-col justify-center overflow-hidden rounded-[2rem] bg-[#051F20]/95 p-6 shadow-[0_35px_80px_rgba(0,0,0,0.5)] sm:p-8">
+      <section className="card-gradient-glass relative flex min-h-[calc(100vh-4rem)] flex-col justify-center overflow-hidden p-6 shadow-[0_35px_80px_rgba(0,0,0,0.5)] sm:p-8">
         <Link
           href={landingPath}
-          className="absolute right-5 top-5 z-20 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+          className="btn-primary-gradient absolute right-5 top-5 z-20 px-4 py-2 text-sm font-semibold"
         >
           Hamere Wengel
         </Link>

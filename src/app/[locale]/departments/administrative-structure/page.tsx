@@ -26,7 +26,7 @@ const roles = [
 
 export default async function AdministrativeStructure({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
   const { locale: rawLocale } = await Promise.resolve(params);
-  const locale = rawLocale === "am" || rawLocale === "en" ? rawLocale : "am";
+  const locale = rawLocale === "en" ? rawLocale : "en";
 
   return (
     <LanguageProvider initialLocale={locale}>

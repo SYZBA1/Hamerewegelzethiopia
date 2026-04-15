@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-// Root page — redirect to default locale (Amharic)
+// Root page — redirect to default locale (English)
 export default function RootPage() {
-  redirect("/am");
+  redirect("/en");
 }

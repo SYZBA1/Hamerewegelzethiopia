@@ -25,10 +25,10 @@ const DashboardHeader = memo(function DashboardHeader({
   secondaryAction,
 }: DashboardHeaderProps) {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-white/20 bg-[#163832]/60 p-5 md:flex-row md:items-center md:justify-between">
+    <div className="card-gradient-glass flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
       <div>
-        <h1 className="text-3xl font-bold text-white">{title}</h1>
-        <p className="text-sm text-[#cbe6ce]">
+        <h1 className="text-3xl font-bold text-[#FFFDEE]">{title}</h1>
+        <p className="text-sm text-[#E2FBCE]">
           {subtitle.replace("{name}", userName)}
         </p>
       </div>
@@ -36,7 +36,7 @@ const DashboardHeader = memo(function DashboardHeader({
         {primaryAction && (
           <Link
             href={primaryAction.href}
-            className="rounded-xl border border-white/20 bg-[#0B2B26]/80 px-4 py-2 text-sm font-semibold text-[#cbe6ce] hover:bg-[#235347]"
+            className="rounded-xl border border-white/20 bg-gradient-to-r from-[#E2FBCE]/20 to-[#076653]/60 px-4 py-2 text-sm font-semibold text-[#FFFDEE] hover:brightness-110"
           >
             {primaryAction.label}
           </Link>
@@ -45,7 +45,7 @@ const DashboardHeader = memo(function DashboardHeader({
           <button
             type="button"
             onClick={secondaryAction.onClick}
-            className="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-2 text-sm font-bold text-[#091913] shadow-lg shadow-amber-400/40"
+            className="btn-primary-gradient px-4 py-2 text-sm font-bold"
           >
             {secondaryAction.label}
           </button>

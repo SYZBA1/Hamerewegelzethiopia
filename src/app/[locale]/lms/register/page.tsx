@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import LMSAuthShell from "@/components/lms/AuthShell";
+
+type DegreeType = "diploma" | "degree" | "masters" | "courses";
 
 const steps = [
   { title: "Sign up your account", active: true },
@@ -23,23 +25,61 @@ export default function LMSRegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [degreeType, setDegreeType] = useState<DegreeType>("diploma");
+  const [diplomaSchool, setDiplomaSchool] = useState("");
+  const [diplomaYear, setDiplomaYear] = useState("");
+  const [degreeMajor, setDegreeMajor] = useState("");
+  const [degreeEntry, setDegreeEntry] = useState("");
+  const [mastersField, setMastersField] = useState("");
+  const [mastersInstitution, setMastersInstitution] = useState("");
+  const [courseTrack, setCourseTrack] = useState("");
+  const [courseIntake, setCourseIntake] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const canSubmit =
-    firstName.trim().length > 0 &&
-    lastName.trim().length > 0 &&
-    email.trim().length > 0 &&
-    password.trim().length > 0;
+  const baseOk = useMemo(
+    () =>
+      firstName.trim().length > 0 &&
+      lastName.trim().length > 0 &&
+      email.trim().length > 0 &&
+      password.trim().length >= 8,
+    [firstName, lastName, email, password],
+  );
+
+  function validateProgramFields(): string | null {
+    if (degreeType === "diploma") {
+      if (!diplomaSchool.trim()) return "Enter your school or previous institution for the diploma track.";
+      if (!/^\d{4}$/.test(diplomaYear.trim())) return "Enter a valid graduation year (YYYY) for the diploma track.";
+    }
+    if (degreeType === "degree") {
+      if (!degreeMajor.trim()) return "Enter your intended major / field of study.";
+      if (!degreeEntry.trim()) return "Enter your entry level or year (e.g. Year 1).";
+    }
+    if (degreeType === "masters") {
+      if (!mastersField.trim()) return "Enter your prior degree field.";
+      if (!mastersInstitution.trim()) return "Enter the institution that awarded your prior degree.";
+    }
+    if (degreeType === "courses") {
+      if (!courseTrack.trim()) return "Specify the course or track you are enrolling in.";
+      if (!courseIntake.trim()) return "Choose or describe your preferred intake / session.";
+    }
+    return null;
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
     setMessage("");
 
-    if (!canSubmit) {
-      setError("Please complete all registration fields.");
+    if (!baseOk) {
+      setError("Please complete all required fields. Password must be at least 8 characters.");
+      return;
+    }
+
+    const programErr = validateProgramFields();
+    if (programErr) {
+      setError(programErr);
       return;
     }
 
@@ -53,11 +93,32 @@ export default function LMSRegisterPage() {
     }
 
     const fullName = `${firstName.trim()} ${lastName.trim()}`;
+    const registration = {
+      degreeType,
+      ...(degreeType === "diploma" && {
+        diplomaSchool: diplomaSchool.trim(),
+        diplomaYear: diplomaYear.trim(),
+      }),
+      ...(degreeType === "degree" && {
+        degreeMajor: degreeMajor.trim(),
+        degreeEntry: degreeEntry.trim(),
+      }),
+      ...(degreeType === "masters" && {
+        mastersField: mastersField.trim(),
+        mastersInstitution: mastersInstitution.trim(),
+      }),
+      ...(degreeType === "courses" && {
+        courseTrack: courseTrack.trim(),
+        courseIntake: courseIntake.trim(),
+      }),
+    };
+
     const newUser = {
       name: fullName,
       role,
       email: normalizedEmail,
       password: password.trim(),
+      registration,
     };
 
     localStorage.setItem("lmsUsers", JSON.stringify([...users, newUser]));
@@ -119,16 +180,16 @@ export default function LMSRegisterPage() {
       <div className="mb-6 grid gap-3 sm:grid-cols-2">
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-3xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white transition hover:border-[#8EB69B] hover:bg-white/15"
-          onClick={() => alert('Google login placeholder')}
+          className="flex items-center justify-center gap-2 rounded-3xl border border-white/15 bg-white px-4 py-3 text-sm font-medium text-[#091913] transition hover:bg-white/90"
+          onClick={() => alert("Google login placeholder")}
         >
-          <span className="text-base">G</span>
-          Google
+          <span className="text-base font-bold text-blue-600">G</span>
+          Continue with Google
         </button>
         <button
           type="button"
           className="flex items-center justify-center gap-2 rounded-3xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white transition hover:border-[#8EB69B] hover:bg-white/15"
-          onClick={() => alert('GitHub login placeholder')}
+          onClick={() => alert("GitHub login placeholder")}
         >
           <span className="text-base">GH</span>
           GitHub
@@ -185,22 +246,139 @@ export default function LMSRegisterPage() {
           <div className="relative">
             <input
               id="password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="At least 8 characters"
               className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
               required
+              minLength={8}
             />
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
               className="absolute right-4 top-3 text-sm text-[#8EB69B]"
             >
-              {showPassword ? 'Hide' : 'Show'}
+              {showPassword ? "Hide" : "Show"}
             </button>
           </div>
         </div>
+
+        <div className="space-y-2">
+          <label htmlFor="degreeType" className="text-sm font-semibold text-[#dae9dc]">Program / degree type</label>
+          <select
+            id="degreeType"
+            value={degreeType}
+            onChange={(e) => setDegreeType(e.target.value as DegreeType)}
+            className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+          >
+            <option value="diploma">Diploma</option>
+            <option value="degree">Degree (undergraduate)</option>
+            <option value="masters">Masters</option>
+            <option value="courses">Short courses</option>
+          </select>
+        </div>
+
+        {degreeType === "diploma" && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="dipSchool">School / prior institution</label>
+              <input
+                id="dipSchool"
+                value={diplomaSchool}
+                onChange={(e) => setDiplomaSchool(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="Completed secondary or equivalent"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="dipYear">Graduation year</label>
+              <input
+                id="dipYear"
+                value={diplomaYear}
+                onChange={(e) => setDiplomaYear(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="YYYY"
+                inputMode="numeric"
+              />
+            </div>
+          </div>
+        )}
+
+        {degreeType === "degree" && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="major">Intended major / field</label>
+              <input
+                id="major"
+                value={degreeMajor}
+                onChange={(e) => setDegreeMajor(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="Theology, ministry studies..."
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="entry">Entry level / year</label>
+              <input
+                id="entry"
+                value={degreeEntry}
+                onChange={(e) => setDegreeEntry(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="Year 1, transfer, etc."
+              />
+            </div>
+          </div>
+        )}
+
+        {degreeType === "masters" && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="msField">Prior degree field</label>
+              <input
+                id="msField"
+                value={mastersField}
+                onChange={(e) => setMastersField(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="B.A. Theology, B.Th., etc."
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="msInst">Awarding institution</label>
+              <input
+                id="msInst"
+                value={mastersInstitution}
+                onChange={(e) => setMastersInstitution(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="University or college name"
+              />
+            </div>
+          </div>
+        )}
+
+        {degreeType === "courses" && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="track">Course / track</label>
+              <input
+                id="track"
+                value={courseTrack}
+                onChange={(e) => setCourseTrack(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="Course name or code"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="intake">Preferred intake</label>
+              <input
+                id="intake"
+                value={courseIntake}
+                onChange={(e) => setCourseIntake(e.target.value)}
+                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                placeholder="e.g. Spring 2026, Module A"
+              />
+            </div>
+          </div>
+        )}
 
         <div className="space-y-2">
           <label htmlFor="role" className="text-sm font-semibold text-[#dae9dc]">Role</label>
@@ -229,15 +407,15 @@ export default function LMSRegisterPage() {
 
         <button
           type="submit"
-          disabled={!canSubmit || loading}
-          className="w-full rounded-3xl bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-3 text-sm font-bold text-[#091913] shadow-xl shadow-amber-500/25 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+          disabled={!baseOk || loading}
+          className="w-full rounded-3xl bg-gradient-to-b from-[#E3EF26] via-[#076653] to-[#0C342C] px-4 py-3 text-sm font-bold text-[#FFFDEE] shadow-xl shadow-[#076653]/30 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? 'Finishing...' : 'Sign Up'}
+          {loading ? "Finishing..." : "Sign Up"}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-[#c7e4d5]">
-        Already have an account?{' '}
+        Already have an account?{" "}
         <Link href={`/${locale}/lms/login`} className="font-semibold text-[#8EB69B] hover:text-white">
           Log in
         </Link>

@@ -1,4 +1,7 @@
-export type Lang = "am" | "en";
+import enMessages from "@/messages/en.json";
+import amMessages from "@/messages/am.json";
+
+export type Lang = "en" | "am";
 
 export type Translations = {
   nav: {
@@ -9,6 +12,7 @@ export type Translations = {
     library: string;
     contact: string;
     departments: string;
+    integration: string;
     lms: string;
     donate: string;
   };
@@ -33,6 +37,7 @@ export type Translations = {
       sermons: string;
       library: string;
       contact: string;
+      integration: string;
       lms: string;
       donate: string;
     };
@@ -52,12 +57,9 @@ export type Translations = {
   mega: {
     hq_title: string;
     dept: {
-      media: string;
-      finance: string;
-      research: string;
-      education: string;
-      relief: string;
-      gospel: string;
+      mediaComm: string;
+      trainingTeaching: string;
+      charityDevelopment: string;
     };
     edu_title: string;
     edu: {
@@ -66,11 +68,12 @@ export type Translations = {
       masters: string;
       library: string;
     };
-    loc_title: string;
-    loc: {
-      diocese: string;
-      zone: string;
-      district: string;
+    integration_title: string;
+    integration_sub: string;
+    int: {
+      library: string;
+      lms: string;
+      graduation: string;
     };
     viewAll: string;
     structureDesc: string;
@@ -82,164 +85,164 @@ export type Translations = {
 };
 
 export const translations: Record<Lang, Translations> = {
-  am: {
-    nav: {
-      home: "ዋና",
-      about: "ስለ እኛ",
-      sermons: "ወንጌሎች",
-      blog: "ብሎግ",
-      library: "ላይብረሪ",
-      contact: "አግናኝ",
-      departments: "ክፍሎች",
-      lms: "ማስተማሪያ",
-      donate: "ልግስና",
-    },
-    hero: {
-      eyebrow: "እንኳን ደህና መጣችሁ",
-      line1: "ሕይወትን በእምነት እንኖር",
-      line2: "የፍቅር ስም የሚወሰን",
-      line3: "እና የተስፋ ድምጽ",
-      motto: "እኛ እንደ ፍቅር የታወቀ፣ የተስፋ ድምጽ።",
-      scroll: "ለመቀጥል ታቦትን አጥብቅ",
-      cta_support: "ይደግፉን",
-      cta_learn: "ተጨማሪ ያውቁ",
-    },
-    footer: {
-      title: "ሐመረ ወንጌል ዘኢትዮጵያ",
-      motto: "እኛ ሕይወትን በእምነት እና በፍቅር እንኖር",
-      links: {
-        home: "ዋና",
-        about: "ስለ እኛ",
-        departments: "ክፍሎች",
-        blog: "ብሎግ",
-        sermons: "ወንጌሎች",
-        library: "ላይብረሪ",
-        contact: "አግናኝ",
-        lms: "ማስተማሪያ",
-        donate: "ልግስና",
-      },
-      copyright: "© 2026 ሐመረ ወንጌል ዘኢትዮጵያ",
-      followUs: "እኛን ይከታቱ",
-    },
-    mission: {
-      overline: "የተስፋ የማዕከል ፕሮግራሞች",
-      heading: "የእኛ ተግባር",
-      mission_label: "ተግባር",
-      mission_text: "እኛ በፍቅር እና በእምነት ሕይወትን እንጠብቃለን እና ዕረፍትን እንሰጣለን።",
-      vision_label: "ራዕይ",
-      vision_text: "የእኛ ራዕይ ለሁሉም ዕረፍት እና ተስፋ ተቀባይነት ይደርስ ዘንድ ነው።",
-      cta_story: "ታሪክን ይውቁ",
-      cta_dept: "ክፍሎችን ይመልከቱ",
-    },
-    mega: {
-      hq_title: "ዋና ቢሮ",
-      dept: {
-        media: "ሚዲያ",
-        finance: "ፋይናንስ",
-        research: "ጥናት",
-        education: "ትምህርት",
-        relief: "ድጋፍ",
-        gospel: "ወንጌል",
-      },
-      edu_title: "ትምህርት ፕሮግራሞች",
-      edu: {
-        diploma: "ዲፕሎማ",
-        degree: "ዲግሪ",
-        masters: "ማስተርስ",
-        library: "ላይብረሪ",
-      },
-      loc_title: "አውድ አወዳድ",
-      loc: {
-        diocese: "ቅዱስ ቤተክርስቲያን",
-        zone: "ዞን",
-        district: "ወረዳ",
-      },
-      viewAll: "ሁሉንም እይ",
-      structureDesc: "ከጠቅላይ ጽሕፈት ቤት እስከ ወረዳ ድረስ ያለ ሙሉ ተዋረዳዊ አደረጃጀት።",
-    },
-    about: {
-      title: "ስለ እኛ",
-      intro: "እኛ ሕይወትን በእምነት እና በፍቅር እንኖር እና ለሕዝብ ምን እንደምንደርስ እንሰማር።",
-    },
-  },
   en: {
     nav: {
-      home: "Home",
-      about: "About",
-      sermons: "Sermons",
-      blog: "Blog",
-      library: "Library",
-      contact: "Contact",
-      departments: "Departments",
+      home: enMessages.nav.home,
+      about: enMessages.nav.about,
+      sermons: enMessages.nav.sermons,
+      blog: enMessages.nav.blog,
+      library: enMessages.nav.library,
+      contact: enMessages.nav.contact,
+      departments: enMessages.nav.departments,
+      integration: enMessages.nav.integration,
       lms: "LMS",
-      donate: "Donate",
+      donate: enMessages.nav.donate,
     },
     hero: {
-      eyebrow: "Welcome",
-      line1: "Living by Faith",
-      line2: "Known by Love",
-      line3: "A voice of hope",
-      motto: "We are known by love and we uplift the community.",
-      scroll: "Scroll to continue",
-      cta_support: "Support Us",
-      cta_learn: "Learn More",
+      eyebrow: enMessages.hero.eyebrow,
+      line1: enMessages.hero.line1,
+      line2: enMessages.hero.line2,
+      line3: enMessages.hero.line3,
+      motto: enMessages.hero.motto,
+      scroll: enMessages.hero.scroll,
+      cta_support: enMessages.hero.cta_support,
+      cta_learn: enMessages.hero.cta_learn,
     },
     footer: {
       title: "Hamere Wengel Zethiopia",
-      motto: "We live by faith and are known by love.",
+      motto: enMessages.footer.motto,
       links: {
-        home: "Home",
-        about: "About",
-        departments: "Departments",
-        blog: "Blog",
-        sermons: "Sermons",
-        library: "Library",
-        contact: "Contact",
-        lms: "LMS",
-        donate: "Donate",
+        home: enMessages.footer.links.home,
+        about: enMessages.footer.links.about,
+        departments: enMessages.footer.links.departments,
+        blog: enMessages.footer.links.blog,
+        sermons: enMessages.footer.links.sermons,
+        library: enMessages.footer.links.library,
+        contact: enMessages.footer.links.contact,
+        integration: enMessages.footer.links.integration,
+        lms: enMessages.footer.links.lms,
+        donate: enMessages.footer.links.donate,
       },
       copyright: "© 2026 Hamere Wengel Zethiopia",
       followUs: "Follow Us",
     },
     mission: {
-      overline: "Hope-Centered Programs",
-      heading: "Our Mission",
-      mission_label: "Mission",
-      mission_text: "We serve with love and faith, delivering hope and restoration to the community.",
-      vision_label: "Vision",
-      vision_text: "Our vision is a world where everyone has access to hope and opportunity.",
-      cta_story: "Read Our Story",
-      cta_dept: "Explore Departments",
+      overline: enMessages.mission.overline,
+      heading: enMessages.mission.heading,
+      mission_label: enMessages.mission.mission_label,
+      mission_text: enMessages.mission.mission_text,
+      vision_label: enMessages.mission.vision_label,
+      vision_text: enMessages.mission.vision_text,
+      cta_story: enMessages.mission.cta_story,
+      cta_dept: enMessages.mission.cta_dept,
     },
     mega: {
-      hq_title: "Headquarters",
+      hq_title: "Departments",
       dept: {
-        media: "Media",
-        finance: "Finance",
-        research: "Research",
-        education: "Education",
-        relief: "Relief",
-        gospel: "Gospel",
+        mediaComm: enMessages.departments.m1_title,
+        trainingTeaching: enMessages.departments.m2_title,
+        charityDevelopment: enMessages.departments.m3_title,
       },
-      edu_title: "Education Programs",
+      edu_title: enMessages.mega.edu_title,
       edu: {
-        diploma: "Diploma",
-        degree: "Degree",
-        masters: "Masters",
-        library: "Library",
+        diploma: enMessages.mega.edu.diploma,
+        degree: enMessages.mega.edu.degree,
+        masters: enMessages.mega.edu.masters,
+        library: enMessages.library.hero_title,
       },
-      loc_title: "Administrative Structure",
-      loc: {
-        diocese: "Diocese",
-        zone: "Zone",
-        district: "District",
+      integration_title: enMessages.integration.title,
+      integration_sub: enMessages.integration.subtitle,
+      int: {
+        library: enMessages.integration.card_library_title,
+        lms: enMessages.integration.card_lms_title,
+        graduation: enMessages.integration.card_grad_title,
       },
-      viewAll: "View All",
-      structureDesc: "Full hierarchical structure from HQ to local Wereda offices.",
+      viewAll: "View all departments",
+      structureDesc: "Explore programmes, resources, and how each department serves our mission.",
     },
     about: {
       title: "About Us",
-      intro: "We live faithfully, known by love, and strive to bring hope to the community.",
+      intro: enMessages.about.history_p1,
+    },
+  },
+  am: {
+    nav: {
+      home: amMessages.nav.home,
+      about: amMessages.nav.about,
+      sermons: amMessages.nav.sermons,
+      blog: amMessages.nav.blog,
+      library: amMessages.nav.library,
+      contact: amMessages.nav.contact,
+      departments: amMessages.nav.departments,
+      integration: "Integration",
+      lms: "LMS",
+      donate: amMessages.nav.donate,
+    },
+    hero: {
+      eyebrow: amMessages.hero.eyebrow,
+      line1: amMessages.hero.line1,
+      line2: amMessages.hero.line2,
+      line3: amMessages.hero.line3,
+      motto: amMessages.hero.motto,
+      scroll: amMessages.hero.scroll,
+      cta_support: amMessages.hero.cta_support,
+      cta_learn: amMessages.hero.cta_learn,
+    },
+    footer: {
+      title: "ሐመረ ወንጌል ዘኢትዮጵያ",
+      motto: amMessages.footer.motto,
+      links: {
+        home: amMessages.footer.links.home,
+        about: amMessages.footer.links.about,
+        departments: amMessages.footer.links.departments,
+        blog: amMessages.footer.links.blog,
+        sermons: amMessages.footer.links.sermons,
+        library: amMessages.footer.links.library,
+        contact: amMessages.footer.links.contact,
+        integration: "Integration",
+        lms: amMessages.footer.links.lms,
+        donate: amMessages.footer.links.donate,
+      },
+      copyright: "© 2026 ሐመረ ወንጌል ዘኢትዮጵያ",
+      followUs: "ማህበራዊ ገጾቻችን",
+    },
+    mission: {
+      overline: amMessages.mission.overline,
+      heading: amMessages.mission.heading,
+      mission_label: amMessages.mission.mission_label,
+      mission_text: amMessages.mission.mission_text,
+      vision_label: amMessages.mission.vision_label,
+      vision_text: amMessages.mission.vision_text,
+      cta_story: amMessages.mission.cta_story,
+      cta_dept: amMessages.mission.cta_dept,
+    },
+    mega: {
+      hq_title: "ክፍሎች",
+      dept: {
+        mediaComm: amMessages.departments.m1_title,
+        trainingTeaching: amMessages.departments.m2_title,
+        charityDevelopment: amMessages.departments.m3_title,
+      },
+      edu_title: amMessages.mega.edu_title,
+      edu: {
+        diploma: amMessages.mega.edu.diploma,
+        degree: amMessages.mega.edu.degree,
+        masters: amMessages.mega.edu.masters,
+        library: amMessages.library.hero_title,
+      },
+      integration_title: "Integration",
+      integration_sub: "Library, LMS and graduation",
+      int: {
+        library: amMessages.library.hero_title,
+        lms: "LMS",
+        graduation: "Graduation",
+      },
+      viewAll: "ሁሉንም ክፍሎች ይመልከቱ",
+      structureDesc: "ፕሮግራሞችን፣ ምንጮችን እና እያንዳንዱ ክፍል ተልዕኳችንን እንዴት እንደሚያገለግል ያስሱ።",
+    },
+    about: {
+      title: "ስለ እኛ",
+      intro: amMessages.about.history_p1,
     },
   },
 };

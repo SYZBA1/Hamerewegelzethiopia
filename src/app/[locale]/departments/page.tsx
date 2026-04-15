@@ -16,11 +16,8 @@ export default async function DepartmentsPage({ params }: { params: Promise<{ lo
     branchesTitle: t("branches_title"), explore: t("explore"),
     ministries: [
       { icon: "📡", title: t("m1_title"), desc: t("m1_desc") },
-      { icon: "💰", title: t("m2_title"), desc: t("m2_desc") },
-      { icon: "🔬", title: t("m3_title"), desc: t("m3_desc") },
-      { icon: "🌱", title: t("m4_title"), desc: t("m4_desc") },
-      { icon: "✝",  title: t("m5_title"), desc: t("m5_desc") },
-      { icon: "🎓", title: t("m6_title"), desc: t("m6_desc") },
+      { icon: "📖", title: t("m2_title"), desc: t("m2_desc") },
+      { icon: "🤝", title: t("m3_title"), desc: t("m3_desc") },
     ],
     eduProgs: [
       { title: t("e1_title"), duration: t("e1_duration"), badge: "1–2 yr" },

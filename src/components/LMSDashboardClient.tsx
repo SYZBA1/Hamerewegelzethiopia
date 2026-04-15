@@ -34,7 +34,7 @@ export default memo(function LMSDashboardClient({ locale, c }: { locale: string;
   const name = user.email.split('@')[0];
 
   return (
-    <div style={{ background: "linear-gradient(135deg, #051F20 0%, #0B2B26 50%, #163832 100%)", minHeight: "100vh", padding: "2rem" }}>
+    <div style={{ background: "linear-gradient(135deg, #0C342C 0%, #076653 45%, #051F20 100%)", minHeight: "100vh", padding: "2rem" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Welcome Card */}
         <div style={{ background: "rgba(11,43,38,.5)", borderRadius: 20, padding: "2rem", border: "1px solid rgba(142,182,155,.12)", marginBottom: "2rem" }}>
