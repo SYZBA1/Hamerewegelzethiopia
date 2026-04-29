@@ -46,12 +46,12 @@ const CourseManagement = memo(function CourseManagement({
     });
 
   return (
-    <div className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-black/20">
+    <div className="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg shadow-charcoal/20">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-white">Course Management</h2>
         <button
           onClick={onCreateNew}
-          className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-2 text-sm font-semibold text-[#091913] hover:shadow-lg transition-shadow"
+          className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-limeCTA to-primaryBg px-4 py-2 text-sm font-semibold text-[#1B1B1B] hover:shadow-lg transition-shadow"
         >
           <Plus size={16} />
           Create Course
@@ -61,13 +61,13 @@ const CourseManagement = memo(function CourseManagement({
       {/* Filters and Search */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#8EB69B]" size={16} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#00D084]" size={16} />
           <input
             type="text"
             placeholder="Search courses..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white placeholder-[#8EB69B] focus:outline-none focus:border-[#8EB69B]"
+            className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white placeholder-[#00D084] focus:outline-none focus:border-[#00D084]"
           />
         </div>
 
@@ -75,7 +75,7 @@ const CourseManagement = memo(function CourseManagement({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as "all" | "active" | "inactive")}
-            className="px-3 py-2 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white focus:outline-none focus:border-[#8EB69B]"
+            className="px-3 py-2 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white focus:outline-none focus:border-[#00D084]"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -85,7 +85,7 @@ const CourseManagement = memo(function CourseManagement({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "title" | "students" | "completion")}
-            className="px-3 py-2 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white focus:outline-none focus:border-[#8EB69B]"
+            className="px-3 py-2 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white focus:outline-none focus:border-[#00D084]"
           >
             <option value="title">Sort by Title</option>
             <option value="students">Sort by Students</option>
@@ -99,10 +99,10 @@ const CourseManagement = memo(function CourseManagement({
         {filteredAndSortedCourses.map((course) => (
           <div
             key={course.id}
-            className="rounded-xl border border-white/20 bg-[#0B2B26]/70 p-4 hover:bg-[#0B2B26]/90 transition-colors"
+            className="rounded-xl border border-white/20 bg-[#1B1B1B]/70 p-4 hover:bg-[#1B1B1B]/90 transition-colors"
           >
             <div className="flex items-start justify-between mb-3">
-              <h3 className="text-sm font-semibold text-[#c8ddcb] line-clamp-2">{course.title}</h3>
+              <h3 className="text-sm font-semibold text-[#F7F7F7] line-clamp-2">{course.title}</h3>
               <span
                 className={`px-2 py-1 rounded-full text-xs font-medium ${
                   course.status === "active"
@@ -115,11 +115,11 @@ const CourseManagement = memo(function CourseManagement({
             </div>
 
             <div className="space-y-2 mb-4">
-              <div className="flex items-center gap-2 text-xs text-[#cbe6ce]">
+              <div className="flex items-center gap-2 text-xs text-[#F7F7F7]">
                 <Users size={14} />
                 <span>{course.enrolledStudents} students</span>
               </div>
-              <div className="text-xs text-[#cbe6ce]">
+              <div className="text-xs text-[#F7F7F7]">
                 Completion Rate: {course.completionRate}%
               </div>
             </div>
@@ -127,7 +127,7 @@ const CourseManagement = memo(function CourseManagement({
             <div className="flex gap-2">
               <button
                 onClick={() => onEdit?.(course.id)}
-                className="flex-1 flex items-center justify-center gap-1 rounded-lg bg-[#163832] hover:bg-[#235347] px-3 py-2 text-xs font-medium text-[#8EB69B] transition-colors"
+                className="flex-1 flex items-center justify-center gap-1 rounded-lg bg-[#1B1B1B] hover:bg-[#1B1B1B] px-3 py-2 text-xs font-medium text-[#00D084] transition-colors"
               >
                 <Edit size={14} />
                 Edit
@@ -145,7 +145,7 @@ const CourseManagement = memo(function CourseManagement({
       </div>
 
       {filteredAndSortedCourses.length === 0 && (
-        <div className="text-center py-8 text-[#8EB69B]">
+        <div className="text-center py-8 text-[#00D084]">
           No courses found matching your criteria.
         </div>
       )}

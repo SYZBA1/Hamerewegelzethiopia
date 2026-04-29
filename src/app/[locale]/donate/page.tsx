@@ -3,7 +3,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import LocaleFadeWrapper from "@/components/LocaleFadeWrapper";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
-import Footer from "@/components/Footer";
+import HomeFooter from "@/components/home/Footer";
 import DonateClient from "@/components/DonateClient";
 import type { Locale } from "@/context/LanguageContext";
 
@@ -25,7 +25,7 @@ export default async function DonatePage({ params }: { params: Promise<{ locale:
   return (
     <LanguageProvider initialLocale={locale}>
       <ScrollProgress /><Navbar />
-      <LocaleFadeWrapper><main className="pt-20"><DonateClient locale={locale} c={c} /></main><Footer /></LocaleFadeWrapper>
+      <LocaleFadeWrapper><main><DonateClient locale={locale} c={c} /></main><HomeFooter locale={locale} /></LocaleFadeWrapper>
     </LanguageProvider>
   );
 }

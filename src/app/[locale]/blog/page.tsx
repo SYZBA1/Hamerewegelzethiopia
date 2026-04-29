@@ -3,7 +3,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import LocaleFadeWrapper from "@/components/LocaleFadeWrapper";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
-import Footer from "@/components/Footer";
+import HomeFooter from "@/components/home/Footer";
 import BlogClient from "@/components/BlogClient";
 import type { Locale } from "@/context/LanguageContext";
 
@@ -23,7 +23,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   return (
     <LanguageProvider initialLocale={locale}>
       <ScrollProgress /><Navbar />
-      <LocaleFadeWrapper><main className="pt-20"><BlogClient locale={locale} c={c} /></main><Footer /></LocaleFadeWrapper>
+      <LocaleFadeWrapper><main><BlogClient locale={locale} c={c} /></main><HomeFooter locale={locale} /></LocaleFadeWrapper>
     </LanguageProvider>
   );
 }

@@ -46,14 +46,14 @@ export default function HeroSection() {
           {/* <source src="/herosection.mp4" type="video/mp4" /> */}
         </video>
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-deep/85 via-deep/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-deep/30 via-transparent to-deep/65" />
+        <div className="absolute inset-0 bg-gradient-to-r from-deep/90 via-deep/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-limePrimary/10 via-transparent to-deep/75" />
       </div>
 
       {/* ── Light beam effects ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] right-[15%] w-px h-[70%] bg-gradient-to-b from-transparent via-sage/12 to-transparent -rotate-[15deg] animate-[beamDrift_6s_ease-in-out_infinite]" />
-        <div className="absolute top-[-10%] right-[25%] w-px h-[55%] bg-gradient-to-b from-transparent via-gold/8 to-transparent -rotate-[8deg] animate-[beamDrift_9s_ease-in-out_infinite_reverse]" />
+        <div className="absolute top-[-20%] right-[15%] w-px h-[70%] bg-gradient-to-b from-transparent via-limePrimary/18 to-transparent -rotate-[15deg] animate-[beamDrift_6s_ease-in-out_infinite]" />
+        <div className="absolute top-[-10%] right-[25%] w-px h-[55%] bg-gradient-to-b from-transparent via-brightYellow/16 to-transparent -rotate-[8deg] animate-[beamDrift_9s_ease-in-out_infinite_reverse]" />
       </div>
 
       {/* ── Decorative rings ── */}
@@ -61,7 +61,7 @@ export default function HeroSection() {
         {[0, 0.6, 1.2, 1.8].map((delay, i) => (
           <div
             key={i}
-            className="absolute inset-0 rounded-full border border-sage/[0.09] animate-[ringPulse_4s_ease-in-out_infinite]"
+            className="absolute inset-0 rounded-full border border-brightYellow/[0.11] animate-[ringPulse_4s_ease-in-out_infinite]"
             style={{
               inset: `${i * 12}%`,
               animationDelay: `${delay}s`,
@@ -71,7 +71,7 @@ export default function HeroSection() {
       </div>
 
       {/* ── Cross watermark ── */}
-      <div className="absolute right-[14vw] top-1/2 -translate-y-1/2 font-serif text-[22rem] leading-none text-sage/[0.035] pointer-events-none select-none animate-[wmFloat_8s_ease-in-out_infinite]">
+      <div className="absolute right-[14vw] top-1/2 -translate-y-1/2 font-serif text-[22rem] leading-none text-brightYellow/[0.04] pointer-events-none select-none animate-[wmFloat_8s_ease-in-out_infinite]">
         ✞
       </div>
 
@@ -86,8 +86,8 @@ export default function HeroSection() {
         <motion.p
           variants={itemVariants}
           className={clsx(
-            "flex items-center gap-2 text-gold mb-5",
-            "before:content-[''] before:block before:w-8 before:h-px before:bg-gold before:flex-shrink-0",
+            "flex items-center gap-2 text-brightYellow mb-5",
+            "before:content-[''] before:block before:w-8 before:h-px before:bg-brightYellow before:flex-shrink-0",
             "after:content-['✦'] after:text-[0.6rem] after:opacity-70",
             isAmharic
               ? "font-ethiopic text-[0.78rem] tracking-[0.1em]"
@@ -108,27 +108,27 @@ export default function HeroSection() {
         >
           {t.line1}
           <span className="block font-semibold">{t.line2}</span>
-          <span className="block italic text-sage">{t.line3}</span>
+          <span className="block italic text-limeSecondary">{t.line3}</span>
         </motion.h1>
 
         {/* Divider */}
         <motion.div
           variants={itemVariants}
-          className="w-16 h-px bg-gradient-to-r from-gold to-transparent my-7"
+          className="w-16 h-px bg-gradient-to-r from-brightYellow to-transparent my-7"
         />
 
         {/* Motto */}
         <motion.p
           variants={itemVariants}
           className={clsx(
-            "font-serif italic text-sage max-w-[40ch] leading-[1.65]",
+            "font-serif italic text-mint max-w-[40ch] leading-[1.65]",
             "text-[clamp(1.05rem,1.7vw,1.35rem)]",
             isAmharic && "font-ethiopic !leading-[1.8]"
           )}
         >
-          <span className="text-gold mr-0.5">&ldquo;</span>
+          <span className="text-brightYellow mr-0.5">&ldquo;</span>
           {t.motto}
-          <span className="text-gold ml-0.5">&rdquo;</span>
+          <span className="text-brightYellow ml-0.5">&rdquo;</span>
         </motion.p>
 
         {/* CTAs */}
@@ -141,9 +141,9 @@ export default function HeroSection() {
             href="#donate"
             className={clsx(
               "relative overflow-hidden px-9 py-4 rounded-sm font-semibold",
-              "bg-gradient-to-br from-[#D4A853] via-gold to-gold text-deep",
-              "shadow-[0_0_28px_rgba(201,169,110,.55),0_4px_20px_rgba(0,0,0,.4)]",
-              "animate-pulse-gold hover:shadow-[0_0_55px_rgba(201,169,110,.85)] hover:-translate-y-0.5",
+              "gradient-primary text-deep",
+              "shadow-[0_0_28px_rgba(214,255,0,.4),0_4px_20px_rgba(27,27,27,.4)]",
+              "animate-pulse-gold hover:shadow-[0_0_55px_rgba(214,255,0,.6)] hover:-translate-y-0.5",
               "transition-all duration-250",
               isAmharic
                 ? "font-ethiopic text-[0.88rem]"
@@ -157,8 +157,8 @@ export default function HeroSection() {
           <a
             href="#mission"
             className={clsx(
-              "px-8 py-4 rounded-sm border border-white/25 text-mist",
-              "hover:border-gold hover:text-gold hover:bg-gold/8 hover:shadow-[0_0_20px_rgba(201,169,110,.2)]",
+              "px-8 py-4 rounded-sm border border-brightYellow/25 text-mint",
+              "hover:border-brightYellow hover:text-brightYellow hover:bg-brightYellow/8 hover:shadow-[0_0_20px_rgba(214,255,0,.2)]",
               "hover:-translate-y-0.5 transition-all duration-300",
               isAmharic
                 ? "font-ethiopic text-[0.88rem]"
@@ -174,13 +174,13 @@ export default function HeroSection() {
       <div className="absolute bottom-10 left-11 flex flex-col items-center gap-2 z-10 opacity-0 animate-[fadeIn_1s_1.4s_forwards]">
         <span
           className={clsx(
-            "text-sage/60 text-[0.55rem] tracking-[0.3em] uppercase [writing-mode:vertical-rl] rotate-180",
+            "text-mint/70 text-[0.55rem] tracking-[0.3em] uppercase [writing-mode:vertical-rl] rotate-180",
             isAmharic && "font-ethiopic"
           )}
         >
           {t.scroll}
         </span>
-        <div className="w-px h-14 bg-gradient-to-b from-sage/15 to-sage animate-scroll-down" />
+        <div className="w-px h-14 bg-gradient-to-b from-brightYellow/15 to-limePrimary animate-scroll-down" />
       </div>
     </section>
   );

@@ -31,9 +31,9 @@ export default function SermonsClient({ locale, c }: { locale: string; c: C }) {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[55vh] flex items-end pb-20 px-8 overflow-hidden"
-        style={{ background: "linear-gradient(135deg,#051F20,#0B2B26 40%,#163832 80%,#235347)" }}>
+        style={{ background: "linear-gradient(135deg,#1B1B1B,#1B1B1B 40%,#1B1B1B 80%,#1B1B1B)" }}>
         <div className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(rgba(142,182,155,.07) 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
+          style={{ backgroundImage: "radial-gradient(rgba(0,208,132,.07) 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="relative z-10 max-w-4xl">
           <Reveal>
             <span className={clsx("inline-flex items-center gap-3 text-gold mb-5",
@@ -53,7 +53,7 @@ export default function SermonsClient({ locale, c }: { locale: string; c: C }) {
       </section>
 
       {/* ── FEATURED SERMONS ── */}
-      <section className="py-28 px-8" style={{ background: "#051F20" }}>
+      <section className="py-28 px-8" style={{ background: "#1B1B1B" }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="mb-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
@@ -120,7 +120,7 @@ export default function SermonsClient({ locale, c }: { locale: string; c: C }) {
       </section>
 
       {/* ── AUDIO SERMONS ── */}
-      <section className="py-24 px-8" style={{ background: "#E8F5E9" }}>
+      <section className="py-24 px-8" style={{ background: "#F7F7F7" }}>
         <div className="max-w-4xl mx-auto">
           <Reveal className="text-center mb-14">
             <h2 className={clsx(serif, "font-semibold text-deep text-[clamp(1.6rem,2.8vw,2.2rem)] mb-3")}>{c.audioTitle}</h2>
@@ -130,7 +130,7 @@ export default function SermonsClient({ locale, c }: { locale: string; c: C }) {
             {c.sermons.slice(0,4).map((s, i) => (
               <Reveal key={i} delay={i * 0.07}>
                 <div className="flex items-center gap-4 p-5 rounded-xl bg-white border border-transparent
-                  hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(35,83,71,.08)] transition-all duration-250 group">
+                  hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(27,27,27,.08)] transition-all duration-250 group">
                   <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center flex-shrink-0
                     group-hover:bg-forest/20 transition-colors">
                     <Headphones size={16} className="text-forest" />
@@ -153,7 +153,7 @@ export default function SermonsClient({ locale, c }: { locale: string; c: C }) {
       </section>
 
       {/* ── YOUTUBE ARCHIVE ── */}
-      <section className="py-24 px-8" style={{ background: "linear-gradient(135deg,#051F20,#0B2B26 60%,#163832)" }}>
+      <section className="py-24 px-8" style={{ background: "linear-gradient(135deg,#1B1B1B,#1B1B1B 60%,#1B1B1B)" }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
@@ -167,7 +167,7 @@ export default function SermonsClient({ locale, c }: { locale: string; c: C }) {
               className={clsx("inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold",
                 "transition-all duration-200 hover:-translate-y-0.5",
                 isAm ? "font-ethiopic text-[0.9rem]" : "font-sans text-[0.8rem] uppercase tracking-[0.1em]")}
-              style={{ background: "#FF0000", color: "#fff", boxShadow: "0 4px 24px rgba(255,0,0,0.35)" }}>
+              style={{ background: "#D6FF00", color: "#F7F7F7", boxShadow: "0 4px 24px rgba(255,0,0,0.35)" }}>
               <Youtube size={16} />{c.youtubeBtn}
             </a>
           </Reveal>

@@ -32,7 +32,7 @@ export default function ScrollProgress() {
           className="absolute bottom-0 left-0 right-0 rounded-full origin-bottom"
           style={{
             scaleY,
-            background: "linear-gradient(to top, #8EB69B, #235347)",
+            background: "linear-gradient(to top, #00D084, #1B1B1B)",
           }}
         />
       </div>
@@ -48,9 +48,9 @@ export default function ScrollProgress() {
           "fixed bottom-12 right-4 z-50",
           "w-9 h-9 rounded-full",
           "glass flex items-center justify-center",
-          "text-sage hover:text-mint hover:bg-forest/60",
+          "text-sage hover:text-mint hover:bg-sage/80",
           "transition-colors duration-200 cursor-pointer",
-          "shadow-lg shadow-black/30"
+          "shadow-lg shadow-charcoal/30"
         )}
       >
         <svg

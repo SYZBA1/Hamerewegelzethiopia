@@ -31,7 +31,7 @@ export default function LMSDashboardPage() {
 
   return (
     <main className="mx-auto flex min-h-screen items-center justify-center text-white">
-      {isLoading && <p className="text-lg text-[#c0ddc8]">Redirecting to your role dashboard...</p>}
+      {isLoading && <p className="text-lg text-mint/80">Redirecting to your role dashboard...</p>}
     </main>
   );
 }

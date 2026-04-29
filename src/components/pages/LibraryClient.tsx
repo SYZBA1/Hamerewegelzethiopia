@@ -28,18 +28,18 @@ export default function LibraryClient({ locale, c }: { locale: string; c: C }) {
   const cats  = [c.catAll, c.catManuscripts, c.catBooks, c.catAudio, c.catJournals];
 
   const ACCESS_FEATURES = [
-    { Icon: BookOpen, title: c.freeTitle, desc: c.freeDesc, bg: "#E8F5E9", border: "#235347" },
-    { Icon: Lock,     title: c.paidTitle, desc: c.paidDesc, bg: "#E8F5E9", border: "#163832" },
-    { Icon: FileText, title: c.pdfTitle,  desc: c.pdfDesc,  bg: "#E8F5E9", border: "#235347" },
+    { Icon: BookOpen, title: c.freeTitle, desc: c.freeDesc, bg: "#F7F7F7", border: "#1B1B1B" },
+    { Icon: Lock,     title: c.paidTitle, desc: c.paidDesc, bg: "#F7F7F7", border: "#1B1B1B" },
+    { Icon: FileText, title: c.pdfTitle,  desc: c.pdfDesc,  bg: "#F7F7F7", border: "#1B1B1B" },
   ];
 
   return (
     <>
       {/* ── HERO + SEARCH ── */}
       <section className="relative min-h-[60vh] flex items-end pb-16 px-8 overflow-hidden"
-        style={{ background: "linear-gradient(135deg,#051F20,#0B2B26 40%,#163832 80%,#235347)" }}>
+        style={{ background: "linear-gradient(135deg,#1B1B1B,#1B1B1B 40%,#1B1B1B 80%,#1B1B1B)" }}>
         <div className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(rgba(142,182,155,.06) 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
+          style={{ backgroundImage: "radial-gradient(rgba(0,208,132,.06) 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="relative z-10 w-full max-w-3xl">
           <Reveal>
             <span className={clsx("inline-flex items-center gap-3 text-gold mb-5",
@@ -71,7 +71,7 @@ export default function LibraryClient({ locale, c }: { locale: string; c: C }) {
       </section>
 
       {/* ── STATS BAND ── */}
-      <section style={{ background: "#0B2B26", borderTop: "1px solid rgba(142,182,155,.08)", borderBottom: "1px solid rgba(142,182,155,.08)" }}>
+      <section style={{ background: "#1B1B1B", borderTop: "1px solid rgba(0,208,132,.08)", borderBottom: "1px solid rgba(0,208,132,.08)" }}>
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4">
           {c.stats.map((s, i) => (
             <Reveal key={i} delay={i * 0.08}>
@@ -85,7 +85,7 @@ export default function LibraryClient({ locale, c }: { locale: string; c: C }) {
       </section>
 
       {/* ── ACCESS FEATURES ── */}
-      <section className="py-28 px-8" style={{ background: "#ffffff" }}>
+      <section className="py-28 px-8" style={{ background: "#F7F7F7" }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
             {ACCESS_FEATURES.map(({ Icon, title, desc }, i) => (
@@ -127,8 +127,8 @@ export default function LibraryClient({ locale, c }: { locale: string; c: C }) {
             {c.resources.map((r, i) => (
               <Reveal key={i} delay={i * 0.06} direction="up">
                 <div className="group flex items-start gap-4 p-6 rounded-xl border border-transparent
-                  hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(35,83,71,.08)] transition-all duration-250 cursor-pointer"
-                  style={{ background: "#E8F5E9" }}>
+                  hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(27,27,27,.08)] transition-all duration-250 cursor-pointer"
+                  style={{ background: "#F7F7F7" }}>
                   <span className="text-2xl opacity-65 flex-shrink-0">{RES_ICONS[i]}</span>
                   <div className="flex-1 min-w-0">
                     <span className="inline-block mb-2 px-2.5 py-0.5 rounded-full bg-forest/10 text-forest border border-forest/15
@@ -147,7 +147,7 @@ export default function LibraryClient({ locale, c }: { locale: string; c: C }) {
           <Reveal className="text-center">
             <button className={clsx("inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold",
               "bg-forest text-mist hover:bg-mid hover:-translate-y-0.5",
-              "shadow-[0_4px_24px_rgba(35,83,71,.3)] transition-all duration-200",
+              "shadow-[0_4px_24px_rgba(27,27,27,.3)] transition-all duration-200",
               isAm ? "font-ethiopic text-[0.9rem]" : "font-sans text-[0.8rem] uppercase tracking-[0.1em]")}>
               {c.accessBtn}<ArrowRight size={15} />
             </button>

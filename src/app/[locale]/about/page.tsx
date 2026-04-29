@@ -4,7 +4,7 @@ import LocaleFadeWrapper from "@/components/LocaleFadeWrapper";
 import Navbar from "@/components/Navbar";
 import AboutPageClient from "@/components/AboutPageClient";
 import ScrollProgress from "@/components/ScrollProgress";
-import Footer from "@/components/Footer";
+import HomeFooter from "@/components/home/Footer";
 import type { Locale } from "@/context/LanguageContext";
 
 export default async function AboutPage({
@@ -71,7 +71,7 @@ export default async function AboutPage({
       <Navbar />
       <LocaleFadeWrapper>
         <AboutPageClient locale={locale} content={content} />
-        <Footer />
+        <HomeFooter locale={locale} />
       </LocaleFadeWrapper>
     </LanguageProvider>
   );

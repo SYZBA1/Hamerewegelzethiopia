@@ -30,7 +30,7 @@ export default function LMSLayout({ children }: { children: ReactNode }) {
 
   return (
     <AuthProvider>
-      <div className="relative min-h-screen bg-main-gradient text-white">
+      <div className="relative min-h-screen text-softWhite">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -38,7 +38,7 @@ export default function LMSLayout({ children }: { children: ReactNode }) {
               "url('https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1800&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-[#0C342C]/70 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(5,148,74,0.78),rgba(51,183,79,0.62),rgba(214,255,0,0.45))] backdrop-blur-sm" />
 
         <div className="relative z-10 min-h-screen">
           {isAuthRoute ? (
@@ -52,7 +52,7 @@ export default function LMSLayout({ children }: { children: ReactNode }) {
               {/* Mobile Sidebar Overlay */}
               {mobileSidebarOpen && (
                 <div className="fixed inset-0 z-50 md:hidden">
-                  <div className="absolute inset-0 bg-black/50" onClick={() => setMobileSidebarOpen(false)} />
+                  <div className="absolute inset-0 bg-[var(--charcoal)]/58" onClick={() => setMobileSidebarOpen(false)} />
                   <div className="absolute left-0 top-0 h-full">
                     <Sidebar isCollapsed={false} onToggle={() => setMobileSidebarOpen(false)} />
                   </div>

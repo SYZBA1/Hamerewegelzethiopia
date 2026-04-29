@@ -53,34 +53,34 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
         return (
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-[#8EB69B] mb-2">Course Title</label>
+              <label className="block text-sm font-medium text-[#00D084] mb-2">Course Title</label>
               <input
                 type="text"
                 value={courseData.title}
                 onChange={(e) => updateCourseData("title", e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white placeholder-[#8EB69B] focus:outline-none focus:border-[#8EB69B]"
+                className="w-full px-4 py-3 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white placeholder-[#00D084] focus:outline-none focus:border-[#00D084]"
                 placeholder="Enter course title"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#8EB69B] mb-2">Description</label>
+              <label className="block text-sm font-medium text-[#00D084] mb-2">Description</label>
               <textarea
                 value={courseData.description}
                 onChange={(e) => updateCourseData("description", e.target.value)}
                 rows={4}
-                className="w-full px-4 py-3 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white placeholder-[#8EB69B] focus:outline-none focus:border-[#8EB69B]"
+                className="w-full px-4 py-3 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white placeholder-[#00D084] focus:outline-none focus:border-[#00D084]"
                 placeholder="Describe your course"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#8EB69B] mb-2">Category</label>
+                <label className="block text-sm font-medium text-[#00D084] mb-2">Category</label>
                 <select
                   value={courseData.category}
                   onChange={(e) => updateCourseData("category", e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white focus:outline-none focus:border-[#8EB69B]"
+                  className="w-full px-4 py-3 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white focus:outline-none focus:border-[#00D084]"
                 >
                   <option value="">Select category</option>
                   <option value="theology">Theology</option>
@@ -91,11 +91,11 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#8EB69B] mb-2">Level</label>
+                <label className="block text-sm font-medium text-[#00D084] mb-2">Level</label>
                 <select
                   value={courseData.level}
                   onChange={(e) => updateCourseData("level", e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white focus:outline-none focus:border-[#8EB69B]"
+                  className="w-full px-4 py-3 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white focus:outline-none focus:border-[#00D084]"
                 >
                   <option value="beginner">Beginner</option>
                   <option value="intermediate">Intermediate</option>
@@ -105,12 +105,12 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#8EB69B] mb-2">Duration (weeks)</label>
+              <label className="block text-sm font-medium text-[#00D084] mb-2">Duration (weeks)</label>
               <input
                 type="number"
                 value={courseData.duration}
                 onChange={(e) => updateCourseData("duration", e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-[#0B2B26]/70 border border-white/20 text-white placeholder-[#8EB69B] focus:outline-none focus:border-[#8EB69B]"
+                className="w-full px-4 py-3 rounded-lg bg-[#1B1B1B]/70 border border-white/20 text-white placeholder-[#00D084] focus:outline-none focus:border-[#00D084]"
                 placeholder="Enter duration in weeks"
               />
             </div>
@@ -121,10 +121,10 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white">Course Modules</h3>
-            <p className="text-[#8EB69B] text-sm">Add modules and lessons for your course</p>
+            <p className="text-[#00D084] text-sm">Add modules and lessons for your course</p>
 
             {courseData.modules.map((module, index) => (
-              <div key={index} className="rounded-lg bg-[#0B2B26]/70 p-4 border border-white/20">
+              <div key={index} className="rounded-lg bg-[#1B1B1B]/70 p-4 border border-white/20">
                 <input
                   type="text"
                   placeholder="Module title"
@@ -134,7 +134,7 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
                     newModules[index] = { ...newModules[index], title: e.target.value };
                     updateCourseData("modules", newModules);
                   }}
-                  className="w-full px-3 py-2 rounded bg-[#051F20]/70 border border-white/20 text-white placeholder-[#8EB69B] focus:outline-none focus:border-[#8EB69B] mb-2"
+                  className="w-full px-3 py-2 rounded bg-[#1B1B1B]/70 border border-white/20 text-white placeholder-[#00D084] focus:outline-none focus:border-[#00D084] mb-2"
                 />
                 <textarea
                   placeholder="Module description"
@@ -145,14 +145,14 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
                     updateCourseData("modules", newModules);
                   }}
                   rows={2}
-                  className="w-full px-3 py-2 rounded bg-[#051F20]/70 border border-white/20 text-white placeholder-[#8EB69B] focus:outline-none focus:border-[#8EB69B]"
+                  className="w-full px-3 py-2 rounded bg-[#1B1B1B]/70 border border-white/20 text-white placeholder-[#00D084] focus:outline-none focus:border-[#00D084]"
                 />
               </div>
             ))}
 
             <button
               onClick={() => updateCourseData("modules", [...courseData.modules, { title: "", description: "" }])}
-              className="w-full py-2 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#8EB69B] font-medium transition-colors"
+              className="w-full py-2 rounded-lg bg-[#1B1B1B] hover:bg-[#1B1B1B] text-[#00D084] font-medium transition-colors"
             >
               + Add Module
             </button>
@@ -163,12 +163,12 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white">Course Materials</h3>
-            <p className="text-[#8EB69B] text-sm">Upload files, videos, and other resources</p>
+            <p className="text-[#00D084] text-sm">Upload files, videos, and other resources</p>
 
             <div className="border-2 border-dashed border-white/20 rounded-lg p-8 text-center">
-              <Upload className="mx-auto mb-4 text-[#8EB69B]" size={48} />
-              <p className="text-[#8EB69B] mb-2">Drag and drop files here or click to browse</p>
-              <button className="px-4 py-2 rounded-lg bg-[#163832] hover:bg-[#235347] text-[#8EB69B] font-medium transition-colors">
+              <Upload className="mx-auto mb-4 text-[#00D084]" size={48} />
+              <p className="text-[#00D084] mb-2">Drag and drop files here or click to browse</p>
+              <button className="px-4 py-2 rounded-lg bg-[#1B1B1B] hover:bg-[#1B1B1B] text-[#00D084] font-medium transition-colors">
                 Browse Files
               </button>
             </div>
@@ -176,7 +176,7 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
             {courseData.materials.length > 0 && (
               <div className="space-y-2">
                 {courseData.materials.map((material, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-[#0B2B26]/70">
+                  <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-[#1B1B1B]/70">
                     <span className="text-white">{material.name}</span>
                     <button className="text-red-400 hover:text-red-300">Remove</button>
                   </div>
@@ -193,7 +193,7 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
 
             <div className="space-y-4">
               <div>
-                <h4 className="font-medium text-[#8EB69B]">Course Information</h4>
+                <h4 className="font-medium text-[#00D084]">Course Information</h4>
                 <p className="text-white"><strong>Title:</strong> {courseData.title}</p>
                 <p className="text-white"><strong>Category:</strong> {courseData.category}</p>
                 <p className="text-white"><strong>Level:</strong> {courseData.level}</p>
@@ -201,18 +201,18 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
               </div>
 
               <div>
-                <h4 className="font-medium text-[#8EB69B]">Modules ({courseData.modules.length})</h4>
+                <h4 className="font-medium text-[#00D084]">Modules ({courseData.modules.length})</h4>
                 {courseData.modules.map((module, index) => (
                   <div key={index} className="ml-4 mt-2">
                     <p className="text-white font-medium">{module.title}</p>
-                    <p className="text-[#cbe6ce] text-sm">{module.description}</p>
+                    <p className="text-[#F7F7F7] text-sm">{module.description}</p>
                   </div>
                 ))}
               </div>
 
               <div>
-                <h4 className="font-medium text-[#8EB69B]">Materials ({courseData.materials.length})</h4>
-                <p className="text-[#cbe6ce] text-sm">Files uploaded</p>
+                <h4 className="font-medium text-[#00D084]">Materials ({courseData.materials.length})</h4>
+                <p className="text-[#F7F7F7] text-sm">Files uploaded</p>
               </div>
             </div>
           </div>
@@ -224,7 +224,7 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
   };
 
   return (
-    <div className="rounded-2xl border border-white/20 bg-white/10 p-6 shadow-lg shadow-black/20">
+    <div className="rounded-2xl border border-white/20 bg-white/10 p-6 shadow-lg shadow-charcoal/20">
       {/* Progress Indicator */}
       <div className="flex items-center justify-between mb-8">
         {steps.map((step, index) => (
@@ -232,21 +232,21 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
             <div
               className={`flex items-center justify-center w-10 h-10 rounded-full ${
                 currentStep >= step.id
-                  ? "bg-[#8EB69B] text-[#051F20]"
-                  : "bg-[#0B2B26] text-[#8EB69B]"
+                  ? "bg-[#00D084] text-[#1B1B1B]"
+                  : "bg-[#1B1B1B] text-[#00D084]"
               }`}
             >
               <step.icon size={20} />
             </div>
             <span
               className={`ml-2 text-sm font-medium ${
-                currentStep >= step.id ? "text-[#8EB69B]" : "text-[#cbe6ce]"
+                currentStep >= step.id ? "text-[#00D084]" : "text-[#F7F7F7]"
               }`}
             >
               {step.title}
             </span>
             {index < steps.length - 1 && (
-              <ChevronRight className="ml-4 text-[#8EB69B]" size={16} />
+              <ChevronRight className="ml-4 text-[#00D084]" size={16} />
             )}
           </div>
         ))}
@@ -261,7 +261,7 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
       <div className="flex justify-between mt-8">
         <button
           onClick={currentStep === 1 ? onCancel : handlePrevious}
-          className="px-6 py-2 rounded-lg bg-[#0B2B26] hover:bg-[#163832] text-[#8EB69B] font-medium transition-colors"
+          className="px-6 py-2 rounded-lg bg-[#1B1B1B] hover:bg-[#1B1B1B] text-[#00D084] font-medium transition-colors"
         >
           {currentStep === 1 ? "Cancel" : "Previous"}
         </button>
@@ -270,14 +270,14 @@ const CourseBuilder = memo(function CourseBuilder({ onSave, onCancel }: CourseBu
           {currentStep < steps.length ? (
             <button
               onClick={handleNext}
-              className="px-6 py-2 rounded-lg bg-[#8EB69B] hover:bg-[#9bb69b] text-[#051F20] font-medium transition-colors"
+              className="px-6 py-2 rounded-lg bg-[#00D084] hover:bg-[#A6FF4D] text-[#1B1B1B] font-medium transition-colors"
             >
               Next
             </button>
           ) : (
             <button
               onClick={handleSave}
-              className="flex items-center gap-2 px-6 py-2 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-500 text-[#091913] font-medium hover:shadow-lg transition-shadow"
+              className="flex items-center gap-2 px-6 py-2 rounded-lg bg-gradient-to-r from-limeCTA to-primaryBg text-[#1B1B1B] font-medium hover:shadow-lg transition-shadow"
             >
               <Save size={16} />
               Create Course

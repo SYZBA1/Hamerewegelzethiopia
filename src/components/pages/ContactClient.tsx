@@ -32,10 +32,10 @@ interface C {
 }
 
 const SOCIAL_LINKS = [
-  { label: "Facebook", icon: "f", color: "#1877F2", href: "https://facebook.com" },
-  { label: "YouTube", icon: ">", color: "#FF0000", href: "https://youtube.com" },
-  { label: "Telegram", icon: "T", color: "#0088CC", href: "https://t.me" },
-  { label: "Twitter", icon: "X", color: "#000000", href: "https://x.com" },
+  { label: "Facebook", icon: "f", color: "#00D084", href: "https://facebook.com" },
+  { label: "YouTube", icon: ">", color: "#D6FF00", href: "https://youtube.com" },
+  { label: "Telegram", icon: "T", color: "#00D084", href: "https://t.me" },
+  { label: "Twitter", icon: "X", color: "#1B1B1B", href: "https://x.com" },
 ] as const;
 
 export default function ContactClient({ locale, c }: { locale: string; c: C }) {
@@ -46,7 +46,7 @@ export default function ContactClient({ locale, c }: { locale: string; c: C }) {
 
   const inputCls = clsx(
     "w-full px-4 py-3 rounded-xl border border-forest/20 bg-white outline-none",
-    "focus:border-forest/55 focus:shadow-[0_0_0_3px_rgba(35,83,71,.08)] transition-all text-deep",
+    "focus:border-forest/55 focus:shadow-[0_0_0_3px_rgba(27,27,27,.08)] transition-all text-deep",
     isAm ? "font-ethiopic text-[0.88rem]" : "font-sans text-[0.9rem]"
   );
 
@@ -86,11 +86,11 @@ export default function ContactClient({ locale, c }: { locale: string; c: C }) {
     <>
       <section
         className="relative min-h-[50vh] flex items-end pb-20 px-8 overflow-hidden"
-        style={{ background: "linear-gradient(135deg,#051F20,#0B2B26 40%,#163832 80%,#235347)" }}
+        style={{ background: "linear-gradient(135deg,#1B1B1B,#1B1B1B 40%,#1B1B1B 80%,#1B1B1B)" }}
       >
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(rgba(142,182,155,.06) 1px,transparent 1px)", backgroundSize: "28px 28px" }}
+          style={{ backgroundImage: "radial-gradient(rgba(0,208,132,.06) 1px,transparent 1px)", backgroundSize: "28px 28px" }}
         />
         <div className="relative z-10 max-w-4xl">
           <Reveal>
@@ -123,14 +123,14 @@ export default function ContactClient({ locale, c }: { locale: string; c: C }) {
         </div>
       </section>
 
-      <section className="py-28 px-8" style={{ background: "#ffffff" }}>
+      <section className="py-28 px-8" style={{ background: "#F7F7F7" }}>
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14">
           <Reveal direction="left">
             <h2 className={clsx(serif, "font-semibold text-deep mb-8 text-[clamp(1.5rem,2.5vw,2rem)]")}>{c.formTitle}</h2>
             {sent ? (
               <div
                 className="flex flex-col items-center justify-center h-64 rounded-2xl border-2 border-dashed border-forest/25 text-center px-8"
-                style={{ background: "#E8F5E9" }}
+                style={{ background: "#F7F7F7" }}
               >
                 <div className="w-14 h-14 rounded-full bg-forest/10 flex items-center justify-center mb-4">
                   <Send size={22} className="text-forest" />
@@ -161,7 +161,7 @@ export default function ContactClient({ locale, c }: { locale: string; c: C }) {
                   className={clsx(
                     "w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold",
                     "bg-forest text-mist hover:bg-mid hover:-translate-y-0.5 transition-all duration-200",
-                    "shadow-[0_4px_24px_rgba(35,83,71,.3)]",
+                    "shadow-[0_4px_24px_rgba(27,27,27,.3)]",
                     isAm ? "font-ethiopic text-[0.9rem]" : "font-sans text-[0.8rem] uppercase tracking-[0.1em]"
                   )}
                 >
@@ -184,8 +184,8 @@ export default function ContactClient({ locale, c }: { locale: string; c: C }) {
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noreferrer" : undefined}
-                  className="group flex items-start gap-4 p-5 rounded-xl border border-transparent hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(35,83,71,.08)] transition-all duration-250 block"
-                  style={{ background: "#E8F5E9" }}
+                  className="group flex items-start gap-4 p-5 rounded-xl border border-transparent hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(27,27,27,.08)] transition-all duration-250 block"
+                  style={{ background: "#F7F7F7" }}
                 >
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-forest/10 group-hover:bg-forest/20 transition-colors">
                     <Icon size={16} className="text-forest" strokeWidth={1.8} />
@@ -220,29 +220,29 @@ export default function ContactClient({ locale, c }: { locale: string; c: C }) {
         </div>
       </section>
 
-      <section className="py-20 px-8" style={{ background: "#E8F5E9" }}>
+      <section className="py-20 px-8" style={{ background: "#F7F7F7" }}>
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-10">
             <h2 className={clsx(serif, "font-semibold text-deep text-[clamp(1.5rem,2.5vw,1.9rem)]")}>{c.mapTitle}</h2>
             <div className="w-12 h-[2px] bg-gradient-to-r from-forest to-transparent mx-auto mt-4 rounded-full" />
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(35,83,71,.18)]">
+            <div className="rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(27,27,27,.18)]">
               <svg
                 viewBox="0 0 100 60"
                 className="w-full"
-                style={{ background: "linear-gradient(135deg,#163832,#0B2B26,#051F20)", minHeight: 280 }}
+                style={{ background: "linear-gradient(135deg,#1B1B1B,#1B1B1B,#1B1B1B)", minHeight: 280 }}
               >
-                <path d="M42 18 Q55 14 65 20 Q70 30 66 42 Q58 52 50 50 Q42 45 40 35 Q38 25 42 18Z" fill="rgba(142,182,155,.09)" />
-                <path d="M46 25 Q50 22 54 26 Q56 32 53 36 Q49 39 46 37 Q43 32 46 25Z" fill="rgba(142,182,155,.06)" />
+                <path d="M42 18 Q55 14 65 20 Q70 30 66 42 Q58 52 50 50 Q42 45 40 35 Q38 25 42 18Z" fill="rgba(0,208,132,.09)" />
+                <path d="M46 25 Q50 22 54 26 Q56 32 53 36 Q49 39 46 37 Q43 32 46 25Z" fill="rgba(0,208,132,.06)" />
                 {[[52, 30, 52, 10], [52, 30, 70, 30], [52, 30, 30, 30], [52, 30, 52, 50]].map(([x1, y1, x2, y2], i) => (
-                  <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(142,182,155,.1)" strokeWidth=".5" />
+                  <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(0,208,132,.1)" strokeWidth=".5" />
                 ))}
                 <circle cx="52" cy="30" r="7" fill="rgba(201,169,110,.08)" />
                 <circle cx="52" cy="30" r="4.5" fill="rgba(201,169,110,.15)" />
-                <circle cx="52" cy="30" r="3" fill="#C9A96E" opacity=".9" />
-                <circle cx="52" cy="30" r="1.2" fill="#fff" opacity=".7" />
-                <text x="56" y="28" fontSize="3.5" fill="rgba(218,241,222,.5)" fontFamily="DM Sans,sans-serif">
+                <circle cx="52" cy="30" r="3" fill="#D6FF00" opacity=".9" />
+                <circle cx="52" cy="30" r="1.2" fill="#F7F7F7" opacity=".7" />
+                <text x="56" y="28" fontSize="3.5" fill="rgba(247,247,247,.5)" fontFamily="DM Sans,sans-serif">
                   Addis Ababa HQ
                 </text>
               </svg>

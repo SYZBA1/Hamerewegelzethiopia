@@ -70,7 +70,7 @@ export default function CourseDetailPage({ params }: { params: { id: string } })
           <p className="text-sm text-slate-300">Instructor: {course.instructor}</p>
           <p className="text-xs text-slate-400">Progress: {course.progress}%</p>
         </div>
-        <Link href="/lms/courses" className="rounded-lg border border-amber-300 px-3 py-1 text-slate-100 hover:bg-amber-500/20">
+        <Link href="/lms/courses" className="rounded-lg border border-amber-300 px-3 py-1 text-slate-100 hover:bg-limeCTA/20">
           Back to Courses
         </Link>
       </div>

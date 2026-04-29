@@ -19,7 +19,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Noto+Serif+Ethiopic:wght@300;400;600&display=swap"
         />
       </head>
-      <body>{children}</body>
+      <body className="theme-light">{children}</body>
     </html>
   );
 }

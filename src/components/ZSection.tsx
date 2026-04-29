@@ -62,13 +62,13 @@ export function ImagePanel({
       {/* Shadow ring behind image */}
       <div
         className="absolute -inset-3 rounded-[28px] opacity-30 blur-xl"
-        style={{ background: "radial-gradient(circle, #235347 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, #1B1B1B 0%, transparent 70%)" }}
       />
       {/* Image frame */}
       <div
         className="relative rounded-[22px] overflow-hidden aspect-[4/3] w-full"
         style={{
-          boxShadow: "0 20px 60px rgba(35,83,71,.28), 0 4px 20px rgba(35,83,71,.15), 0 0 0 1.5px rgba(35,83,71,.12)",
+          boxShadow: "0 20px 60px rgba(27,27,27,.28), 0 4px 20px rgba(27,27,27,.15), 0 0 0 1.5px rgba(27,27,27,.12)",
         }}
       >
         {/* Placeholder — replace with <Image src="..." /> */}
@@ -79,7 +79,7 @@ export function ImagePanel({
           <span style={{ fontSize: "4.5rem", opacity: 0.22 }}>{icon}</span>
           <span
             className="font-sans text-[0.62rem] uppercase tracking-[0.22em]"
-            style={{ color: "rgba(142,182,155,0.4)" }}
+            style={{ color: "rgba(0,208,132,0.4)" }}
           >
             {label}
           </span>
@@ -116,7 +116,7 @@ interface TextPanelProps {
 
 export function TextPanel({
   tag, title, body, linkLabel, linkHref,
-  animationVariant, inView, accentColor = "#235347", locale,
+  animationVariant, inView, accentColor = "#1B1B1B", locale,
 }: TextPanelProps) {
   const isAmharic = locale === "am";
 
@@ -155,7 +155,7 @@ export function TextPanel({
           "text-[clamp(1.85rem,3.2vw,2.7rem)]",
           isAmharic && "font-ethiopic !leading-[1.45]"
         )}
-        style={{ color: "#051F20" }}
+        style={{ color: "#1B1B1B" }}
       >
         {title}
       </motion.h2>
@@ -210,7 +210,7 @@ export function TextPanel({
             {/* Gold underline on hover via CSS sibling */}
             <span
               className="absolute bottom-0 left-0 w-0 group-hover:w-full transition-all duration-350"
-              style={{ height: "1.5px", background: "#C9A96E", borderRadius: "1px" }}
+              style={{ height: "1.5px", background: "#D6FF00", borderRadius: "1px" }}
             />
           </span>
           <svg
@@ -305,7 +305,7 @@ export default function ZSection({ data, locale }: ZSectionProps) {
         className="absolute pointer-events-none"
         style={{
           width: "400px", height: "400px", borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(35,83,71,0.06) 0%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(27,27,27,0.06) 0%, transparent 65%)",
           top: isImageLeft ? "-15%" : "auto",
           bottom: isImageLeft ? "auto" : "-15%",
           left: isImageLeft ? "-10%" : "auto",

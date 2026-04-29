@@ -30,7 +30,7 @@ export default function LMSCoursesPage() {
         <h1 className="text-3xl font-semibold text-amber-200">Courses</h1>
         <Link
           href="/lms/dashboard"
-          className="rounded-lg border border-amber-300 px-4 py-2 text-amber-200 hover:bg-amber-500/20"
+          className="rounded-lg border border-amber-300 px-4 py-2 text-amber-200 hover:bg-limeCTA/20"
         >
           Back to Dashboard
         </Link>
@@ -47,7 +47,7 @@ export default function LMSCoursesPage() {
             <p className="mt-2 text-xs text-slate-300">Progress: {course.progress}%</p>
             <Link
               href={`/lms/courses/${course.id}`}
-              className="mt-3 inline-flex rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-[#091913] hover:bg-amber-400"
+              className="mt-3 inline-flex rounded-lg bg-limeCTA px-3 py-2 text-sm font-medium text-[#1B1B1B] hover:bg-primaryBg"
             >
               Continue Learning
             </Link>

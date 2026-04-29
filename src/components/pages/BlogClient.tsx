@@ -5,10 +5,10 @@ import clsx from "clsx";
 import Reveal from "@/components/Reveal";
 
 const CAT_COLORS: Record<string, string> = {
-  Heritage: "#235347", Education: "#163832", Community: "#0B2B26",
-  Media: "#235347", Theology: "#163832", Events: "#0B2B26",
-  "ቅርስ": "#235347", "ትምህርት": "#163832", "ማህ/ሰብ": "#0B2B26",
-  "ሚዲያ": "#235347", "ሥነ-መለኮት": "#163832", "ዝግጅቶች": "#0B2B26",
+  Heritage: "#1B1B1B", Education: "#1B1B1B", Community: "#1B1B1B",
+  Media: "#1B1B1B", Theology: "#1B1B1B", Events: "#1B1B1B",
+  "ቅርስ": "#1B1B1B", "ትምህርት": "#1B1B1B", "ማህ/ሰብ": "#1B1B1B",
+  "ሚዲያ": "#1B1B1B", "ሥነ-መለኮት": "#1B1B1B", "ዝግጅቶች": "#1B1B1B",
 };
 const POST_ICONS = ["📜","🎓","🌱","📡","✝","📅"];
 
@@ -30,9 +30,9 @@ export default function BlogClient({ locale, c }: { locale: string; c: C }) {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[55vh] flex items-end pb-20 px-8 overflow-hidden"
-        style={{ background: "linear-gradient(135deg,#051F20,#0B2B26 40%,#163832 80%,#235347)" }}>
+        style={{ background: "linear-gradient(135deg,#1B1B1B,#1B1B1B 40%,#1B1B1B 80%,#1B1B1B)" }}>
         <div className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(rgba(142,182,155,.06) 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
+          style={{ backgroundImage: "radial-gradient(rgba(0,208,132,.06) 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="relative z-10 max-w-4xl">
           <Reveal>
             <span className={clsx("inline-flex items-center gap-3 text-gold mb-5",
@@ -52,7 +52,7 @@ export default function BlogClient({ locale, c }: { locale: string; c: C }) {
       </section>
 
       {/* ── LATEST ARTICLES ── */}
-      <section className="py-28 px-8" style={{ background: "#ffffff" }}>
+      <section className="py-28 px-8" style={{ background: "#F7F7F7" }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-16">
             <h2 className={clsx(serif, "font-semibold text-deep text-[clamp(1.8rem,3vw,2.6rem)]")}>{c.latestTitle}</h2>
@@ -62,18 +62,18 @@ export default function BlogClient({ locale, c }: { locale: string; c: C }) {
           {/* Featured post (first) */}
           <Reveal className="mb-8">
             <div className="group grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-transparent
-              hover:border-forest/25 hover:shadow-[0_8px_40px_rgba(35,83,71,.1)] transition-all duration-300">
+              hover:border-forest/25 hover:shadow-[0_8px_40px_rgba(27,27,27,.1)] transition-all duration-300">
               <div className="relative flex items-center justify-center min-h-[260px]"
-                style={{ background: "linear-gradient(135deg,#051F20,#163832,#235347)" }}>
+                style={{ background: "linear-gradient(135deg,#1B1B1B,#1B1B1B,#1B1B1B)" }}>
                 <span className="text-[5rem] opacity-20 select-none">{POST_ICONS[0]}</span>
                 <div className="absolute top-5 left-5">
                   <span className="inline-block px-3 py-1 rounded-full text-[0.6rem] font-bold uppercase tracking-[0.1em] text-white"
-                    style={{ background: CAT_COLORS[c.posts[0].cat] || "#235347" }}>
+                    style={{ background: CAT_COLORS[c.posts[0].cat] || "#1B1B1B" }}>
                     {c.posts[0].cat}
                   </span>
                 </div>
               </div>
-              <div className="p-8 lg:p-10 flex flex-col justify-center" style={{ background: "#E8F5E9" }}>
+              <div className="p-8 lg:p-10 flex flex-col justify-center" style={{ background: "#F7F7F7" }}>
                 <h3 className={clsx(serif, "font-semibold text-deep mb-4 leading-snug",
                   isAm ? "text-[1rem]" : "text-[1.2rem]")}>{c.posts[0].title}</h3>
                 <p className={clsx(body, "text-deep/62 leading-relaxed mb-6",
@@ -98,12 +98,12 @@ export default function BlogClient({ locale, c }: { locale: string; c: C }) {
             {c.posts.slice(1).map((post, i) => (
               <Reveal key={i} delay={i * 0.07} direction="up">
                 <div className="group flex flex-col h-full p-7 rounded-2xl border border-transparent
-                  hover:border-forest/25 hover:shadow-[0_4px_24px_rgba(35,83,71,.08)] transition-all duration-300"
-                  style={{ background: "#E8F5E9" }}>
+                  hover:border-forest/25 hover:shadow-[0_4px_24px_rgba(27,27,27,.08)] transition-all duration-300"
+                  style={{ background: "#F7F7F7" }}>
                   <div className="flex items-start justify-between mb-5">
                     <span className="text-2xl opacity-60">{POST_ICONS[i + 1]}</span>
                     <span className="inline-block px-2.5 py-0.5 rounded-full text-[0.55rem] font-bold uppercase tracking-[0.08em] text-white"
-                      style={{ background: CAT_COLORS[post.cat] || "#235347" }}>
+                      style={{ background: CAT_COLORS[post.cat] || "#1B1B1B" }}>
                       {post.cat}
                     </span>
                   </div>
@@ -133,7 +133,7 @@ export default function BlogClient({ locale, c }: { locale: string; c: C }) {
       </section>
 
       {/* ── SPIRITUAL TEACHINGS ── */}
-      <section className="py-24 px-8" style={{ background: "linear-gradient(180deg,#051F20,#0B2B26)" }}>
+      <section className="py-24 px-8" style={{ background: "linear-gradient(180deg,#1B1B1B,#1B1B1B)" }}>
         <div className="max-w-4xl mx-auto">
           <Reveal className="text-center mb-14">
             <h2 className={clsx(serif, "font-semibold text-mist text-[clamp(1.6rem,2.8vw,2.2rem)] mb-3")}>{c.teachingsTitle}</h2>

@@ -55,15 +55,15 @@ export function PageHero({
     <div
       className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #051F20 0%, #0B2B26 40%, #163832 75%, #235347 100%)",
+        background: "linear-gradient(135deg, #1B1B1B 0%, #00D084 52%, #1B1B1B 100%)",
         padding: "7rem 2.5rem 5rem",
-        borderBottom: "1px solid rgba(142,182,155,0.08)",
+        borderBottom: "1px solid rgba(214,255,0,0.08)",
       }}
     >
       {/* Decorative orb */}
       <div
         className="absolute top-[-20%] right-[-5%] w-[520px] h-[520px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(142,182,155,.08) 0%, transparent 65%)", filter: "blur(60px)" }}
+        style={{ background: "radial-gradient(circle, rgba(214,255,0,.12) 0%, transparent 65%)", filter: "blur(60px)" }}
       />
       <div className="max-w-[1200px] mx-auto relative z-10">
         <Reveal>
@@ -72,9 +72,9 @@ export function PageHero({
               "flex items-center gap-3 mb-5",
               isAm ? "font-ethiopic text-[0.78rem] tracking-[0.08em]" : "font-sans text-[0.62rem] uppercase tracking-[0.28em]"
             )}
-            style={{ color: "#C9A96E" }}
+            style={{ color: "#D6FF00" }}
           >
-            <span className="block w-8 h-px" style={{ background: "#C9A96E" }} />
+            <span className="block w-8 h-px" style={{ background: "#D6FF00" }} />
             {tag}
           </p>
         </Reveal>
@@ -96,7 +96,7 @@ export function PageHero({
               "max-w-[52ch]",
               isAm ? "font-ethiopic text-[0.88rem]" : "font-sans text-[0.96rem]"
             )}
-            style={{ color: "rgba(218,241,222,.6)", lineHeight: 1.85 }}
+            style={{ color: "rgba(247,247,247,.72)", lineHeight: 1.85 }}
           >
             {sub}
           </p>
@@ -128,7 +128,7 @@ export function SectionTitle({ children, light = false }: { children: React.Reac
         className="mx-auto mt-3 rounded-full"
         style={{
           width: "3.5rem", height: "2px",
-          background: `linear-gradient(to right, ${light ? "#8EB69B" : "#235347"}, transparent)`,
+          background: `linear-gradient(to right, ${light ? "#D6FF00" : "#A6FF4D"}, transparent)`,
         }}
       />
     </div>
@@ -143,7 +143,7 @@ export function StatChip({ val, label, light = false }: { val: string; label: st
     <div className="text-center">
       <div
         className="font-serif font-semibold"
-        style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: "#C9A96E", lineHeight: 1 }}
+        style={{ fontSize: "clamp(2rem,4vw,2.8rem)", color: "#D6FF00", lineHeight: 1 }}
       >
         {val}
       </div>

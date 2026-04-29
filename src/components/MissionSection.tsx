@@ -32,7 +32,7 @@ export default function MissionSection() {
           animate={inView ? { scale: 1 } : { scale: 0.92 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="absolute inset-8 rounded-[20px] overflow-hidden shadow-[0_0_60px_rgba(35,83,71,.45),0_20px_60px_rgba(5,31,32,.35)]">
+          <div className="absolute inset-8 rounded-[20px] overflow-hidden shadow-[0_0_60px_rgba(27,27,27,.45),0_20px_60px_rgba(5,31,32,.35)]">
             <div className="w-full h-full bg-gradient-to-br from-mid via-forest to-dark flex flex-col items-center justify-center gap-4">
               <span className="text-5xl opacity-30">+</span>
               <span className="text-sage/40 text-xs tracking-[0.2em] uppercase font-sans">
@@ -123,7 +123,7 @@ export default function MissionSection() {
             href={`/${lang}/about`}
             className={clsx(
               "px-7 py-3 bg-forest text-mist rounded-sm font-medium",
-              "hover:bg-mid hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(35,83,71,.45)]",
+              "hover:bg-mid hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(27,27,27,.45)]",
               "transition-all duration-250",
               isAmharic ? "font-ethiopic text-[0.82rem]" : "font-sans text-[0.78rem] uppercase tracking-[0.12em]"
             )}

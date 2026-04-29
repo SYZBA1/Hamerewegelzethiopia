@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/i18n/translations";
 import MegaMenu from "./MegaMenu";
-import LanguageToggle from "./LanguageToggle";
 import clsx from "clsx";
 
 function Chevron({ open }: { open: boolean }) {
@@ -22,12 +22,17 @@ function Chevron({ open }: { open: boolean }) {
 }
 
 function NavLink({
-  href, children, hasDropdown, isOpen, onHover, onLeave, isActive,
+  href, children, hasDropdown, isOpen, onHover, onLeave, isActive, theme,
 }: {
   href: string; children: React.ReactNode; hasDropdown?: boolean;
   isOpen?: boolean; onHover?: () => void; onLeave?: () => void; isActive?: boolean;
+  theme: "light" | "night";
 }) {
   const { lang } = useLang();
+  const linkClass = theme === "night"
+    ? "text-softWhite/90 hover:text-softWhite hover:bg-softWhite/16"
+    : "text-white hover:text-charcoal hover:bg-charcoal/10";
+
   return (
     <Link
       href={href}
@@ -35,7 +40,7 @@ function NavLink({
       onMouseLeave={onLeave}
       className={clsx(
         "relative flex items-center gap-1 px-3 py-2 rounded-md transition-colors duration-200",
-        isActive ? "text-sage" : "text-mist/65 hover:text-sage hover:bg-sage/[0.07]",
+        isActive ? "bg-primaryBg text-charcoal" : linkClass,
         lang === "am" ? "font-ethiopic text-[0.82rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.09em]"
       )}
     >
@@ -44,7 +49,7 @@ function NavLink({
       {isActive && (
         <motion.span
           layoutId="nav-underline"
-          className="absolute bottom-0 left-3 right-3 h-[1.5px] rounded-full bg-gold"
+          className="absolute bottom-0 left-3 right-3 h-[1.5px] rounded-full bg-gradient-to-r from-primaryBg to-limeCTA"
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
       )}
@@ -57,9 +62,14 @@ export default function Navbar() {
   const t = translations[lang].nav;
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [deptOpen, setDeptOpen] = useState(false);
+  const [educationOpen, setEducationOpen] = useState(false);
+  const [departmentsOpen, setDepartmentsOpen] = useState(false);
+  const [mobileEducationOpen, setMobileEducationOpen] = useState(false);
+  const [mobileDepartmentsOpen, setMobileDepartmentsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const deptTimer = useRef<ReturnType<typeof setTimeout>>();
+  const [theme] = useState<"light" | "night">("light");
+  const educationTimer = useRef<ReturnType<typeof setTimeout>>();
+  const departmentsTimer = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -69,8 +79,18 @@ export default function Navbar() {
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
-  const openDept  = () => { clearTimeout(deptTimer.current); setDeptOpen(true); };
-  const closeDept = () => { deptTimer.current = setTimeout(() => setDeptOpen(false), 130); };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("site-theme", "light");
+    }
+    document.body.classList.remove("theme-light", "theme-night");
+    document.body.classList.add("theme-light");
+  }, []);
+
+  const openEducation = () => { clearTimeout(educationTimer.current); setEducationOpen(true); };
+  const closeEducation = () => { educationTimer.current = setTimeout(() => setEducationOpen(false), 130); };
+  const openDepartments = () => { clearTimeout(departmentsTimer.current); setDepartmentsOpen(true); };
+  const closeDepartments = () => { departmentsTimer.current = setTimeout(() => setDepartmentsOpen(false), 130); };
 
   const base = `/${lang}`;
   const h = (path: string) => (path === "/" ? base : `${base}${path}`);
@@ -83,77 +103,108 @@ export default function Navbar() {
     { key: "about",       path: "/about" },
     { key: "sermons",     path: "/sermons" },
     { key: "blog",        path: "/blog" },
-    { key: "library",     path: "/library" },
     { key: "contact",     path: "/contact" },
   ];
 
   const mobileLinks = [
     ...mainLinks,
-    { key: "departments", path: "/departments" },
-    { key: "lms",         path: "/lms/login" },
     { key: "donate",      path: "/donate" },
   ];
 
+  const navTextClass = theme === "night"
+    ? "text-softWhite/90 hover:text-softWhite hover:bg-softWhite/16"
+    : "text-charcoal/85 hover:text-charcoal hover:bg-charcoal/10";
   return (
     <nav className={clsx(
       "fixed top-0 inset-x-0 z-50 transition-all duration-400",
-      scrolled ? "glass shadow-xl shadow-black/30" : "bg-transparent"
+      scrolled ? "nav-surface shadow-xl shadow-charcoal/10" : "bg-transparent"
     )}>
       <div className="flex items-center justify-between px-8 lg:px-10 py-4 max-w-[1440px] mx-auto">
 
         {/* Logo */}
-        <Link href={h("/")} className="flex flex-col flex-shrink-0 group" aria-label="Hamere Wengel Zethiopia">
-          <span className="font-serif text-[1.05rem] text-sage leading-none tracking-wide group-hover:text-mist transition-colors">
-            Hamere Wengel
-          </span>
-          <span className="text-[0.52rem] uppercase tracking-[0.2em] text-gold/85 mt-0.5">
-            Zethiopia Ministry
-          </span>
+        <Link href={h("/")} className="flex flex-shrink-0 items-center" aria-label="Hamere Wengel Zethiopia">
+          <Image
+            src="/assets/logo.png"
+            alt="Hamere Wengel Zethiopia logo"
+            width={52}
+            height={52}
+            priority
+            className="h-12 w-12 rounded-full object-contain"
+          />
         </Link>
 
         {/* Desktop links */}
         <ul className="hidden lg:flex items-center gap-0.5 list-none">
           {mainLinks.slice(0, 2).map(({ key, path }) => (
             <li key={key}>
-              <NavLink href={h(path)} isActive={is(path)}>{t[key as keyof typeof t]}</NavLink>
+              <NavLink href={h(path)} isActive={is(path)} theme={theme}>{t[key as keyof typeof t]}</NavLink>
             </li>
           ))}
 
           {/* Departments dropdown */}
-          <li className="relative" onMouseEnter={openDept} onMouseLeave={closeDept}>
-            <NavLink href={h("/departments")} hasDropdown isOpen={deptOpen}
-              isActive={is("/departments")} onHover={openDept} onLeave={closeDept}>
+          <li className="relative" onMouseEnter={openDepartments} onMouseLeave={closeDepartments}>
+            <NavLink
+              href={h("/departments")}
+              hasDropdown
+              isOpen={departmentsOpen}
+              isActive={is("/departments")}
+              theme={theme}
+              onHover={openDepartments}
+              onLeave={closeDepartments}
+            >
               {t.departments}
             </NavLink>
-            <MegaMenu isOpen={deptOpen} locale={lang} onMouseEnter={openDept} onMouseLeave={closeDept} />
+            <MegaMenu
+              isOpen={departmentsOpen}
+              locale={lang}
+              kind="departments"
+              onMouseEnter={openDepartments}
+              onMouseLeave={closeDepartments}
+            />
+          </li>
+
+          {/* Education dropdown */}
+          <li className="relative" onMouseEnter={openEducation} onMouseLeave={closeEducation}>
+            <NavLink href={h("/education")} hasDropdown isOpen={educationOpen}
+              isActive={is("/education")}
+              theme={theme}
+              onHover={openEducation}
+              onLeave={closeEducation}
+            >
+              {t.education}
+            </NavLink>
+            <MegaMenu
+              isOpen={educationOpen}
+              locale={lang}
+              kind="education"
+              onMouseEnter={openEducation}
+              onMouseLeave={closeEducation}
+            />
           </li>
 
           {mainLinks.slice(2).map(({ key, path }) => (
             <li key={key}>
-              <NavLink href={h(path)} isActive={is(path)}>{t[key as keyof typeof t]}</NavLink>
+              <NavLink href={h(path)} isActive={is(path)} theme={theme}>{t[key as keyof typeof t]}</NavLink>
             </li>
           ))}
+
+          <li>
+            <Link
+              href={h("/donate")}
+              className={clsx(
+                "crypto-btn-primary ml-1 inline-flex items-center px-4 py-2 font-semibold",
+                lang === "am" ? "font-ethiopic text-[0.78rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.1em]"
+              )}
+            >
+              {t.donate}
+            </Link>
+          </li>
         </ul>
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Link href={h("/lms/login")} className={clsx(
-            "hidden sm:block px-4 py-2 rounded-sm border border-sage/40 text-sage",
-            "transition-all duration-250 hover:bg-sage hover:text-deep",
-            lang === "am" ? "font-ethiopic text-[0.78rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.1em]"
-          )}>{t.lms}</Link>
-
-          <Link href={h("/donate")} className={clsx(
-            "px-4 py-2 rounded-sm bg-crimson text-white font-semibold",
-            "animate-pulse-red transition-all duration-250",
-            "hover:bg-crimson-glow hover:shadow-[0_0_30px_rgba(231,76,60,.6)]",
-            lang === "am" ? "font-ethiopic text-[0.78rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.1em]"
-          )}>{t.donate}</Link>
-
-          <LanguageToggle />
-
           <button
-            className="lg:hidden ml-1 p-2 rounded-md text-sage/70 hover:text-sage hover:bg-sage/10 transition-colors"
+            className={clsx("lg:hidden ml-1 p-2 rounded-md transition-colors", navTextClass)}
             onClick={() => setMobileOpen(v => !v)}
             aria-label="Toggle navigation"
           >
@@ -174,16 +225,44 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:hidden glass border-t border-sage/10 overflow-hidden"
+            className="lg:hidden nav-surface border-t border-charcoal/10 overflow-hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-1">
+            <div className="px-4 py-4 flex flex-col gap-1">
               {mobileLinks.map(({ key, path }) => (
                 <Link key={key} href={h(path)} className={clsx(
-                  "px-3 py-2.5 rounded-md transition-colors",
-                  "text-mist/70 hover:text-sage hover:bg-sage/[0.07]",
+                  "px-4 py-3 rounded-md transition-colors min-h-[52px]",
+                  navTextClass,
                   lang === "am" ? "font-ethiopic text-[0.88rem]" : "font-sans text-[0.75rem] uppercase tracking-[0.1em]"
                 )}>{t[key as keyof typeof t]}</Link>
               ))}
+
+              <button
+                type="button"
+                onClick={() => setMobileDepartmentsOpen((prev) => !prev)}
+                className={clsx(
+                  "mt-1 flex min-h-[52px] items-center justify-between px-4 py-3 rounded-md transition-colors text-left",
+                  navTextClass,
+                  lang === "am" ? "font-ethiopic text-[0.88rem]" : "font-sans text-[0.75rem] uppercase tracking-[0.1em]"
+                )}
+              >
+                <span>{t.departments}</span>
+                <Chevron open={mobileDepartmentsOpen} />
+              </button>
+              <MegaMenu isOpen={mobileDepartmentsOpen} locale={lang} kind="departments" mobile />
+
+              <button
+                type="button"
+                onClick={() => setMobileEducationOpen((prev) => !prev)}
+                className={clsx(
+                  "mt-2 flex min-h-[52px] items-center justify-between px-4 py-3 rounded-md transition-colors text-left",
+                  navTextClass,
+                  lang === "am" ? "font-ethiopic text-[0.88rem]" : "font-sans text-[0.75rem] uppercase tracking-[0.1em]"
+                )}
+              >
+                <span>{t.education}</span>
+                <Chevron open={mobileEducationOpen} />
+              </button>
+              <MegaMenu isOpen={mobileEducationOpen} locale={lang} kind="education" mobile />
             </div>
           </motion.div>
         )}

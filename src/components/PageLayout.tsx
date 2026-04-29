@@ -17,7 +17,7 @@ export default function PageLayout({
       <ScrollProgress />
       <Navbar />
       <LocaleFadeWrapper>
-        <main className="pt-20 min-h-screen">{children}</main>
+        <main className="pt-20 min-h-screen text-softWhite">{children}</main>
         <Footer />
       </LocaleFadeWrapper>
     </LanguageProvider>

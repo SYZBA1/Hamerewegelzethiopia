@@ -89,9 +89,9 @@ export default function LMSLoginPage() {
         <>
           <div className="space-y-6">
             <div className="max-w-xl space-y-3">
-              <p className="text-sm uppercase tracking-[0.35em] text-[#8EB69B]">Welcome to LMS</p>
-              <h1 className="text-4xl font-semibold text-white sm:text-5xl">Get Started with Us</h1>
-              <p className="max-w-xl text-sm leading-7 text-[#dcecd8]/90 sm:text-base">
+              <p className="lms-auth-kicker text-sm uppercase tracking-[0.35em]">Welcome to LMS</p>
+              <h1 className="lms-auth-title text-4xl font-semibold sm:text-5xl">Get Started with Us</h1>
+              <p className="lms-auth-copy max-w-xl text-sm leading-7 sm:text-base">
                 Complete these easy steps to register your account and begin your learning journey.
               </p>
             </div>
@@ -100,24 +100,24 @@ export default function LMSLoginPage() {
               {steps.map((step, index) => (
                 <div
                   key={step.title}
-                  className={`rounded-3xl border p-5 backdrop-blur-md transition-all duration-300 ${
+                  className={`lms-auth-feature rounded-3xl p-5 backdrop-blur-md transition-all duration-300 ${
                     step.active
-                      ? "border-white/20 bg-white/15 shadow-[0_22px_70px_rgba(0,0,0,0.25)]"
-                      : "border-white/10 bg-white/10 hover:border-white/20 hover:bg-white/15"
+                      ? "ring-1 ring-[rgba(121,185,63,0.22)]"
+                      : "hover:-translate-y-0.5"
                   }`}
                 >
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-sm font-semibold text-[#DAF1DE] ring-1 ring-white/10">
+                  <span className="lms-auth-feature-badge inline-flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-semibold">
                     {index + 1}
                   </span>
-                  <p className="mt-4 text-sm font-semibold text-white">{step.title}</p>
+                  <p className="lms-auth-feature-title mt-4 text-sm font-semibold">{step.title}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#8EB69B]">Premium access</p>
-            <p className="mt-3 text-sm leading-6 text-[#dcecd8]">
+          <div className="lms-auth-panel mt-10 rounded-[2rem] p-6 backdrop-blur-xl">
+            <p className="lms-auth-panel-title text-sm font-semibold uppercase tracking-[0.24em]">Premium access</p>
+            <p className="lms-auth-panel-copy mt-3 text-sm leading-6">
               Securely sign in to continue with your courses, certificates, and dashboard content.
             </p>
           </div>
@@ -125,9 +125,9 @@ export default function LMSLoginPage() {
       }
     >
       <div className="mb-8 space-y-3 text-center sm:text-left">
-        <p className="text-sm uppercase tracking-[0.35em] text-[#8EB69B]">Welcome back</p>
-        <h1 className="text-3xl font-bold text-white sm:text-4xl">Sign In</h1>
-        <p className="text-sm leading-6 text-[#c7e4d5]">
+        <p className="lms-auth-kicker text-sm uppercase tracking-[0.35em]">Welcome back</p>
+        <h1 className="lms-auth-title text-3xl font-bold sm:text-4xl">Sign In</h1>
+        <p className="lms-auth-copy text-sm leading-6">
           Access your learning dashboard with your registered account.
         </p>
       </div>
@@ -135,7 +135,7 @@ export default function LMSLoginPage() {
       <div className="mb-6 grid gap-3 sm:grid-cols-2">
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-3xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white transition hover:border-[#8EB69B] hover:bg-white/15"
+          className="lms-auth-social flex items-center justify-center gap-2 rounded-3xl px-4 py-3 text-sm transition"
           onClick={() => alert('Google login placeholder')}
         >
           <span className="text-base">G</span>
@@ -143,7 +143,7 @@ export default function LMSLoginPage() {
         </button>
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-3xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white transition hover:border-[#8EB69B] hover:bg-white/15"
+          className="lms-auth-social flex items-center justify-center gap-2 rounded-3xl px-4 py-3 text-sm transition"
           onClick={() => alert('GitHub login placeholder')}
         >
           <span className="text-base">GH</span>
@@ -151,10 +151,10 @@ export default function LMSLoginPage() {
         </button>
       </div>
 
-      <div className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-[#8EB69B]">
-        <span className="h-px flex-1 bg-white/10" />
+      <div className="lms-auth-divider mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.25em]">
+        <span className="lms-auth-divider-line h-px flex-1" />
         Or login with email
-        <span className="h-px flex-1 bg-white/10" />
+        <span className="lms-auth-divider-line h-px flex-1" />
       </div>
 
       <div className="mb-6 grid grid-cols-3 gap-3">
@@ -165,8 +165,8 @@ export default function LMSLoginPage() {
             onClick={() => setRole(item)}
             className={`rounded-3xl px-3 py-2 text-sm font-semibold transition-all ${
               role === item
-                ? 'bg-[#8EB69B]/15 text-[#DAF1DE] ring-1 ring-[#8EB69B]/40'
-                : 'bg-white/5 text-[#c7e4d5] hover:bg-white/10'
+                ? 'pill-lime pill-lime-active ring-1 ring-brightYellow/25'
+                : 'lms-auth-role'
             }`}
           >
             {item}
@@ -176,33 +176,33 @@ export default function LMSLoginPage() {
 
       <form onSubmit={onSubmit} className="space-y-4">
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-semibold text-[#dae9dc]">Email</label>
+          <label htmlFor="email" className="lms-auth-label text-sm font-semibold">Email</label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="student@example.com"
-            className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+            className="input-lime px-4 py-3"
             required
           />
         </div>
 
         <div className="relative space-y-2">
-          <label htmlFor="password" className="text-sm font-semibold text-[#dae9dc]">Password</label>
+          <label htmlFor="password" className="lms-auth-label text-sm font-semibold">Password</label>
           <input
             id="password"
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password123!"
-            className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+            className="input-lime px-4 py-3"
             required
           />
           <button
             type="button"
             onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute right-4 top-11 text-sm text-[#8EB69B]"
+            className="lms-auth-toggle absolute right-4 top-11 text-sm"
           >
             {showPassword ? 'Hide' : 'Show'}
           </button>
@@ -217,23 +217,23 @@ export default function LMSLoginPage() {
         <button
           type="submit"
           disabled={!canSubmit || loading}
-          className="w-full rounded-3xl bg-gradient-to-b from-[#E3EF26] via-[#076653] to-[#0C342C] px-4 py-3 text-sm font-bold text-[#FFFDEE] shadow-xl shadow-[#076653]/30 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-3xl gradient-primary px-4 py-3 text-sm font-bold text-[var(--charcoal)] shadow-xl shadow-[var(--color-accent-bright)]/15 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? 'Signing in...' : 'Sign In'}
         </button>
       </form>
 
-      <div className="mt-5 flex flex-col gap-3 text-sm text-[#c7e4d5] sm:flex-row sm:items-center sm:justify-between">
-        <Link href={`/${locale}/lms/forgot-password`} className="hover:text-white">
+      <div className="lms-auth-muted mt-5 flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <Link href={`/${locale}/lms/forgot-password`} className="lms-auth-link">
           Forgot password?
         </Link>
-        <Link href={`/${locale}/lms/register`} className="font-semibold text-[#8EB69B] hover:text-white">
+        <Link href={`/${locale}/lms/register`} className="lms-auth-link font-semibold">
           New user? Register here
         </Link>
       </div>
 
-      <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-white/5 p-4 text-sm text-[#c7e4d5]">
-        <p className="font-semibold text-[#e3f5db]">Test credentials</p>
+      <div className="lms-auth-note mt-8 rounded-[1.75rem] p-4 text-sm">
+        <p className="lms-auth-note-title font-semibold">Test credentials</p>
         <p className="mt-2">Student - student@example.com / Password123!</p>
         <p>Teacher - teacher@example.com / Teacher123!</p>
         <p>Administrator - admin@example.com / Admin123!</p>

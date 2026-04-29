@@ -86,10 +86,10 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
   }, [logout, router]);
 
   return (
-    <nav className={`h-full ${isCollapsed ? "w-16" : "w-56"} border-r border-white/15 bg-gradient-to-b from-[#0C342C] to-[#076653] transition-all duration-300`}>
+    <nav className={`sidebar-surface flex h-full flex-col ${isCollapsed ? "w-16" : "w-56"} border-r border-softWhite/10 transition-all duration-300`}>
       <div className="flex items-center justify-between gap-2 px-3 py-3">
-        {!isCollapsed && <h2 className="text-sm font-semibold text-[#E2FBCE]">LMS Menu</h2>}
-        <button onClick={onToggle} className="rounded-md p-1 text-[#E2FBCE] hover:bg-white/10">
+        {!isCollapsed && <h2 className="text-sm font-semibold text-softWhite">LMS Menu</h2>}
+        <button onClick={onToggle} className="rounded-md p-1 text-softWhite hover:bg-softWhite/10 hover:text-primaryBg">
           <Menu size={16} />
         </button>
       </div>
@@ -102,8 +102,8 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
                 href={item.href}
                 className={`flex items-center gap-3 rounded-lg px-2 py-2 text-sm ${
                   active
-                    ? "bg-gradient-to-r from-[#E3EF26] to-[#076653] text-white"
-                    : "text-[#E2FBCE] hover:bg-white/10 hover:text-white"
+                    ? "sidebar-active shadow-[0_0_20px_rgba(214,255,0,.3)]"
+                    : "text-softWhite hover:bg-softWhite/10 hover:text-primaryBg"
                 }`}
               >
                 <item.icon size={18} />
@@ -117,14 +117,14 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
       <div className="mt-auto flex flex-col gap-2 p-3">
         <Link
           href="/lms/messages"
-          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-[#E2FBCE] hover:bg-white/10 hover:text-white"
+          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-softWhite hover:bg-softWhite/10 hover:text-primaryBg"
         >
           <User size={18} />
           {!isCollapsed && "Profile"}
         </Link>
         <button
           type="button"
-          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-[#E2FBCE] hover:bg-white/10 hover:text-white"
+          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-softWhite hover:bg-softWhite/10 hover:text-primaryBg"
           onClick={handleLogout}
         >
           <LogOut size={18} />

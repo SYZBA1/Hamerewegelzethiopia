@@ -1,7 +1,7 @@
 import { LanguageProvider } from "@/context/LanguageContext";
 import LocaleFadeWrapper from "@/components/LocaleFadeWrapper";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import HomeFooter from "@/components/home/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import DepartmentHero from "@/components/DepartmentHero";
 import HierarchyTree from "@/components/HierarchyTree";
@@ -33,30 +33,30 @@ export default async function AdministrativeStructure({ params }: { params: Prom
       <ScrollProgress />
       <Navbar />
       <LocaleFadeWrapper>
-        <main className="bg-gradient-to-b from-[#f6fdfb] to-[#e8f7f2]">
+        <main className="bg-gradient-to-b from-[#F7F7F7] to-[#F7F7F7]">
           <DepartmentHero
             title="Administrative Structure"
             subtitle="Full hierarchical structure from HQ to local Wereda offices"
           />
 
-          <section className="mx-auto max-w-6xl px-4 py-10 text-[#051F20]">
+          <section className="mx-auto max-w-6xl px-4 py-10 text-[#1B1B1B]">
             <h2 className="text-3xl font-bold">Structure Overview</h2>
-            <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-700">
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-[#333333]/80">
               The ministry is organized in a tiered model to ensure accountability and support at every level. Starting from the central headquarters, every layer is designed
               to provide effective resource distribution, monitoring, and capacity building to local communities through dioceses, zones, districts, and Weredas.
             </p>
           </section>
 
-          <section className="bg-white/90 py-8">
+          <section className="bg-white/40 py-8 backdrop-blur-sm">
             <div className="mx-auto max-w-6xl px-4">
-              <h2 className="text-3xl font-bold text-[#051F20]">Hierarchy Structure</h2>
-              <p className="mt-2 max-w-3xl text-sm text-slate-600">A clear chain of command that delivers consistent ministry support from national leadership to local outreach.</p>
+              <h2 className="text-3xl font-bold text-[#1B1B1B]">Hierarchy Structure</h2>
+              <p className="mt-2 max-w-3xl text-sm text-[#333333]/72">A clear chain of command that delivers consistent ministry support from national leadership to local outreach.</p>
             </div>
             <HierarchyTree levels={hierarchyLevels} />
           </section>
 
           <section className="mx-auto max-w-6xl px-4 py-12">
-            <h2 className="text-3xl font-bold text-[#051F20]">Roles & Responsibilities</h2>
+            <h2 className="text-3xl font-bold text-[#1B1B1B]">Roles & Responsibilities</h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {roles.map((roleItem) => (
                 <InfoCard
@@ -72,7 +72,7 @@ export default async function AdministrativeStructure({ params }: { params: Prom
           <CTASection onContactHref={`/${locale}/contact`} onFullStructureHref={`/${locale}/departments/administrative-structure`} />
         </main>
       </LocaleFadeWrapper>
-      <Footer />
+      <HomeFooter locale={locale} />
     </LanguageProvider>
   );
 }

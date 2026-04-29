@@ -13,9 +13,11 @@ export default function LMSSettingsPage() {
   }, [router]);
 
   return (
-    <main className="mx-auto min-h-screen max-w-6xl p-4 text-slate-100">
-      <h1 className="text-2xl font-semibold text-amber-200">Settings</h1>
-      <p className="mt-2 text-slate-300">Profile and security settings coming soon.</p>
+    <main className="mx-auto min-h-screen max-w-6xl p-4 text-mint">
+      <div className="card-dark-gradient p-6">
+        <h1 className="text-2xl font-semibold text-brightYellow">Settings</h1>
+        <p className="mt-2 text-mint/80">Profile and security settings coming soon.</p>
+      </div>
     </main>
   );
 }

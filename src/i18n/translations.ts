@@ -7,6 +7,7 @@ export type Translations = {
   nav: {
     home: string;
     about: string;
+    education: string;
     sermons: string;
     blog: string;
     library: string;
@@ -89,6 +90,7 @@ export const translations: Record<Lang, Translations> = {
     nav: {
       home: enMessages.nav.home,
       about: enMessages.nav.about,
+      education: "Education",
       sermons: enMessages.nav.sermons,
       blog: enMessages.nav.blog,
       library: enMessages.nav.library,
@@ -169,6 +171,7 @@ export const translations: Record<Lang, Translations> = {
     nav: {
       home: amMessages.nav.home,
       about: amMessages.nav.about,
+      education: "ትምህርት",
       sermons: amMessages.nav.sermons,
       blog: amMessages.nav.blog,
       library: amMessages.nav.library,

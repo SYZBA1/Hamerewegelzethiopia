@@ -27,8 +27,8 @@ const DashboardHeader = memo(function DashboardHeader({
   return (
     <div className="card-gradient-glass flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
       <div>
-        <h1 className="text-3xl font-bold text-[#FFFDEE]">{title}</h1>
-        <p className="text-sm text-[#E2FBCE]">
+        <h1 className="text-3xl font-bold text-[#F7F7F7]">{title}</h1>
+        <p className="text-sm text-[#F7F7F7]">
           {subtitle.replace("{name}", userName)}
         </p>
       </div>
@@ -36,7 +36,7 @@ const DashboardHeader = memo(function DashboardHeader({
         {primaryAction && (
           <Link
             href={primaryAction.href}
-            className="rounded-xl border border-white/20 bg-gradient-to-r from-[#E2FBCE]/20 to-[#076653]/60 px-4 py-2 text-sm font-semibold text-[#FFFDEE] hover:brightness-110"
+            className="rounded-xl border border-white/20 bg-gradient-to-r from-[#F7F7F7]/20 to-[#00D084]/60 px-4 py-2 text-sm font-semibold text-[#F7F7F7] hover:brightness-110"
           >
             {primaryAction.label}
           </Link>

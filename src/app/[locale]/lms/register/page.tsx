@@ -138,9 +138,9 @@ export default function LMSRegisterPage() {
         <>
           <div className="space-y-6">
             <div className="max-w-xl space-y-3">
-              <p className="text-sm uppercase tracking-[0.35em] text-[#8EB69B]">New account</p>
-              <h1 className="text-4xl font-semibold text-white sm:text-5xl">Get Started with Us</h1>
-              <p className="max-w-xl text-sm leading-7 text-[#dcecd8]/90 sm:text-base">
+              <p className="lms-auth-kicker text-sm uppercase tracking-[0.35em]">New account</p>
+              <h1 className="lms-auth-title text-4xl font-semibold sm:text-5xl">Get Started with Us</h1>
+              <p className="lms-auth-copy max-w-xl text-sm leading-7 sm:text-base">
                 Complete these easy steps to register your account and start learning with our LMS.
               </p>
             </div>
@@ -149,20 +149,20 @@ export default function LMSRegisterPage() {
               {steps.map((step, index) => (
                 <div
                   key={step.title}
-                  className="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/15"
+                  className="lms-auth-feature rounded-3xl p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-sm font-semibold text-[#DAF1DE] ring-1 ring-white/15">
+                  <span className="lms-auth-feature-badge inline-flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-semibold">
                     {index + 1}
                   </span>
-                  <p className="mt-4 text-sm font-semibold text-white">{step.title}</p>
+                  <p className="lms-auth-feature-title mt-4 text-sm font-semibold">{step.title}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#8EB69B]">Registration flow</p>
-            <p className="mt-3 text-sm leading-6 text-[#dcecd8]">
+          <div className="lms-auth-panel mt-10 rounded-[2rem] p-6 backdrop-blur-xl">
+            <p className="lms-auth-panel-title text-sm font-semibold uppercase tracking-[0.24em]">Registration flow</p>
+            <p className="lms-auth-panel-copy mt-3 text-sm leading-6">
               Your details are securely stored in the LMS, and payment instructions will be sent to your email after sign up.
             </p>
           </div>
@@ -170,9 +170,9 @@ export default function LMSRegisterPage() {
       }
     >
       <div className="mb-8 space-y-3 text-center sm:text-left">
-        <p className="text-sm uppercase tracking-[0.35em] text-[#8EB69B]">Create account</p>
-        <h1 className="text-3xl font-bold text-white sm:text-4xl">Sign Up Account</h1>
-        <p className="text-sm leading-6 text-[#c7e4d5]">
+        <p className="lms-auth-kicker text-sm uppercase tracking-[0.35em]">Create account</p>
+        <h1 className="lms-auth-title text-3xl font-bold sm:text-4xl">Sign Up Account</h1>
+        <p className="lms-auth-copy text-sm leading-6">
           Enter your personal data to create your account.
         </p>
       </div>
@@ -180,15 +180,15 @@ export default function LMSRegisterPage() {
       <div className="mb-6 grid gap-3 sm:grid-cols-2">
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-3xl border border-white/15 bg-white px-4 py-3 text-sm font-medium text-[#091913] transition hover:bg-white/90"
+          className="lms-auth-social flex items-center justify-center gap-2 rounded-3xl px-4 py-3 text-sm font-medium transition"
           onClick={() => alert("Google login placeholder")}
         >
-          <span className="text-base font-bold text-blue-600">G</span>
+          <span className="text-base font-bold">G</span>
           Continue with Google
         </button>
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-3xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white transition hover:border-[#8EB69B] hover:bg-white/15"
+          className="lms-auth-social flex items-center justify-center gap-2 rounded-3xl px-4 py-3 text-sm transition"
           onClick={() => alert("GitHub login placeholder")}
         >
           <span className="text-base">GH</span>
@@ -196,53 +196,53 @@ export default function LMSRegisterPage() {
         </button>
       </div>
 
-      <div className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-[#8EB69B]">
-        <span className="h-px flex-1 bg-white/10" />
+      <div className="lms-auth-divider mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.25em]">
+        <span className="lms-auth-divider-line h-px flex-1" />
         Or continue with form
-        <span className="h-px flex-1 bg-white/10" />
+        <span className="lms-auth-divider-line h-px flex-1" />
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <label htmlFor="firstName" className="text-sm font-semibold text-[#dae9dc]">First Name</label>
+            <label htmlFor="firstName" className="lms-auth-label text-sm font-semibold">First Name</label>
             <input
               id="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="John"
-              className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+              className="input-lime px-4 py-3"
               required
             />
           </div>
           <div className="space-y-2">
-            <label htmlFor="lastName" className="text-sm font-semibold text-[#dae9dc]">Last Name</label>
+            <label htmlFor="lastName" className="lms-auth-label text-sm font-semibold">Last Name</label>
             <input
               id="lastName"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Francisco"
-              className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+              className="input-lime px-4 py-3"
               required
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-semibold text-[#dae9dc]">Email</label>
+          <label htmlFor="email" className="lms-auth-label text-sm font-semibold">Email</label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@gmail.com"
-            className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+            className="input-lime px-4 py-3"
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="password" className="text-sm font-semibold text-[#dae9dc]">Password</label>
+          <label htmlFor="password" className="lms-auth-label text-sm font-semibold">Password</label>
           <div className="relative">
             <input
               id="password"
@@ -250,14 +250,14 @@ export default function LMSRegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="At least 8 characters"
-              className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+              className="input-lime px-4 py-3"
               required
               minLength={8}
             />
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-4 top-3 text-sm text-[#8EB69B]"
+              className="lms-auth-toggle absolute right-4 top-3 text-sm"
             >
               {showPassword ? "Hide" : "Show"}
             </button>
@@ -265,12 +265,12 @@ export default function LMSRegisterPage() {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="degreeType" className="text-sm font-semibold text-[#dae9dc]">Program / degree type</label>
+          <label htmlFor="degreeType" className="lms-auth-label text-sm font-semibold">Program / degree type</label>
           <select
             id="degreeType"
             value={degreeType}
             onChange={(e) => setDegreeType(e.target.value as DegreeType)}
-            className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+            className="input-lime px-4 py-3"
           >
             <option value="diploma">Diploma</option>
             <option value="degree">Degree (undergraduate)</option>
@@ -282,22 +282,22 @@ export default function LMSRegisterPage() {
         {degreeType === "diploma" && (
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="dipSchool">School / prior institution</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="dipSchool">School / prior institution</label>
               <input
                 id="dipSchool"
                 value={diplomaSchool}
                 onChange={(e) => setDiplomaSchool(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="Completed secondary or equivalent"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="dipYear">Graduation year</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="dipYear">Graduation year</label>
               <input
                 id="dipYear"
                 value={diplomaYear}
                 onChange={(e) => setDiplomaYear(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="YYYY"
                 inputMode="numeric"
               />
@@ -308,22 +308,22 @@ export default function LMSRegisterPage() {
         {degreeType === "degree" && (
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="major">Intended major / field</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="major">Intended major / field</label>
               <input
                 id="major"
                 value={degreeMajor}
                 onChange={(e) => setDegreeMajor(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="Theology, ministry studies..."
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="entry">Entry level / year</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="entry">Entry level / year</label>
               <input
                 id="entry"
                 value={degreeEntry}
                 onChange={(e) => setDegreeEntry(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="Year 1, transfer, etc."
               />
             </div>
@@ -333,22 +333,22 @@ export default function LMSRegisterPage() {
         {degreeType === "masters" && (
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="msField">Prior degree field</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="msField">Prior degree field</label>
               <input
                 id="msField"
                 value={mastersField}
                 onChange={(e) => setMastersField(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="B.A. Theology, B.Th., etc."
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="msInst">Awarding institution</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="msInst">Awarding institution</label>
               <input
                 id="msInst"
                 value={mastersInstitution}
                 onChange={(e) => setMastersInstitution(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="University or college name"
               />
             </div>
@@ -358,22 +358,22 @@ export default function LMSRegisterPage() {
         {degreeType === "courses" && (
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="track">Course / track</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="track">Course / track</label>
               <input
                 id="track"
                 value={courseTrack}
                 onChange={(e) => setCourseTrack(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="Course name or code"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#dae9dc]" htmlFor="intake">Preferred intake</label>
+              <label className="lms-auth-label text-sm font-semibold" htmlFor="intake">Preferred intake</label>
               <input
                 id="intake"
                 value={courseIntake}
                 onChange={(e) => setCourseIntake(e.target.value)}
-                className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+                className="input-lime px-4 py-3"
                 placeholder="e.g. Spring 2026, Module A"
               />
             </div>
@@ -381,12 +381,12 @@ export default function LMSRegisterPage() {
         )}
 
         <div className="space-y-2">
-          <label htmlFor="role" className="text-sm font-semibold text-[#dae9dc]">Role</label>
+          <label htmlFor="role" className="lms-auth-label text-sm font-semibold">Role</label>
           <select
             id="role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="w-full rounded-3xl border border-white/15 bg-[#163832]/80 px-4 py-3 text-white outline-none transition focus:border-[#8EB69B] focus:ring-2 focus:ring-[#8EB69B]/30"
+            className="input-lime px-4 py-3"
           >
             <option>Student</option>
             <option>Teacher</option>
@@ -408,15 +408,15 @@ export default function LMSRegisterPage() {
         <button
           type="submit"
           disabled={!baseOk || loading}
-          className="w-full rounded-3xl bg-gradient-to-b from-[#E3EF26] via-[#076653] to-[#0C342C] px-4 py-3 text-sm font-bold text-[#FFFDEE] shadow-xl shadow-[#076653]/30 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-3xl gradient-primary px-4 py-3 text-sm font-bold text-[var(--charcoal)] shadow-xl shadow-[var(--color-accent-bright)]/15 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Finishing..." : "Sign Up"}
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-[#c7e4d5]">
+      <p className="lms-auth-muted mt-6 text-center text-sm">
         Already have an account?{" "}
-        <Link href={`/${locale}/lms/login`} className="font-semibold text-[#8EB69B] hover:text-white">
+        <Link href={`/${locale}/lms/login`} className="lms-auth-link font-semibold">
           Log in
         </Link>
       </p>
