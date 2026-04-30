@@ -141,7 +141,7 @@ function SlidingImageStrip({
 
 export default function AboutPageClient({ locale, content }: AboutPageClientProps) {
   const isAm = locale === "am";
-  const [areCoreValuesFlipped, setAreCoreValuesFlipped] = useState(false);
+  const [flippedCoreValueCards, setFlippedCoreValueCards] = useState<Record<string, boolean>>({});
   const [flippedStructureCards, setFlippedStructureCards] = useState<Record<string, boolean>>({});
   const [isStructureImageOpen, setIsStructureImageOpen] = useState(false);
   const [structureImageSrc, setStructureImageSrc] = useState("/assets/administrative-structure-chart.png");
@@ -749,29 +749,24 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
                 </p>
                 <h2 className={clsx("mt-3", h2Class)}>{structuredCopy.coreValuesTitle}</h2>
                 <p className={clsx("mt-4", pClass)}>{structuredCopy.coreValuesIntro}</p>
-                <button
-                  type="button"
-                  onClick={() => setAreCoreValuesFlipped((current) => !current)}
-                  className={clsx(
-                    "mt-5 inline-flex items-center gap-2 rounded-full border border-[#17351f]/20 bg-white/70 px-4 py-2 text-[#17351f] hover:bg-white transition-colors",
-                    isAm ? "font-ethiopic text-[0.82rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.12em]"
-                  )}
-                >
-                  {areCoreValuesFlipped
-                    ? (isAm ? "ወደ አማርኛ መልስ" : "Rotate to original")
-                    : (isAm ? "ወደ እንግሊዝኛ አዙር" : "Rotate to English")}
-                </button>
+                <p className={clsx("mt-5 text-[#4f8f26]", isAm ? "font-ethiopic text-[0.78rem]" : "font-sans text-[0.68rem] uppercase tracking-[0.12em]")}>
+                  {isAm ? "ካርዶችን ተጠቅመው ወደ እንግሊዝኛ ያዙሩ" : "Click cards to view Amharic"}
+                </p>
               </div>
             </MotionBlock>
 
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5 mt-8">
               {structuredCopy.coreValues.map((item, index) => {
                 const Icon = ministryIcons[index];
-                const isFlipped = areCoreValuesFlipped;
+                const isFlipped = flippedCoreValueCards[`core-value-${index}`] ?? false;
                 return (
                   <MotionBlock key={item.title} delay={0.06 * index}>
                     <div
-                      className="block h-full w-full text-left [perspective:1400px]"
+                      className="block h-full w-full text-left [perspective:1400px] cursor-pointer"
+                      onClick={() => setFlippedCoreValueCards((current) => ({
+                        ...current,
+                        [`core-value-${index}`]: !isFlipped,
+                      }))}
                       aria-pressed={isFlipped}
                     >
                       <div
