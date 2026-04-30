@@ -33,7 +33,7 @@ interface C {
 
 const SOCIAL_LINKS = [
   { label: "Facebook", icon: "f", color: "#00D084", href: "https://facebook.com" },
-  { label: "YouTube", icon: ">", color: "#D6FF00", href: "https://youtube.com" },
+  { label: "YouTube", icon: ">", color: "#D6FF00", href: "https://www.youtube.com/@hamerewengielzeethiopia2950" },
   { label: "Telegram", icon: "T", color: "#00D084", href: "https://t.me" },
   { label: "Twitter", icon: "X", color: "#1B1B1B", href: "https://x.com" },
 ] as const;

@@ -163,7 +163,7 @@ export default function SermonsClient({ locale, c }: { locale: string; c: C }) {
             <h2 className={clsx(serif, "font-semibold text-mist mb-4 text-[clamp(1.5rem,2.8vw,2rem)]")}>{c.youtubeTitle}</h2>
             <p className={clsx(body, "text-mist/55 max-w-[42ch] mx-auto leading-relaxed mb-8",
               isAm ? "text-[0.88rem]" : "text-[0.92rem]")}>{c.youtubeDesc}</p>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.youtube.com/@hamerewengielzeethiopia2950" target="_blank" rel="noopener noreferrer"
               className={clsx("inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold",
                 "transition-all duration-200 hover:-translate-y-0.5",
                 isAm ? "font-ethiopic text-[0.9rem]" : "font-sans text-[0.8rem] uppercase tracking-[0.1em]")}

@@ -18,29 +18,54 @@ interface Content {
 const ICONS = ["🕊", "📖", "✝", "🙏", "⛪", "📜"];
 const COLORS = ["#A6FF4D", "#D6FF00", "#D6FF00", "#A6FF4D", "#D6FF00", "#D6FF00"];
 
+const videoMeta = [
+  {
+    src: "https://www.youtube.com/embed/_cFKVblYA64",
+    title: "ብርሃን:፦ ከጨለማ ያመለጥንው ብርሃን በሆነው በክርስቶስ ነው። ሐመረ ወንጌል ዘኢትዮጲያ",
+    program: "Hamere Wengel Zethiopia",
+  },
+  {
+    src: "https://www.youtube.com/embed/csGRAsYg9NU",
+    title: "እኛ ግን የተሰቀለውን ክርስቶስን እንሰብካለን ልዮ የገና በአል መታሰቢያ ክፍል4 ሐመረ ወንጌል ዘኢትዮጲያ",
+    program: "እኛ ግን የተሰቀለውን ክርስቶስን",
+  },
+  {
+    src: "https://www.youtube.com/embed/1y274yc8dnA",
+    title: "ዱካ ፍለጋ ክፍል 1 መ/ር ብርሃኑ አበጋዝ ሐመረ ወንጌል ዘኢትዮጲያ",
+    program: "ዱካ ፍለጋ ክፍል 1",
+  },
+];
+
 function VideoCard({ sermon, idx, watch, isAm }: { sermon: Sermon; idx: number; watch: string; isAm: boolean }) {
+  const meta = videoMeta[idx] ?? videoMeta[0];
+
   return (
     <Reveal delay={idx * 0.07}>
       <div style={{ borderRadius: 14, overflow: "hidden", background: "rgba(27,27,27,.62)", border: "1px solid rgba(214,255,0,.1)", transition: "all .3s" }}
         onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(27,27,27,.35)"; }}
         onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = "none"; (e.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}>
-        {/* Thumbnail */}
-        <div style={{ aspectRatio: "16/9", background: COLORS[idx], display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-          <span style={{ fontSize: "2.5rem", opacity: .2 }}>{ICONS[idx]}</span>
-          <button style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "transparent", border: "none", cursor: "pointer" }}>
-            <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(214,255,0,.85)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform .2s" }}
-              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.1)")}
-              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}>
-              <span style={{ color: "#1B1B1B", fontSize: "1.1rem", marginLeft: 3 }}>▶</span>
-            </div>
-          </button>
+        {/* Video */}
+        <div style={{ aspectRatio: "16/9", position: "relative", overflow: "hidden", background: "#000" }}>
+          <iframe
+            src={meta.src}
+            title={meta.title}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+          />
+
           <span className="font-sans" style={{ position: "absolute", bottom: 8, right: 10, fontSize: ".62rem", background: "rgba(27,27,27,.65)", color: "#F7F7F7", padding: ".15rem .5rem", borderRadius: 4 }}>{sermon.dur}</span>
         </div>
         {/* Info */}
         <div style={{ padding: "1.2rem 1.4rem" }}>
           <h3 className={clsx("font-serif font-semibold", isAm && "font-ethiopic")}
-            style={{ fontSize: "1rem", color: "#F7F7F7", lineHeight: isAm ? 1.5 : 1.25, marginBottom: ".4rem" }}>{sermon.title}</h3>
-          <p className={clsx(isAm ? "font-ethiopic text-[.74rem]" : "font-sans text-[.72rem]")} style={{ color: "#D6FF00", marginBottom: ".2rem" }}>{sermon.spkr}</p>
+            style={{ fontSize: "1rem", color: "#F7F7F7", lineHeight: isAm ? 1.5 : 1.25, marginBottom: ".4rem" }}>{meta.title}</h3>
+          <p className={clsx(isAm ? "font-ethiopic text-[.74rem]" : "font-sans text-[.72rem]")}
+            style={{ color: "#D6FF00", marginBottom: ".35rem" }}>{meta.program}</p>
+          <p className={clsx(isAm ? "font-ethiopic text-[.74rem]" : "font-sans text-[.72rem]")}
+            style={{ color: "#D6FF00", marginBottom: ".2rem" }}>{sermon.spkr}</p>
           <p className="font-sans text-[.64rem]" style={{ color: "rgba(247,247,247,.4)" }}>{sermon.date}</p>
         </div>
       </div>
@@ -165,6 +190,17 @@ export default function SermonsClient({ locale, c }: { locale: string; c: Conten
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal><h2 className={clsx("font-serif font-semibold mb-8", isAm && "font-ethiopic")}
             style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#1B1B1B" }}>{c.videoTitle}</h2></Reveal>
+          <div style={{ position: "relative", width: "100%", paddingTop: "56.25%", marginBottom: "2rem", borderRadius: 24, overflow: "hidden", background: "#000" }}>
+            <iframe
+              src="https://www.youtube.com/embed/_cFKVblYA64"
+              title="ብርሃን:፦ ከጨለማ ያመለጥንው ብርሃን በሆነው በክርስቶስ ነው። ሐመረ ወንጌል ዘኢትዮጲያ"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+            />
+          </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: "1.2rem" }}>
             {c.sermons.slice(0, 3).map((s, i) => <VideoCard key={i} sermon={s} idx={i} watch={c.watch} isAm={isAm} />)}
           </div>
