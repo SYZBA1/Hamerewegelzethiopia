@@ -15,7 +15,7 @@ export default async function EducationPage({
   const base = `/${locale}`;
   const isAm = locale === "am";
   const heroImage =
-    "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?q=80&w=1600&auto=format&fit=crop";
+    "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1600&auto=format&fit=crop";
 
   const cards = [
     {
@@ -52,9 +52,9 @@ export default async function EducationPage({
                   boxShadow: "0 0 35px rgba(0, 208, 255, 0.12)",
                 }}
               >
-                <p className="text-xs uppercase tracking-[0.28em] text-[#d6ff00]">{isAm ? "ትምህርት" : "Education"}</p>
+                <p className="text-xs uppercase tracking-[0.28em] text-white">{isAm ? "ትምህርት" : "Education"}</p>
                 <h1 className="mt-3 text-4xl font-bold text-[#FFFDEE] md:text-5xl">{isAm ? "የሐመረ ወንጌል ትምህርት" : "Hamere Wengel Education"}</h1>
-                <p className="mt-5 max-w-4xl leading-relaxed text-white/92">
+                <p className="mt-5 max-w-4xl leading-relaxed text-white">
                   {isAm
                     ? "ቤተ መጻሕፍት፣ LMS እና የምረቃ አገልግሎቶችን በአንድ ቦታ ያግኙ።"
                     : "Core education services with direct access to Library, LMS, and Graduation guidance."}

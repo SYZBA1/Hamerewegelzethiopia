@@ -14,8 +14,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   const copy = locale === "am"
     ? {
         badge: "እምነት እና እርምጃ",
-        headingA: "ማህበረሰቦችን",
-        headingB: "በእምነት እና በተግባር ማበልጸግ",
+        headingA: "እንኳን ደህና መጡ",
+        headingB: "ወደ ሐመረ ወንጌል ዘ-ኢትዮጵያ",
         subtext:
           "ሐመረ ወንጌል በትምህርት፣ በወንጌል ስርጭት እና በርህራሄ አገልግሎት ሰዎችን እና ቤተሰቦችን በተግባር የሚያገለግል መድረክ ነው።",
         event: {
@@ -40,8 +40,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       }
     : {
         badge: "KEEP FAITH IN ACTION",
-        headingA: "Empowering Communities",
-        headingB: "Through Faith and Action",
+        headingA: "Welcome to",
+        headingB: "Hamere Wengel Zethiopia",
         subtext:
           "Hamere Wengel is a mission platform advancing teaching, evangelism, and compassionate service so families and communities can grow in hope and purpose.",
         event: {
@@ -91,8 +91,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       <div
         className="absolute inset-0 -z-20 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1600876625357-7c980b1bc59b?q=80&w=875&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          backgroundImage: "url('/assets/herosection.png')",
         }}
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(110deg,rgba(7,12,9,0.9)_0%,rgba(7,12,9,0.42)_45%,rgba(7,12,9,0.78)_100%)]" />

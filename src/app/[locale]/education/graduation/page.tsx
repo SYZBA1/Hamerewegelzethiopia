@@ -32,7 +32,7 @@ export default async function EducationGraduationPage({ params }: { params: Prom
             ].map((item) => (
               <article key={item.title} className="rounded-2xl border border-white/10 p-5" style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(12px)" }}>
                 <h2 className="text-lg font-semibold text-white">{item.title}</h2>
-                <p className="mt-2 text-sm text-white/88">{item.text}</p>
+                <p className="mt-2 text-sm text-white">{item.text}</p>
               </article>
             ))}
           </section>

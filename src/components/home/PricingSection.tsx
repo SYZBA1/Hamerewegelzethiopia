@@ -7,7 +7,7 @@ type PricingSectionProps = {
 
 const pricingCopy = {
   en: {
-    eyebrow: "Pricing",
+    eyebrow: "collage",
     title: "Adaptable plans for every college service",
     subtitle: "Adaptable plans that allow each ministry to modify support by selecting a donation plan. Select a strategy that best suits your goals.",
     cta: "Donate Plan",

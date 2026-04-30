@@ -10,9 +10,9 @@ const content = {
     eyebrow: "About Hamere Wengel",
     title: "An organization story rooted in faith, service, and lasting community impact.",
     body:
-      "Hamere Wengel began with a clear vision to serve communities through practical faith in action. Over time, the ministry has grown into a connected movement for discipleship, outreach, and compassionate support.",
+      "Hamere Wongel Ze-Ethiopia is a spiritual association established based on a reformative calling, recognizing that God is the source of spiritual vision and mission. Guided by the Great Commission given by our Lord and Savior Jesus Christ (Matt. 28:19-20, Acts 1:8), the association is striving to widely disseminate the Gospel through which our people are saved from sin and eternal death.",
     bodyTwo:
-      "Today, we continue equipping families, youth, and leaders through structured programs, spiritual formation, and real community engagement. What makes us unique is our ability to combine spiritual depth with measurable, everyday service.",
+      "Founded on June 24, 2006 (E.C.) in Addis Ababa, this association is legally recognized by the Ministry of Federal Affairs under registration number ፌ.ጉ.ሚ 00500. The primary vision of Hamere Wongel Ze-Ethiopia is 'to see the Ethiopian Mother Church renewed through the Word of the Gospel.' By a Gospel-renewed church, we mean seeing a living House of God that is protected from old and new alien teachings and practices, centering the Gospel in all its activities, and being fruitful for generations. To achieve this, over the past 11 years (2006–2018 E.C.), extensive activities have been carried out, including reaching many through the Gospel, training priests and leaders for the mission, and distributing the Holy Bible to our people.",
     cta: "Read Our Story",
     cardTitle: "Core Message",
     cardPoints: ["Faith that leads to real action", "Learning pathways that build leaders", "Compassionate service for lasting transformation"],
@@ -21,9 +21,10 @@ const content = {
     eyebrow: "ስለ ሐመረ ወንጌል",
     title: "በእምነት፣ በሥልጠና እና በአገልግሎት ላይ የተመሠረተ እውነተኛ የአገልግሎት ታሪክ።",
     body:
-      "ሐመረ ወንጌል መንፈሳዊ ቅርስን በመጠበቅ ላይ ብቻ ሳይቆም አዲስ ትውልድን በትምህርት፣ በአመራር ማበልጸግ፣ በርህራሄ አገልግሎት እና በማህበረሰብ እንክብካቤ ለማበቃት ይሰራል።",
-    bodyTwo:
-      "ይህ አገልግሎት ባህላዊ ዋጋዎችን ከተግባራዊ እርምጃ ጋር በማጣመር ቤተሰቦች፣ ተማሪዎች እና መሪዎች በእምነት እንዲያድጉ ያግዛል።",
+      "መመሥረት (Establishment) ሐመረ ወንጌል ዘኢትዮጵያ፤ መንፈሳዊ ራእይንና ተልእኮን የሚሰጥ እግዚአብሔር መሆኑን በመረዳት፣ ተሐድሶአዊ ጥሪን መሠረት በማድረግ የተቋቋመ መንፈሳዊ ማኅበር ነው።",
+    bodyTwo: `
+      ማኅበሩ በጌታችን መድኃኒታችን ኢየሱስ ክርስቶስ የተሰጠውን ታላቅ ተልእኮ (ማቴ. 28:19-20፣ ሐዋ. 1:8) መመሪያ በማድረግ፣ ሕዝባችን ከኃጢአትና ከዘለዓለም ሞት የሚድንበትን የወንጌል ትምህርት በስፋት ለማድረስ እየተጋ ይገኛል። ሰኔ 24 ቀን 2006 ዓ.ም በአዲስ አበባ የተመሠረተው ይህ ማኅበር፣ በፌደራል ጉዳዮች ሚኒስቴር በምዝገባ ቁጥር ፌ.ጉ.ሚ 00500 ዕውቅና ተሰጥቶት በሕጋዊ መንገድ በማገልገል ላይ ይገኛል። የሐመረ ወንጌል ዘኢትዮጵያ ዋነኛ ራእይ "የኢትዮጵያ እናት ቤተ ክርስቲያን በቃለ ወንጌል ታድሳ ማየት" ሲሆን እኛ በቃለ ወንጌል የታደሰች ቤተ ክርስቲያን ስንል፤ ከአሮጌም ሆነ ከአዳዲስ ባዕዳን ትምህርቶችና ሥርዓቶች ተጠብቃ፣ በሁለንተናዊ እንቅስቃሴዋ ወንጌልን ማእከል ያደረገችና ለትውልድ የምታተርፍ ሕያው የእግዚአብሔር ቤት ሆና ማየትን ነው። ይህንንም ለማሳካት ባለፉት 11 ዓመታት (ከ2006 እስከ 2018 ዓ.ም) በርካታ ወገኖችን በወንጌል በመድረስ፣ ካህናትንና መሪዎችን ለተልእኮ በማሰልጠን እንዲሁም መጽሐፍ ቅዱስን ለሕዝባችን በማዳረስ ሰፋፊ ተግባራት ለማከናወን ተችሏል።
+    `,
     cta: "ታሪካችንን ያንብቡ",
     cardTitle: "ሰዎች ለምን ይቀጥላሉ",
     cardPoints: ["የተመሠረተ መንፈሳዊ ትምህርት", "በማህበረሰብ ውስጥ የሚታይ ተፅእኖ", "ለረጅም ጊዜ እድገት የተገነቡ ፕሮግራሞች"],

@@ -168,8 +168,8 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
             mobile
               ? "relative left-0 right-0 -mx-4 w-[calc(100%+2rem)] overflow-hidden border-t border-white/30 bg-[rgba(255,255,255,0.42)] px-4 py-4 backdrop-blur-[18px]"
               : clsx(
-                  "absolute top-[calc(100%+0.5rem)] z-50 w-[calc(100vw-1.5rem)] max-w-[960px] overflow-hidden rounded-2xl border border-white/30 bg-[rgba(255,255,255,0.26)] shadow-[0_24px_52px_rgba(10,28,22,.24)] backdrop-blur-[18px]",
-                  isEducation ? "right-0" : "left-0"
+                  "absolute top-[calc(100%+0.5rem)] z-50 w-[calc(100vw-1.5rem)] max-w-[860px] overflow-hidden rounded-2xl border border-white/30 bg-[rgba(255,255,255,0.26)] shadow-[0_24px_52px_rgba(10,28,22,.24)] backdrop-blur-[18px]",
+                  isEducation ? "left-1/2 -translate-x-1/2" : "left-0"
                 )
           )}
         >

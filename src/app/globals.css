@@ -200,16 +200,16 @@ body::before {
 }
 
 .crypto-btn-primary {
-  background: #a6ff4d;
+  background: #d6ff00;
   color: #0f1412;
   border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(166, 255, 77, 0.34);
+  box-shadow: 0 8px 25px rgba(214, 255, 0, 0.34);
   transition: all 0.28s ease;
 }
 
 .crypto-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(166, 255, 77, 0.46);
+  box-shadow: 0 14px 32px rgba(214, 255, 0, 0.46);
 }
 
 .crypto-btn-secondary {
