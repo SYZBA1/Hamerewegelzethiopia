@@ -70,6 +70,9 @@ export default function Navbar() {
   const [theme] = useState<"light" | "night">("light");
   const educationTimer = useRef<ReturnType<typeof setTimeout>>();
   const departmentsTimer = useRef<ReturnType<typeof setTimeout>>();
+  const mobileDrawerRef = useRef<HTMLDivElement>(null);
+  const mobileDepartmentsButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileEducationButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -86,6 +89,18 @@ export default function Navbar() {
     document.body.classList.remove("theme-light", "theme-night");
     document.body.classList.add("theme-light");
   }, []);
+
+  useEffect(() => {
+    if (!mobileDrawerRef.current) return;
+
+    if (mobileDepartmentsOpen) {
+      mobileDepartmentsButtonRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (mobileEducationOpen) {
+      mobileEducationButtonRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      mobileDrawerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [mobileDepartmentsOpen, mobileEducationOpen]);
 
   const openEducation = () => { clearTimeout(educationTimer.current); setEducationOpen(true); };
   const closeEducation = () => { educationTimer.current = setTimeout(() => setEducationOpen(false), 130); };
@@ -227,7 +242,7 @@ export default function Navbar() {
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="lg:hidden nav-surface border-t border-charcoal/10 overflow-y-auto"
           >
-            <div className="px-4 py-4 flex flex-col gap-1">
+            <div ref={mobileDrawerRef} className="px-4 py-4 flex flex-col gap-1">
               {mobileLinks.map(({ key, path }) => (
                 <Link key={key} href={h(path)} className={clsx(
                   "px-4 py-3 rounded-md transition-colors min-h-[52px]",
@@ -238,6 +253,7 @@ export default function Navbar() {
 
               <button
                 type="button"
+                ref={mobileDepartmentsButtonRef}
                 onClick={() => setMobileDepartmentsOpen((prev) => !prev)}
                 className={clsx(
                   "mt-1 flex min-h-[52px] items-center justify-between px-4 py-3 rounded-md transition-colors text-left",
@@ -252,6 +268,7 @@ export default function Navbar() {
 
               <button
                 type="button"
+                ref={mobileEducationButtonRef}
                 onClick={() => setMobileEducationOpen((prev) => !prev)}
                 className={clsx(
                   "mt-2 flex min-h-[52px] items-center justify-between px-4 py-3 rounded-md transition-colors text-left",
