@@ -85,7 +85,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   return (
     <section className="relative isolate flex min-h-[92vh] items-end overflow-hidden px-4 pb-16 pt-32 sm:px-6 lg:px-12">
       <div
-        className="absolute inset-0 -z-20 bg-contain bg-center lg:bg-cover"
+        className="absolute inset-0 -z-20 bg-cover bg-center"
         style={{
           backgroundImage: "url('/assets/herosection.png')",
         }}

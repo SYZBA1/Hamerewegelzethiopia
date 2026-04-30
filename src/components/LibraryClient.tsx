@@ -19,21 +19,21 @@ interface Content {
 }
 
 const FREE_RESOURCES = [
-  { icon: "📜", type: "Manuscript", title: "Fetha Negest",               meta: "Ge'ez · Legal Code · 13th c.",   free: true  },
-  { icon: "📖", type: "Book",       title: "Kebra Nagast",                meta: "Ge'ez · Epic · 14th c.",         free: true  },
-  { icon: "🎵", type: "Audio",      title: "Deggua Chants Collection",    meta: "Amharic · 4hr 20min",            free: true  },
-  { icon: "📋", type: "Journal",    title: "Ethiopian Journal of Theology",meta: "English · Vol. 12",             free: true  },
-  { icon: "📜", type: "Manuscript", title: "Andemta Commentary",          meta: "Ge'ez · Commentary",             free: true  },
-  { icon: "📖", type: "Book",       title: "Introduction to Ge'ez Grammar",meta: "English · 2022",               free: true  },
-  { icon: "🎵", type: "Audio",      title: "Ziema Liturgical Hymns",      meta: "Ge'ez · 2hr 15min",             free: true  },
-  { icon: "📋", type: "Journal",    title: "Theology & Digital Mission",   meta: "English · 2023",               free: true  },
+  { icon: "📜", type: "Manuscript", title: "Fetha Negest",               meta: "Ge'ez · Legal Code · 13th c.",   slug: "fetha-negest", free: true  },
+  { icon: "📖", type: "Book",       title: "Kebra Nagast",                meta: "Ge'ez · Epic · 14th c.",         slug: "kebra-nagast", free: true  },
+  { icon: "🎵", type: "Audio",      title: "Deggua Chants Collection",    meta: "Amharic · 4hr 20min",            slug: "deggua-chants-collection", free: true  },
+  { icon: "📋", type: "Journal",    title: "Ethiopian Journal of Theology",meta: "English · Vol. 12",             slug: "ethiopian-journal-of-theology", free: true  },
+  { icon: "📜", type: "Manuscript", title: "Andemta Commentary",          meta: "Ge'ez · Commentary",             slug: "andemta-commentary", free: true  },
+  { icon: "📖", type: "Book",       title: "Introduction to Ge'ez Grammar",meta: "English · 2022",               slug: "introduction-to-geez-grammar", free: true  },
+  { icon: "🎵", type: "Audio",      title: "Ziema Liturgical Hymns",      meta: "Ge'ez · 2hr 15min",             slug: "ziema-liturgical-hymns", free: true  },
+  { icon: "📋", type: "Journal",    title: "Theology & Digital Mission",   meta: "English · 2023",               slug: "theology-digital-mission", free: true  },
 ];
 
 const PAID_RESOURCES = [
-  { icon: "📕", type: "Book",   title: "Comprehensive Ge'ez Grammar",     meta: "400 pages · PDF + Print",  price: "$4.99" },
-  { icon: "📗", type: "Book",   title: "Ethiopian Church History Vol. I", meta: "320 pages · PDF",           price: "$3.99" },
-  { icon: "📘", type: "Book",   title: "The Theology of Tabots",          meta: "250 pages · PDF",           price: "$4.99" },
-  { icon: "📙", type: "Course", title: "Ge'ez Reading Crash Course",      meta: "12 Lessons · Audio + PDF", price: "$9.99" },
+  { icon: "📕", type: "Book",   title: "Comprehensive Ge'ez Grammar",     meta: "400 pages · PDF + Print",  price: "$4.99", slug: "comprehensive-geez-grammar" },
+  { icon: "📗", type: "Book",   title: "Ethiopian Church History Vol. I", meta: "320 pages · PDF",           price: "$3.99", slug: "ethiopian-church-history-vol-i" },
+  { icon: "📘", type: "Book",   title: "The Theology of Tabots",          meta: "250 pages · PDF",           price: "$4.99", slug: "the-theology-of-tabots" },
+  { icon: "📙", type: "Course", title: "Ge'ez Reading Crash Course",      meta: "12 Lessons · Audio + PDF", price: "$9.99", slug: "geez-reading-crash-course" },
 ];
 
 export default function LibraryClient({ locale, c }: { locale: string; c: Content }) {
@@ -137,11 +137,16 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
                     <span className="font-serif font-semibold" style={{ fontSize: "1.1rem", color: "#D6FF00" }}>{r.price}</span>
                     <div style={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
                       <Link href={`/${locale}/library/book/${r.slug}`} className={clsx("font-sans text-[.65rem] uppercase tracking-[.08em] bg-[#F7F7F7] text-[#111] rounded-full px-3 py-2 font-semibold transition duration-200 hover:bg-[#e7f0c2]")}>
-                      onMouseEnter={e => (e.currentTarget.style.filter = "brightness(1.04)")}
-                      onMouseLeave={e => (e.currentTarget.style.filter = "none")}>
-                      {c.buyBtn}
-                    </button>
-                  </div>
+                        {c.readMore}
+                      </Link>
+                      <button className={clsx("font-sans text-[.65rem] uppercase tracking-[.08em]", isAm ? "font-ethiopic" : "font-sans")}
+                        style={{ padding: ".45rem .8rem", borderRadius: 7, background: "transparent", color: "rgba(247,247,247,.65)", border: "1px solid rgba(214,255,0,.2)", cursor: "pointer", transition: "all .2s" }}
+                        onMouseEnter={e => { e.currentTarget.style.color = "#D6FF00"; e.currentTarget.style.borderColor = "#D6FF00"; }}
+                        onMouseLeave={e => { e.currentTarget.style.color = "rgba(247,247,247,.65)"; e.currentTarget.style.borderColor = "rgba(214,255,0,.2)"; }}
+                      >
+                        {c.buyBtn}
+                      </button>
+                    </div>
                 </div>
               </Reveal>
             ))}
