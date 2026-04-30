@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useLang } from "@/context/LanguageContext";
 import { Reveal, PageHero, StatChip, SectionTitle } from "@/components/PageComponents";
+import { FREE_RESOURCES, PAID_RESOURCES } from "@/lib/libraryResources";
 import clsx from "clsx";
 
 interface Stat { val: string; label: string }
@@ -13,6 +15,7 @@ interface Content {
   categories: string[]; stats: Stat[];
   accessBtn: string; registerNote: string;
   previewBtn: string; downloadBtn: string; buyBtn: string; readerNote: string;
+  readMore: string;
 }
 
 const FREE_RESOURCES = [
@@ -99,13 +102,9 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
                   <h4 className="font-serif font-semibold" style={{ fontSize: ".95rem", color: "#F7F7F7", lineHeight: 1.3, marginBottom: ".4rem" }}>{r.title}</h4>
                   <p className="font-sans text-[.65rem]" style={{ color: "rgba(247,247,247,.45)", lineHeight: 1.5, marginBottom: ".9rem" }}>{r.meta}</p>
                   <div style={{ display: "flex", gap: ".5rem" }}>
-                    <button onClick={() => setOpenReader(true)}
-                      className={clsx(isAm ? "font-ethiopic text-[.7rem]" : "font-sans text-[.64rem] uppercase tracking-[.08em]")}
-                      style={{ flex: 1, padding: ".45rem 0", borderRadius: 7, background: "linear-gradient(90deg,#A6FF4D,#D6FF00)", color: "#1B1B1B", border: "none", cursor: "pointer", transition: "filter .2s", fontWeight: 700 }}
-                      onMouseEnter={e => (e.currentTarget.style.filter = "brightness(1.04)")}
-                      onMouseLeave={e => (e.currentTarget.style.filter = "none")}>
-                      {c.previewBtn}
-                    </button>
+                    <Link href={`/${locale}/library/book/${r.slug}`} className={clsx(isAm ? "font-ethiopic text-[.7rem]" : "font-sans text-[.64rem] uppercase tracking-[.08em]", "flex-1 rounded-[0.45rem] bg-forest text-[#111] text-center font-bold px-3 py-2 transition duration-200 hover:bg-[#c0ff7f]")}>
+                      {c.readMore}
+                    </Link>
                     <button className="font-sans text-[.64rem]"
                       style={{ padding: ".45rem .8rem", borderRadius: 7, background: "transparent", color: "rgba(247,247,247,.6)", border: "1px solid rgba(214,255,0,.2)", cursor: "pointer", transition: "all .2s" }}
                       onMouseEnter={e => { e.currentTarget.style.color = "#D6FF00"; e.currentTarget.style.borderColor = "#D6FF00"; }}
@@ -136,8 +135,8 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
                   <p className="font-sans text-[.65rem]" style={{ color: "rgba(247,247,247,.45)", marginBottom: "1.2rem" }}>{r.meta}</p>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span className="font-serif font-semibold" style={{ fontSize: "1.1rem", color: "#D6FF00" }}>{r.price}</span>
-                    <button className="font-sans text-[.65rem] uppercase tracking-[.08em]"
-                      style={{ padding: ".45rem 1rem", borderRadius: 7, background: "linear-gradient(90deg,#A6FF4D,#D6FF00)", color: "#1B1B1B", border: "none", cursor: "pointer", fontWeight: 700, transition: "filter .2s" }}
+                    <div style={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
+                      <Link href={`/${locale}/library/book/${r.slug}`} className={clsx("font-sans text-[.65rem] uppercase tracking-[.08em] bg-[#F7F7F7] text-[#111] rounded-full px-3 py-2 font-semibold transition duration-200 hover:bg-[#e7f0c2]")}>
                       onMouseEnter={e => (e.currentTarget.style.filter = "brightness(1.04)")}
                       onMouseLeave={e => (e.currentTarget.style.filter = "none")}>
                       {c.buyBtn}

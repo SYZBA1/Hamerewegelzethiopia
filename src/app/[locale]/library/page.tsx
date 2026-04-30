@@ -24,6 +24,7 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
     accessBtn: t("access_btn"), registerNote: t("register_note"),
     previewBtn: t("preview_btn"), downloadBtn: t("download_btn"),
     buyBtn: t("buy_btn"), readerNote: t("reader_note"),
+    readMore: t("read_more"),
   };
   return (
     <LanguageProvider initialLocale={locale}>

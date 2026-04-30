@@ -184,7 +184,7 @@ export default function ContactClient({ locale, c }: { locale: string; c: C }) {
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noreferrer" : undefined}
-                  className="group flex items-start gap-4 p-5 rounded-xl border border-transparent hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(27,27,27,.08)] transition-all duration-250 block"
+                  className="group flex items-start gap-4 p-5 rounded-xl border border-transparent hover:border-forest/25 hover:shadow-[0_4px_20px_rgba(27,27,27,.08)] transition-all duration-250"
                   style={{ background: "#F7F7F7" }}
                 >
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-forest/10 group-hover:bg-forest/20 transition-colors">
