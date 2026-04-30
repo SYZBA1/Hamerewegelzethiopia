@@ -225,7 +225,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:hidden nav-surface border-t border-charcoal/10 overflow-hidden"
+            className="lg:hidden nav-surface border-t border-charcoal/10 overflow-y-auto"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
               {mobileLinks.map(({ key, path }) => (

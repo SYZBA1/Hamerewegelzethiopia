@@ -72,14 +72,6 @@ export default function ServicesSection({ locale }: ServicesSectionProps) {
               {copy.title}
             </h2>
           </div>
-          <Link
-            href={`${base}/departments`}
-            className={`inline-flex w-full items-center justify-center rounded-full border border-[#121a11]/18 bg-[#121a11] px-6 py-3 text-xs text-[#f7f7f7] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0c130d] sm:w-auto ${
-              isAmharic ? "font-ethiopic text-base" : "font-sans uppercase tracking-[0.12em]"
-            }`}
-          >
-            {copy.cta}
-          </Link>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">

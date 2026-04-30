@@ -6,18 +6,18 @@ type ProcessSectionProps = {
 
 const steps = {
   en: {
-    eyebrow: "How we work",
+    eyebrow: "collage",
     current: "1 / 5",
     title: "Saint Cyril College",
     body: "Qidus Qerlos College (ቅዱስ ቄርሎስ ኮሌጅ) provides structured ministry education through theology programs, leadership formation, and service-oriented courses designed for long-term community impact.",
-    panels: ["About College", "Programs", "Courses", "Student Service", "Admissions"],
+    panels: ["About College"],
   },
   am: {
-    eyebrow: "የስራ ሂደታችን",
+    eyebrow: "ዋጋ",
     current: "1 / 5",
     title: "ቅዱስ ቄርሎስ ኮሌጅ",
     body: "ቅዱስ ቄርሎስ ኮሌጅ በሥነ-መለኮት ፕሮግራሞች፣ በመሪነት ስልጠና እና በተግባራዊ አገልግሎት ኮርሶች የተደራጀ የአገልግሎት ትምህርት ይሰጣል።",
-    panels: ["ስለ ኮሌጁ", "ፕሮግራሞች", "ኮርሶች", "የተማሪ አገልግሎት", "ቅበላ"],
+    panels: ["ስለ ኮሌጁ"],
   },
 } as const;
 

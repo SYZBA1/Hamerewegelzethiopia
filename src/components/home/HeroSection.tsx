@@ -33,8 +33,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         timeLabel: "ሰዓት",
         placeLabel: "ቦታ",
         ctas: [
-          { title: "ይለግሱ", href: `${base}/donate`, primary: true },
-          { title: "ይቀላቀሉ", href: `${base}/contact`, primary: false },
           { title: "ተጨማሪ ይመልከቱ", href: `${base}/about`, primary: false },
         ],
       }
@@ -59,8 +57,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         timeLabel: "Time",
         placeLabel: "Place",
         ctas: [
-          { title: "Donate", href: `${base}/donate`, primary: true },
-          { title: "Join Us", href: `${base}/contact`, primary: false },
           { title: "Learn More", href: `${base}/about`, primary: false },
         ],
       };
@@ -89,7 +85,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   return (
     <section className="relative isolate flex min-h-[92vh] items-end overflow-hidden px-4 pb-16 pt-32 sm:px-6 lg:px-12">
       <div
-        className="absolute inset-0 -z-20 bg-cover bg-center"
+        className="absolute inset-0 -z-20 bg-contain bg-center lg:bg-cover"
         style={{
           backgroundImage: "url('/assets/herosection.png')",
         }}

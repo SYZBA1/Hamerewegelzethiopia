@@ -126,14 +126,6 @@ export default function ContentCommunity({ locale }: ContentCommunityProps) {
                 ? "ማህበረሰብን የሚያነቃቁ ጽሁፎችን፣ የአገልግሎት ትምህርቶችን እና የዲጂታል ተሞክሮዎችን ይከታተሉ።"
                 : "Where service activities meet clear thinking, these updates share what is working and where we are heading next."}
             </p>
-            <Link
-              href={`${base}/blog`}
-              className={`mt-6 inline-flex items-center justify-center rounded-full bg-[#121a11] px-6 py-3 text-xs text-[#f7f7f7] transition-all duration-300 hover:-translate-y-0.5 ${
-                isAmharic ? "font-ethiopic text-sm" : "font-sans uppercase tracking-[0.14em]"
-              }`}
-            >
-              {normalizedLocale === "am" ? "ሁሉንም ይመልከቱ" : "View all posts"}
-            </Link>
           </div>
 
           <div className="space-y-3">

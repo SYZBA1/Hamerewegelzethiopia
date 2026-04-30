@@ -7,7 +7,7 @@ type PricingSectionProps = {
 
 const pricingCopy = {
   en: {
-    eyebrow: "collage",
+    eyebrow: "How we work",
     title: "Adaptable plans for every college service",
     subtitle: "Adaptable plans that allow each ministry to modify support by selecting a donation plan. Select a strategy that best suits your goals.",
     cta: "Donate Plan",
@@ -36,7 +36,7 @@ const pricingCopy = {
     ],
   },
   am: {
-    eyebrow: "ዋጋ",
+    eyebrow: "የስራ ሂደታችን",
     title: "ለእያንዳንዱ የኮሌጅ አገልግሎት ተስማሚ እቅዶች",
     subtitle: "እያንዳንዱ አገልግሎት በመዋጮ እቅድ ምርጫ ድጋፉን እንዲያስተካክል የሚያስችሉ ተለዋዋጭ እቅዶች። ለግቦትዎ ተስማሚ ስትራቴጂ ይምረጡ።",
     cta: "የመዋጮ እቅድ",
@@ -93,20 +93,6 @@ export default function PricingSection({ locale }: PricingSectionProps) {
                   </li>
                 ))}
               </ul>
-              <div className="mt-7 flex items-end justify-between gap-4 border-t border-[#2f430f]/25 pt-4">
-                <p className="font-serif text-3xl font-semibold text-[#1b2a0e]">
-                  {plan.price}
-                  <span className={`ml-1 text-sm text-[#2f430f]/80 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>{plan.period}</span>
-                </p>
-                <Link
-                  href={`${base}/contact`}
-                  className={`inline-flex items-center justify-center rounded-full bg-[#1b2a0e] px-5 py-2 text-[10px] text-[#e8f3c9] transition-all duration-300 hover:-translate-y-0.5 ${
-                    isAmharic ? "font-ethiopic text-xs" : "font-sans uppercase tracking-[0.14em]"
-                  }`}
-                >
-                  {copy.cta}
-                </Link>
-              </div>
             </article>
           ))}
         </div>

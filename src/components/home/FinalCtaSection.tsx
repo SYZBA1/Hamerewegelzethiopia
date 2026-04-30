@@ -34,24 +34,6 @@ export default function FinalCtaSection({ locale }: FinalCtaSectionProps) {
           {copy.title}
         </h2>
         <p className={`mx-auto mt-4 max-w-2xl text-sm leading-7 text-white ${isAmharic ? "font-ethiopic" : "font-sans"}`}>{copy.subtitle}</p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href={`${base}/contact`}
-            className={`inline-flex items-center justify-center rounded-full bg-[#f7f7f7] px-6 py-3 text-xs text-[#121a11] transition-all duration-300 hover:-translate-y-0.5 ${
-              isAmharic ? "font-ethiopic text-sm" : "font-sans uppercase tracking-[0.14em]"
-            }`}
-          >
-            {copy.primary}
-          </Link>
-          <Link
-            href={`${base}/about`}
-            className={`inline-flex items-center justify-center rounded-full bg-[#d6ff00] px-6 py-3 text-xs text-[#121a11] transition-all duration-300 hover:-translate-y-0.5 ${
-              isAmharic ? "font-ethiopic text-sm" : "font-sans uppercase tracking-[0.14em]"
-            }`}
-          >
-            {copy.secondary}
-          </Link>
-        </div>
       </div>
     </section>
   );
