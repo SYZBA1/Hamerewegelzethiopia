@@ -1,14 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import DashboardHeader from "@/components/lms/DashboardHeader";
 import DashboardStats from "@/components/lms/DashboardStats";
 import DashboardCourses from "@/components/lms/DashboardCourses";
 import DashboardActivity from "@/components/lms/DashboardActivity";
-import TeacherAssignments from "@/components/lms/TeacherAssignments";
-import AdminQuickActions from "@/components/lms/AdminQuickActions";
+import StudentDashboard from "@/components/lms/StudentDashboard";
 
 type RoleKey = "student" | "teacher" | "administrator";
 
@@ -133,6 +131,14 @@ export default function LMSDashboardRolePage({ params }: { params: { role: strin
     return (
       <div className="flex min-h-[70vh] items-center justify-center text-lg text-[#c0ddc8]">
         Loading dashboard...
+      </div>
+    );
+  }
+
+  if (roleKey === "student") {
+    return (
+      <div className="mx-auto w-full max-w-6xl">
+        <StudentDashboard userName={user?.name || "Muhammad"} onLogout={logout} />
       </div>
     );
   }
