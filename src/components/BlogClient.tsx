@@ -7,6 +7,7 @@ import { Reveal } from "@/components/PageComponents";
 import clsx from "clsx";
 
 interface Post {
+  slug: string;
   title: string; cat: string; date: string;
   readMin: string; excerpt: string;
 }
@@ -23,8 +24,8 @@ const CAT_COLORS: Record<string, string> = {
   "Article": "#D6FF00", "ጽሑፍ": "#D6FF00",
 };
 
-function PostCard({ post, readMore, minRead, isAm, delay = 0 }: {
-  post: Post; readMore: string; minRead: string; isAm: boolean; delay?: number;
+function PostCard({ post, locale, readMore, minRead, isAm, delay = 0 }: {
+  post: Post; locale: string; readMore: string; minRead: string; isAm: boolean; delay?: number;
 }) {
   const color = CAT_COLORS[post.cat] || "#A6FF4D";
   return (
@@ -58,13 +59,16 @@ function PostCard({ post, readMore, minRead, isAm, delay = 0 }: {
             {post.excerpt}
           </p>
           {/* Read more */}
-          <button
+          <Link
+            href={`/${locale}/blog/${post.slug}`}
             className={clsx(isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.7rem] uppercase tracking-[.1em]")}
-            style={{ color: "#1B1B1B", background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: ".4rem", paddingTop: ".8rem", borderTop: "1px solid rgba(166,255,77,.16)", transition: "gap .2s", fontWeight: 600 }}
+            style={{ color: "#1B1B1B", display: "inline-flex", alignItems: "center", gap: ".4rem", paddingTop: ".8rem", borderTop: "1px solid rgba(166,255,77,.16)", transition: "gap .2s", fontWeight: 600 }}
             onMouseEnter={e => (e.currentTarget.style.gap = ".7rem")}
-            onMouseLeave={e => (e.currentTarget.style.gap = ".4rem")}>
-            {readMore} →
-          </button>
+            onMouseLeave={e => (e.currentTarget.style.gap = ".4rem")}
+          >
+            {readMore}
+            <ArrowRight size={14} />
+          </Link>
         </div>
       </article>
     </Reveal>
@@ -164,7 +168,7 @@ export default function BlogClient({ locale, c }: { locale: string; c: Content }
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))", gap: "1.4rem" }}>
             {filtered.map((post, i) => (
-              <PostCard key={i} post={post} readMore={c.readMore} minRead={c.minRead} isAm={isAm} delay={i * 0.06} />
+              <PostCard key={i} post={post} locale={locale} readMore={c.readMore} minRead={c.minRead} isAm={isAm} delay={i * 0.06} />
             ))}
           </div>
         </div>
