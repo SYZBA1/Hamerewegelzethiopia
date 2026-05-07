@@ -13,7 +13,6 @@ import PricingSection from "@/components/home/PricingSection";
 import ContentCommunity from "@/components/home/ContentCommunity";
 import FinalCtaSection from "@/components/home/FinalCtaSection";
 import HomeFooter from "@/components/home/Footer";
-import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/context/LanguageContext";
 
 export function generateStaticParams() {
@@ -26,8 +25,6 @@ export function generateStaticParams() {
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
   const resolvedParams = await Promise.resolve(params);
   const locale = resolvedParams.locale as Locale;
-
-  setRequestLocale(locale);
 
   return (
     <LanguageProvider initialLocale={locale}>
