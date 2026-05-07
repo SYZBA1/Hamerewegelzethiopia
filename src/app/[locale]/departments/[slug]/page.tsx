@@ -7,6 +7,14 @@ import HomeFooter from "@/components/home/Footer";
 import { DEPARTMENTS } from "@/data/departments";
 import type { Locale } from "@/context/LanguageContext";
 
+export function generateStaticParams() {
+  const departmentSlugs = DEPARTMENTS.map(dept => dept.slug);
+  return departmentSlugs.flatMap((slug) => [
+    { locale: "en", slug },
+    { locale: "am", slug },
+  ]);
+}
+
 export default async function DepartmentDetailPage({
   params,
 }: {

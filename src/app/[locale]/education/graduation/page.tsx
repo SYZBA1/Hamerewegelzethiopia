@@ -6,6 +6,13 @@ import ScrollProgress from "@/components/ScrollProgress";
 import HomeFooter from "@/components/home/Footer";
 import type { Locale } from "@/context/LanguageContext";
 
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'am' }
+  ];
+}
+
 export default async function EducationGraduationPage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
   const { locale } = (await Promise.resolve(params)) as { locale: Locale };
   const base = `/${locale}`;

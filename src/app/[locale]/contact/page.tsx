@@ -7,6 +7,13 @@ import HomeFooter from "@/components/home/Footer";
 import ContactClient from "@/components/ContactClient";
 import type { Locale } from "@/context/LanguageContext";
 
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'am' }
+  ];
+}
+
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
   const { locale } = await Promise.resolve(params) as { locale: Locale };
   const t = await getTranslations({ locale, namespace: "contact" });

@@ -9,6 +9,28 @@ import HomeFooter from "@/components/home/Footer";
 import { getResourceBySlug } from "@/lib/libraryResources";
 import type { Locale } from "@/context/LanguageContext";
 
+const RESOURCE_SLUGS = [
+  "fetha-negest",
+  "kebra-nagast", 
+  "deggua-chants-collection",
+  "ethiopian-journal-of-theology",
+  "andemta-commentary",
+  "introduction-to-geez-grammar",
+  "ziema-liturgical-hymns",
+  "theology-digital-mission",
+  "comprehensive-geez-grammar",
+  "ethiopian-church-history-vol-i",
+  "theology-of-tabots",
+  "geez-reading-crash-course"
+];
+
+export function generateStaticParams() {
+  return RESOURCE_SLUGS.flatMap((slug) => [
+    { locale: "en", slug },
+    { locale: "am", slug },
+  ]);
+}
+
 export default async function LibraryBookPage({ params }: { params: Promise<{ locale: string; slug: string }> | { locale: string; slug: string } }) {
   const { locale, slug } = await Promise.resolve(params) as { locale: Locale; slug: string };
   const t = await getTranslations({ locale, namespace: "library" });

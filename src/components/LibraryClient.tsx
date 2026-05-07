@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLang } from "@/context/LanguageContext";
-import { Reveal, PageHero, StatChip, SectionTitle } from "@/components/PageComponents";
-import { FREE_RESOURCES, PAID_RESOURCES } from "@/lib/libraryResources";
+import { Reveal, StatChip } from "@/components/PageComponents";
 import clsx from "clsx";
 
 interface Stat { val: string; label: string }
@@ -41,23 +40,72 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
   const [query, setQuery]       = useState("");
   const [activeCat, setActiveCat] = useState(0);
   const [openReader, setOpenReader] = useState(false);
+  const heroImage = "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1600&auto=format&fit=crop";
+  const heroCardImage = "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1400&auto=format&fit=crop";
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const categoryKey = (["all", "manuscript", "book", "audio", "journal"] as const)[activeCat] ?? "all";
+  const filteredFreeResources = FREE_RESOURCES.filter((resource) => {
+    const matchesCategory = categoryKey === "all"
+      ? true
+      : resource.type.toLowerCase() === categoryKey;
+    const searchableText = `${resource.title} ${resource.meta} ${resource.type}`.toLowerCase();
+    const matchesQuery = !normalizedQuery || searchableText.includes(normalizedQuery);
+    return matchesCategory && matchesQuery;
+  });
 
   return (
     <div>
       {/* Hero with search */}
-      <PageHero tag={c.heroTag} title={c.heroTitle} sub={c.heroSub}>
-        <div style={{ position: "relative", maxWidth: 560, marginTop: "2rem" }}>
-          <span style={{ position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)", opacity: .45, pointerEvents: "none", fontSize: "1rem" }}>🔍</span>
-          <input
-            type="text" value={query} onChange={e => setQuery(e.target.value)}
-            placeholder={c.searchPlaceholder}
-            className={clsx(isAm ? "font-ethiopic text-[.86rem]" : "font-sans text-[.88rem]")}
-            style={{ width: "100%", padding: ".9rem 1rem .9rem 2.8rem", background: "rgba(247,247,247,.1)", border: "1px solid rgba(214,255,0,.22)", borderRadius: 10, color: "#F7F7F7", outline: "none", transition: "border-color .2s" }}
-            onFocus={e => (e.target.style.borderColor = "#D6FF00")}
-            onBlur={e => (e.target.style.borderColor = "rgba(214,255,0,.22)")}
-          />
+      <section className="relative overflow-hidden" data-hero-sync="true">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${heroImage}')` }} />
+        <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(7,12,9,0.82)_0%,rgba(7,12,9,0.52)_42%,rgba(7,12,9,0.78)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-[linear-gradient(180deg,transparent,rgba(8,13,10,0.68))]" />
+
+        <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-24 md:pt-28 pb-16 md:pb-20">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+            <Reveal>
+              <p
+                className={clsx(
+                  "mb-4 text-[#d6ff00]",
+                  isAm ? "font-ethiopic text-[0.82rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.2em]"
+                )}
+              >
+                Home • Library
+              </p>
+
+              <h1 className={clsx("font-bold leading-[1.15] text-white", isAm ? "font-ethiopic text-[clamp(1.5rem,4vw,2.8rem)]" : "font-serif text-[clamp(1.8rem,4vw,3.3rem)]")}>{c.heroTitle}</h1>
+
+              <p className={clsx("mt-6 max-w-xl text-white", isAm ? "font-ethiopic text-[0.94rem] leading-[1.9]" : "font-sans text-[0.95rem] leading-[1.9]")}>{c.heroSub}</p>
+
+              <div style={{ position: "relative", maxWidth: 560, marginTop: "2rem" }}>
+                <span style={{ position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)", opacity: .52, pointerEvents: "none", fontSize: "1rem", color: "#F7F7F7" }}>🔍</span>
+                <input
+                  type="text" value={query} onChange={e => setQuery(e.target.value)}
+                  placeholder={c.searchPlaceholder}
+                  className={clsx(isAm ? "font-ethiopic text-[.86rem]" : "font-sans text-[.88rem]")}
+                  style={{ width: "100%", padding: ".9rem 1rem .9rem 2.8rem", background: "rgba(247,247,247,.1)", border: "1px solid rgba(214,255,0,.22)", borderRadius: 10, color: "#F7F7F7", outline: "none", transition: "border-color .2s" }}
+                  onFocus={e => (e.target.style.borderColor = "#D6FF00")}
+                  onBlur={e => (e.target.style.borderColor = "rgba(214,255,0,.22)")}
+                />
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <div className="relative h-[300px] sm:h-[360px] lg:h-[400px]">
+                <div className="absolute -right-4 -top-4 md:-right-6 md:-top-6 w-[55%] h-[92%] bg-[linear-gradient(180deg,#d6ff00_0%,#a6ff4d_45%,#79b93f_100%)]" />
+                <div className="absolute inset-x-0 top-7 sm:top-10 h-[78%] home-glass-panel shadow-[0_24px_55px_rgba(39,69,20,0.25)] overflow-hidden">
+                  <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${heroCardImage}')` }} />
+                  <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,255,255,0.16),rgba(15,27,20,0.2))]" />
+                  <div className="absolute left-4 bottom-4 rounded-full px-3 py-1 text-[11px] tracking-[0.12em] uppercase bg-white/75 text-[#1e2012] font-semibold">
+                    {c.heroTag}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
-      </PageHero>
+      </section>
 
       {/* Stats band */}
       <div style={{ background: "linear-gradient(180deg, #1B1B1B, #00D084)", borderBottom: "1px solid rgba(214,255,0,.07)", padding: "2.5rem 2.5rem" }}>
@@ -67,11 +115,11 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
       </div>
 
       {/* Category filters + free grid */}
-      <section style={{ background: "linear-gradient(180deg, #1B1B1B, #00D084)", padding: "4rem 2.5rem" }}>
+      <section style={{ background: "linear-gradient(180deg, rgba(247,247,247,.94), rgba(227,239,38,.08))", padding: "4rem 2.5rem" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal>
             <h2 className={clsx("font-serif font-semibold mb-6", isAm && "font-ethiopic")}
-              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#F7F7F7" }}>{c.freeTitle}</h2>
+              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#1B1B1B" }}>{c.freeTitle}</h2>
           </Reveal>
           {/* Filters */}
           <Reveal>
@@ -82,7 +130,7 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
                   style={{ padding: ".38rem 1rem", borderRadius: 50, cursor: "pointer", transition: "all .2s",
                     border: `1px solid ${activeCat === i ? "#A6FF4D" : "rgba(214,255,0,.2)"}`,
                     background: activeCat === i ? "linear-gradient(90deg,#D6FF00,#A6FF4D)" : "transparent",
-                    color: activeCat === i ? "#1B1B1B" : "rgba(247,247,247,.52)" }}>
+                    color: activeCat === i ? "#1B1B1B" : "rgba(51,51,51,.62)" }}>
                   {cat}
                 </button>
               ))}
@@ -90,7 +138,7 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
           </Reveal>
           {/* Free resource cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))", gap: "1rem" }}>
-            {FREE_RESOURCES.filter(r => !query || r.title.toLowerCase().includes(query.toLowerCase())).map((r, i) => (
+            {filteredFreeResources.map((r, i) => (
               <Reveal key={i} delay={i * 0.05}>
                 <div style={{ background: "rgba(27,27,27,.56)", borderRadius: 12, padding: "1.4rem", border: "1px solid rgba(214,255,0,.1)", transition: "all .25s", cursor: "pointer" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = "rgba(7,102,83,.4)"; (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(214,255,0,.28)"; }}
@@ -116,14 +164,20 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
               </Reveal>
             ))}
           </div>
+          {filteredFreeResources.length === 0 && (
+            <p className={clsx("mt-5", isAm ? "font-ethiopic text-[.8rem]" : "font-sans text-[.8rem]")}
+              style={{ color: "rgba(51,51,51,.7)" }}>
+              {isAm ? "ከፍለጋው ወይም ከተመረጠው ምድብ ጋር የሚመሳሰል ምንም ውጤት አልተገኘም።" : "No resources match your search and selected category."}
+            </p>
+          )}
         </div>
       </section>
 
       {/* Paid Books */}
-      <section style={{ background: "linear-gradient(180deg, #00D084, #1B1B1B)", padding: "4rem 2.5rem", borderTop: "1px solid rgba(214,255,0,.07)" }}>
+      <section style={{ background: "linear-gradient(180deg, rgba(247,247,247,.94), rgba(227,239,38,.08))", padding: "4rem 2.5rem", borderTop: "1px solid rgba(166,255,77,.14)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal><h2 className={clsx("font-serif font-semibold mb-8", isAm && "font-ethiopic")}
-            style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#F7F7F7" }}>{c.paidTitle}</h2></Reveal>
+            style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#1B1B1B" }}>{c.paidTitle}</h2></Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))", gap: "1.2rem" }}>
             {PAID_RESOURCES.map((r, i) => (
               <Reveal key={i} delay={i * 0.07}>
@@ -147,6 +201,7 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
                         {c.buyBtn}
                       </button>
                     </div>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -155,11 +210,11 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
       </section>
 
       {/* PDF Reader */}
-      <section style={{ background: "linear-gradient(180deg, #1B1B1B, #00D084)", padding: "4rem 2.5rem", borderTop: "1px solid rgba(214,255,0,.07)" }}>
+      <section style={{ background: "linear-gradient(180deg, rgba(247,247,247,.94), rgba(227,239,38,.08))", padding: "4rem 2.5rem", borderTop: "1px solid rgba(166,255,77,.14)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal>
             <h2 className={clsx("font-serif font-semibold mb-6 text-center", isAm && "font-ethiopic")}
-              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#F7F7F7" }}>{c.readerTitle}</h2>
+              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#1B1B1B" }}>{c.readerTitle}</h2>
           </Reveal>
           <Reveal delay={0.1}>
             <div style={{ background: "rgba(27,27,27,.58)", borderRadius: 16, border: "1px solid rgba(214,255,0,.12)", overflow: "hidden" }}>

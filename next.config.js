@@ -1,17 +1,16 @@
-const createNextIntlPlugin = require("next-intl/plugin");
+﻿const createNextIntlPlugin = require('next-intl/plugin');
 
-const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    cpus: 1,
-  },
+  output: 'export', // Temporarily disabled for build testing
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "images.unsplash.com",
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       },
     ],
   },

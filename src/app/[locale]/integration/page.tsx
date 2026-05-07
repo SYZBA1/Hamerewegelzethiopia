@@ -77,3 +77,7 @@ export default async function IntegrationPage({
     </LanguageProvider>
   );
 }
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'am' }];
+}

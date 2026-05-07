@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "../globals.css";
 
@@ -13,6 +13,10 @@ const locales = ["en", "am"] as const;
 type Locale = (typeof locales)[number];
 type LocaleParams = { locale: Locale };
 
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
 export default async function LocaleLayout({
   children,
   params,
@@ -23,6 +27,8 @@ export default async function LocaleLayout({
   const locale = params.locale;
 
   if (!locales.includes(locale as (typeof locales)[number])) notFound();
+
+  setRequestLocale(locale);
 
   const messages = await getMessages({ locale });
 

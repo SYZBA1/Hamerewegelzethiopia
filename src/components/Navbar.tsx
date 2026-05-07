@@ -41,7 +41,7 @@ function NavLink({
       className={clsx(
         "relative flex items-center gap-1 px-3 py-2 rounded-md transition-colors duration-200",
         isActive ? "bg-primaryBg text-charcoal" : linkClass,
-        lang === "am" ? "font-ethiopic text-[0.82rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.09em]"
+        lang === "am" ? "font-ethiopic text-[0.82rem] font-bold" : "font-sans text-[0.72rem] uppercase tracking-[0.09em] font-bold"
       )}
     >
       {children}
@@ -67,7 +67,7 @@ export default function Navbar() {
   const [mobileEducationOpen, setMobileEducationOpen] = useState(false);
   const [mobileDepartmentsOpen, setMobileDepartmentsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [theme] = useState<"light" | "night">("light");
+  const [theme, setTheme] = useState<"light" | "night">("light");
   const educationTimer = useRef<ReturnType<typeof setTimeout>>();
   const departmentsTimer = useRef<ReturnType<typeof setTimeout>>();
   const mobileDrawerRef = useRef<HTMLDivElement>(null);
@@ -75,7 +75,20 @@ export default function Navbar() {
   const mobileEducationButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      const heroSyncSection = document.querySelector("section[data-hero-sync='true']") as HTMLElement | null;
+      let isScrolled = window.scrollY > 50;
+
+      if (heroSyncSection) {
+        const navHeight = 84;
+        const heroBottom = heroSyncSection.getBoundingClientRect().bottom;
+        isScrolled = heroBottom <= navHeight;
+      }
+
+      setScrolled(isScrolled);
+      setTheme(isScrolled ? "night" : "light");
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -126,20 +139,20 @@ export default function Navbar() {
     { key: "donate",      path: "/donate" },
   ];
 
-  const navTextClass = theme === "night"
-    ? "text-softWhite/90 hover:text-softWhite hover:bg-softWhite/16"
-    : "text-charcoal/85 hover:text-charcoal hover:bg-charcoal/10";
+  const navTextClass = scrolled
+    ? "text-softWhite/90 font-bold hover:text-softWhite hover:bg-softWhite/16"
+    : "text-white font-bold hover:text-softWhite hover:bg-softWhite/16";
   return (
     <nav className={clsx(
       "fixed top-0 inset-x-0 z-50 transition-all duration-400",
-      scrolled ? "nav-surface shadow-xl shadow-charcoal/10" : "bg-transparent"
+      scrolled ? "shadow-xl shadow-charcoal/10 bg-[#000000]" : "bg-transparent"
     )}>
       <div className="flex items-center justify-between px-8 lg:px-10 py-4 max-w-[1440px] mx-auto">
 
         {/* Logo */}
         <Link href={h("/")} className="flex flex-shrink-0 items-center" aria-label="Hamere Wengel Zethiopia">
           <Image
-            src="/assets/logo.png"
+            src="/assets/logos.png"
             alt="Hamere Wengel Zethiopia logo"
             width={52}
             height={52}
@@ -152,7 +165,7 @@ export default function Navbar() {
         <ul className="hidden lg:flex items-center gap-0.5 list-none">
           {mainLinks.slice(0, 2).map(({ key, path }) => (
             <li key={key}>
-              <NavLink href={h(path)} isActive={is(path)} theme={theme}>{t[key as keyof typeof t]}</NavLink>
+              <NavLink href={h(path)} isActive={is(path)} theme={scrolled ? "night" : theme}>{t[key as keyof typeof t]}</NavLink>
             </li>
           ))}
 
@@ -163,7 +176,7 @@ export default function Navbar() {
               hasDropdown
               isOpen={departmentsOpen}
               isActive={is("/departments")}
-              theme={theme}
+              theme={scrolled ? "night" : theme}
               onHover={openDepartments}
               onLeave={closeDepartments}
             >
@@ -182,7 +195,7 @@ export default function Navbar() {
           <li className="relative" onMouseEnter={openEducation} onMouseLeave={closeEducation}>
             <NavLink href={h("/education")} hasDropdown isOpen={educationOpen}
               isActive={is("/education")}
-              theme={theme}
+              theme={scrolled ? "night" : theme}
               onHover={openEducation}
               onLeave={closeEducation}
             >
@@ -199,7 +212,7 @@ export default function Navbar() {
 
           {mainLinks.slice(2).map(({ key, path }) => (
             <li key={key}>
-              <NavLink href={h(path)} isActive={is(path)} theme={theme}>{t[key as keyof typeof t]}</NavLink>
+              <NavLink href={h(path)} isActive={is(path)} theme={scrolled ? "night" : theme}>{t[key as keyof typeof t]}</NavLink>
             </li>
           ))}
 

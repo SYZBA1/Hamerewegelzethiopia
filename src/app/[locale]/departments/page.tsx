@@ -7,6 +7,13 @@ import Link from "next/link";
 import { DEPARTMENTS } from "@/data/departments";
 import type { Locale } from "@/context/LanguageContext";
 
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'am' }
+  ];
+}
+
 export default async function DepartmentsPage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
   const { locale } = await Promise.resolve(params) as { locale: Locale };
   const base = `/${locale}`;

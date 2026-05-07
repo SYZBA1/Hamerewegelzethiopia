@@ -35,3 +35,7 @@ export default function LMSDashboardPage() {
     </main>
   );
 }
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'am' }];
+}

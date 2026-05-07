@@ -18,7 +18,6 @@ import {
   Building2,
   ShieldCheck,
   HandHelping,
-  X,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -143,7 +142,6 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
   const isAm = locale === "am";
   const [flippedCoreValueCards, setFlippedCoreValueCards] = useState<Record<string, boolean>>({});
   const [flippedStructureCards, setFlippedStructureCards] = useState<Record<string, boolean>>({});
-  const [isStructureImageOpen, setIsStructureImageOpen] = useState(false);
   const [structureImageSrc, setStructureImageSrc] = useState("/assets/administrative-structure-chart.png");
 
   const prefix = locale === "en" ? "/en" : "/am";
@@ -158,6 +156,9 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
     "leading-[1.9] text-[#17351f]/80",
     isAm ? "font-ethiopic text-[0.94rem]" : "font-sans text-[0.95rem]"
   );
+
+  const photoTextOverrideClass =
+    "[&_h2]:!text-[#000000] [&_h2]:!font-bold [&_h3]:!text-[#000000] [&_h3]:!font-bold [&_h4]:!text-[#000000] [&_h4]:!font-bold [&_p]:!text-[#000000] [&_p]:!font-bold [&_li]:!text-[#000000] [&_li]:!font-bold [&_span]:!text-[#000000] [&_span]:!font-bold [&_button]:!text-[#000000] [&_button]:!font-bold";
 
   const toggleStructureCard = (index: number, flipped: boolean) => {
     setFlippedStructureCards((current) => ({
@@ -689,7 +690,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
 
           <div className="relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 rounded-[34px] bg-[linear-gradient(145deg,#f8fbd8_0%,#e2ef9d_100%)] p-4 md:w-[calc(100vw-2rem)] md:p-6 lg:w-[calc(100vw-3rem)] lg:p-7 xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.12)] border border-[#d6ff00]/20">
             <MotionBlock>
-              <div className="home-glass-panel p-7 md:p-10 h-full">
+              <div className={clsx("home-glass-panel p-7 md:p-10 h-full", photoTextOverrideClass)}>
                 <p className={clsx("text-[#4f8f26]", isAm ? "font-ethiopic text-[0.8rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.18em]")}>{structuredCopy.visionTitle}</p>
                 <h3 className={clsx("mt-3 text-[#17351f]", isAm ? "font-ethiopic text-[1.6rem]" : "font-serif text-[2rem] font-semibold")}>{structuredCopy.visionTitle}</h3>
                 <div className="mt-5 grid gap-5 md:grid-cols-2">
@@ -710,7 +711,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
 
           <div className="relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 rounded-[34px] bg-[linear-gradient(145deg,#fff6de_0%,#f6e7b5_100%)] p-4 md:w-[calc(100vw-2rem)] md:p-6 lg:w-[calc(100vw-3rem)] lg:p-7 xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(92,74,29,0.12)] border border-[#e6c46b]/30">
             <MotionBlock>
-              <div className="rounded-[28px] border border-[#17351f]/10 bg-white/70 p-7 md:p-10 h-full shadow-[0_16px_34px_rgba(92,74,29,0.08)]">
+              <div className={clsx("rounded-[28px] border border-[#17351f]/10 bg-white/70 p-7 md:p-10 h-full shadow-[0_16px_34px_rgba(92,74,29,0.08)]", photoTextOverrideClass)}>
                 <p className={clsx("text-[#8f6a1f]", isAm ? "font-ethiopic text-[0.8rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.18em]")}>{structuredCopy.missionTitle}</p>
                 <h3 className={clsx("mt-3 text-[#17351f]", isAm ? "font-ethiopic text-[1.6rem]" : "font-serif text-[2rem] font-semibold")}>{structuredCopy.missionTitle}</h3>
                 <div className="mt-5 grid gap-5 md:grid-cols-2">
@@ -741,7 +742,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
             </MotionBlock>
           </div>
 
-          <div className="relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 rounded-[34px] bg-[linear-gradient(180deg,#ffffff_0%,#f3f8d7_100%)] px-6 py-12 md:w-[calc(100vw-2rem)] md:px-10 md:py-14 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.12)] border border-[#17351f]/8">
+          <div className={clsx("relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 rounded-[34px] bg-[linear-gradient(180deg,#ffffff_0%,#f3f8d7_100%)] px-6 py-12 md:w-[calc(100vw-2rem)] md:px-10 md:py-14 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.12)] border border-[#17351f]/8", photoTextOverrideClass)}>
             <MotionBlock>
               <div className="text-center max-w-2xl mx-auto">
                 <p className={clsx("text-[#4f8f26]", isAm ? "font-ethiopic text-[0.8rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.18em]")}>
@@ -800,7 +801,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
             </div>
           </div>
 
-          <div className="relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-10 items-start rounded-[34px] bg-[linear-gradient(180deg,#f4f9d4_0%,#dceca0_100%)] p-4 md:w-[calc(100vw-2rem)] md:p-5 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.12)] border border-[#c6dd78]">
+          <div className={clsx("relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-10 items-start rounded-[34px] bg-[linear-gradient(180deg,#f4f9d4_0%,#dceca0_100%)] p-4 md:w-[calc(100vw-2rem)] md:p-5 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.12)] border border-[#c6dd78]", photoTextOverrideClass)}>
             <MotionBlock>
               <div className="home-glass-panel p-7 md:p-10 sticky top-28">
                 <p className={clsx("text-[#4f8f26]", isAm ? "font-ethiopic text-[0.8rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.18em]")}>{structuredCopy.journeyTitle}</p>
@@ -841,7 +842,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
             </MotionBlock>
           </div>
 
-          <div className="relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 grid xl:grid-cols-2 gap-8 lg:gap-10 rounded-[34px] bg-[linear-gradient(145deg,#fffdf0_0%,#f1f7c4_100%)] p-4 md:w-[calc(100vw-2rem)] md:p-5 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.12)] border border-[#dce999]">
+          <div className={clsx("relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 grid xl:grid-cols-2 gap-8 lg:gap-10 rounded-[34px] bg-[linear-gradient(145deg,#fffdf0_0%,#f1f7c4_100%)] p-4 md:w-[calc(100vw-2rem)] md:p-5 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.12)] border border-[#dce999]", photoTextOverrideClass)}>
             <MotionBlock>
               <div className="crypto-surface p-7 md:p-10 h-full">
                 <p className={clsx("text-[#4f8f26]", isAm ? "font-ethiopic text-[0.8rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.18em]")}>{structuredCopy.structureTitle}</p>
@@ -920,13 +921,11 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
                 <h2 className={clsx("mt-3", h2Class)}>{isAm ? "የደረጃ አቀማመጥ ምስል" : "Hierarchy Visual"}</h2>
                 <p className={clsx("mt-4", pClass)}>
                   {isAm
-                    ? "የማዕከላዊ አመራር እስከ አካባቢ ኅብረቶች ድረስ ያለውን ተዋረድ በአንድ ምስል ይመልከቱ። ምስሉን በመንካት ሙሉ መጠን ይመልከቱ።"
-                    : "See the full leadership and ministry hierarchy in one visual chart. Click the image to open it full screen."}
+                    ? "የማዕከላዊ አመራር እስከ አካባቢ ኅብረቶች ድረስ ያለውን ተዋረድ በአንድ ምስል ይመልከቱ።"
+                    : ""}
                 </p>
 
-                <button
-                  type="button"
-                  onClick={() => setIsStructureImageOpen(true)}
+                <div
                   className="mt-6 block w-full overflow-hidden rounded-2xl border border-[#17351f]/18 bg-white/65 shadow-[0_14px_28px_rgba(23,53,31,0.1)]"
                 >
                   <img
@@ -935,7 +934,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
                     className="h-auto w-full object-contain"
                     onError={() => setStructureImageSrc("/assets/structure.png")}
                   />
-                </button>
+                </div>
               </div>
             </MotionBlock>
           </div>
@@ -954,7 +953,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
             </MotionBlock>
           </div>
 
-          <div className="relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 rounded-[34px] bg-[linear-gradient(145deg,#dff28a_0%,#bddd53_100%)] px-6 py-12 md:w-[calc(100vw-2rem)] md:px-10 md:py-14 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.16)] border border-[#9ebc47]">
+          <div className={clsx("relative left-1/2 w-[calc(100vw-1rem)] -translate-x-1/2 rounded-[34px] bg-[linear-gradient(145deg,#dff28a_0%,#bddd53_100%)] px-6 py-12 md:w-[calc(100vw-2rem)] md:px-10 md:py-14 lg:w-[calc(100vw-3rem)] xl:w-[calc(100vw-4rem)] shadow-[0_18px_46px_rgba(62,92,29,0.16)] border border-[#9ebc47]", photoTextOverrideClass)}>
             <MotionBlock>
               <div className="text-center max-w-2xl mx-auto">
                 <p className={clsx("text-[#4f8f26]", isAm ? "font-ethiopic text-[0.8rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.18em]")}>{structuredCopy.impactTitle}</p>
@@ -966,7 +965,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
               {structuredCopy.impact.map((item, index) => (
                 <MotionBlock key={item.label} delay={0.06 * index}>
                   <div className="crypto-card-highlight p-6 md:p-7 h-full text-center">
-                    <div className={clsx(isAm ? "font-ethiopic text-[1.8rem]" : "font-serif text-[2.3rem] font-semibold")}>{item.value}</div>
+                    <div className={clsx("text-[#000000] font-bold", isAm ? "font-ethiopic text-[1.8rem]" : "font-serif text-[2.3rem] font-semibold")}>{item.value}</div>
                     <p className={clsx("mt-3", isAm ? "font-ethiopic text-[0.84rem]" : "font-sans text-[0.78rem] uppercase tracking-[0.12em]")}>{item.label}</p>
                   </div>
                 </MotionBlock>
@@ -976,24 +975,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
         </div>
       </section>
 
-      {isStructureImageOpen ? (
-        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/88 p-3 sm:p-6" role="dialog" aria-modal="true">
-          <button
-            type="button"
-            onClick={() => setIsStructureImageOpen(false)}
-            className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white"
-            aria-label={isAm ? "ዝጋ" : "Close"}
-          >
-            <X size={18} />
-          </button>
 
-          <img
-            src={structureImageSrc}
-            alt={isAm ? "የአስተዳደር መዋቅር ምስል" : "Administrative structure chart"}
-            className="max-h-[92vh] w-auto max-w-[96vw] rounded-xl border border-white/20 bg-white"
-          />
-        </div>
-      ) : null}
 
       <section className="relative bg-[#09110b] py-20 md:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(166,255,77,0.22)_0%,transparent_38%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.08)_0%,transparent_45%)]" />

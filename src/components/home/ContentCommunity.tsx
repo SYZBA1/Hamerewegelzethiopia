@@ -121,7 +121,7 @@ export default function ContentCommunity({ locale }: ContentCommunityProps) {
             <h2 className={`mt-4 text-3xl text-[#121a11] sm:text-4xl lg:text-5xl ${isAmharic ? "font-ethiopic leading-[1.34]" : "font-serif font-semibold leading-tight"}`}>
               {normalizedLocale === "am" ? "አዳዲስ እይታዎች እና አቅጣጫዎች" : "Latest insights and trends"}
             </h2>
-            <p className={`mt-5 max-w-md text-sm leading-7 text-[#121a11]/68 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
+            <p className={`mt-5 max-w-md text-sm leading-7 text-[#000000] ${isAmharic ? "font-ethiopic" : "font-sans font-bold"}`}>
               {normalizedLocale === "am"
                 ? "ማህበረሰብን የሚያነቃቁ ጽሁፎችን፣ የአገልግሎት ትምህርቶችን እና የዲጂታል ተሞክሮዎችን ይከታተሉ።"
                 : "Where service activities meet clear thinking, these updates share what is working and where we are heading next."}
@@ -137,11 +137,11 @@ export default function ContentCommunity({ locale }: ContentCommunityProps) {
               >
                 <div className="rounded-xl bg-[radial-gradient(circle_at_30%_20%,rgba(214,255,0,0.45),transparent_45%),linear-gradient(140deg,rgba(18,26,17,0.92),rgba(36,58,31,0.88))]" />
                 <div>
-                  <p className="font-sans text-[10px] uppercase tracking-[0.18em] text-black">{post.meta}</p>
-                  <h3 className={`mt-1 text-lg text-[#121a11] ${isAmharic ? "font-ethiopic leading-[1.4]" : "font-serif font-semibold leading-snug"}`}>
+                  <p className="font-sans text-[10px] uppercase tracking-[0.18em] font-bold text-black">{post.meta}</p>
+                  <h3 className={`mt-1 text-lg text-[#000000] ${isAmharic ? "font-ethiopic leading-[1.4]" : "font-serif font-bold leading-snug"}`}>
                     {post.title}
                   </h3>
-                  <p className={`mt-2 text-sm leading-6 text-[#121a11]/72 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>{post.summary}</p>
+                  <p className={`mt-2 text-sm leading-6 text-[#000000] ${isAmharic ? "font-ethiopic" : "font-sans font-bold"}`}>{post.summary}</p>
                 </div>
               </Link>
             ))}

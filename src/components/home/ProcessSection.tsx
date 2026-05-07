@@ -36,7 +36,7 @@ export default function ProcessSection({ locale }: ProcessSectionProps) {
           <h2 className={`mt-6 text-4xl text-[#d6ff00] sm:text-5xl ${isAmharic ? "font-ethiopic leading-[1.3]" : "font-serif font-semibold leading-[1.04]"}`}>
             {copy.title}
           </h2>
-          <p className={`mt-5 max-w-md text-sm leading-7 text-[#f7f7f7]/90 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
+          <p className={`mt-5 max-w-md text-sm leading-7 text-[#f7f7f7] ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
             {copy.body}
           </p>
           <div className="mt-7 flex items-center gap-2">

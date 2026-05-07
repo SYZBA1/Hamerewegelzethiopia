@@ -161,3 +161,15 @@ export default function LMSDashboardRolePage({ params }: { params: { role: strin
     </div>
   );
 }
+
+export function generateStaticParams() {
+  const roles = ["student", "teacher", "administrator"];
+  const locales = ["en", "am"];
+  const params = [];
+  for (const locale of locales) {
+    for (const role of roles) {
+      params.push({ locale, role });
+    }
+  }
+  return params;
+}

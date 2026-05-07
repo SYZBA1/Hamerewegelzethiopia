@@ -7,6 +7,13 @@ import ScrollProgress from "@/components/ScrollProgress";
 import HomeFooter from "@/components/home/Footer";
 import type { Locale } from "@/context/LanguageContext";
 
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'am' }
+  ];
+}
+
 export default async function AboutPage({
   params,
 }: {

@@ -18,7 +18,7 @@ interface Content {
 function Label({ text, isAm }: { text: string; isAm: boolean }) {
   return (
     <label className={clsx("block mb-1.5", isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.65rem] uppercase tracking-[.14em]")}
-      style={{ color: "color-mix(in srgb, var(--charcoal) 55%, transparent)" }}>{text}</label>
+      style={{ color: "#ffffff", fontWeight: "bold" }}>{text}</label>
   );
 }
 
@@ -60,7 +60,7 @@ export default function ContactClient({ locale, c }: { locale: string; c: Conten
           <Reveal direction="left">
             <div style={{ background: "linear-gradient(180deg, color-mix(in srgb, var(--color-accent-bright) 14%, transparent), color-mix(in srgb, var(--color-primary-light) 10%, transparent))", borderRadius: 20, padding: "2.5rem", border: "1px solid color-mix(in srgb, var(--color-primary-light) 16%, transparent)", boxShadow: "0 18px 40px color-mix(in srgb, var(--charcoal) 8%, transparent)" }}>
               <h2 className={clsx("font-serif font-semibold mb-6", isAm && "font-ethiopic")}
-                style={{ fontSize: "1.6rem", color: "var(--charcoal)" }}>{c.formTitle}</h2>
+                style={{ fontSize: "1.6rem", color: "#000000", fontWeight: "bold" }}>{c.formTitle}</h2>
 
               {sent ? (
                 <div style={{ textAlign: "center", padding: "3rem 1rem" }}>

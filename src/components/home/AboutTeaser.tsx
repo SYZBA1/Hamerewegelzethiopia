@@ -47,10 +47,10 @@ export default function AboutTeaser({ locale }: AboutTeaserProps) {
           <h2 className={`mt-4 text-3xl text-[#121a11] sm:text-4xl lg:text-[3.2rem] ${isAmharic ? "font-ethiopic leading-[1.34]" : "font-serif font-semibold leading-[1.1]"}`}>
             {normalizedLocale === "am" ? "የማህበረሰብ እድገትን በግልፅ አቅጣጫ እና በተግባር እንገነባለን" : "We help communities make smarter decisions and grow with clarity."}
           </h2>
-          <p className={`mt-6 max-w-3xl text-sm leading-7 text-[#121a11]/68 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
+          <p className={`mt-6 max-w-3xl text-sm leading-7 text-[#000000] ${isAmharic ? "font-ethiopic" : "font-sans font-bold"}`}>
             {copy.body}
           </p>
-          <p className={`mt-3 max-w-3xl text-sm leading-7 text-[#121a11]/68 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
+          <p className={`mt-3 max-w-3xl text-sm leading-7 text-[#000000] ${isAmharic ? "font-ethiopic" : "font-sans font-bold"}`}>
             {copy.bodyTwo}
           </p>
           <div className="mt-8">

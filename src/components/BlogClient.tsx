@@ -156,7 +156,8 @@ export default function BlogClient({ locale, c }: { locale: string; c: Content }
               style={{ padding: ".45rem 1.2rem", borderRadius: 50, cursor: "pointer", transition: "all .2s",
                 border: `1px solid ${activeTab === tab.key ? "#A6FF4D" : "rgba(166,255,77,.25)"}`,
                 background: activeTab === tab.key ? "linear-gradient(90deg,#D6FF00,#A6FF4D)" : "transparent",
-                color: activeTab === tab.key ? "#1B1B1B" : "rgba(51,51,51,.6)" }}>
+                color: "#000000",
+                fontWeight: "bold" }}>
               {tab.label}
             </button>
           ))}

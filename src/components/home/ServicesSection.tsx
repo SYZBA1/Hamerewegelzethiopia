@@ -80,10 +80,10 @@ export default function ServicesSection({ locale }: ServicesSectionProps) {
               <div className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#121a11]/12 bg-[#d6ff00]/26 font-serif text-sm text-[#121a11]">
                 {index + 1}
               </div>
-              <h3 className={`text-xl text-[#121a11] ${isAmharic ? "font-ethiopic leading-[1.45]" : "font-serif font-semibold"}`}>
+              <h3 className={`text-xl font-bold text-[#121a11] ${isAmharic ? "font-ethiopic leading-[1.45]" : "font-serif font-semibold"}`}>
                 {service.title}
               </h3>
-              <p className={`mt-3 text-sm leading-7 text-[#121a11]/72 ${isAmharic ? "font-ethiopic text-base" : "font-sans"}`}>
+              <p className={`mt-3 text-sm leading-7 font-bold text-[#121a11] ${isAmharic ? "font-ethiopic text-base" : "font-sans"}`}>
                 {service.text}
               </p>
             </article>

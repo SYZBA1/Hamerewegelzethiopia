@@ -116,12 +116,12 @@ export default function SocialProof({ locale }: SocialProofProps) {
                 exit={{ opacity: 0, x: -28 }}
                 transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
               >
-                <p className={`text-base leading-8 text-[#121a11]/75 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
+                <p className={`text-base leading-8 font-bold text-[#000000] ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
                   “{featured.quote}”
                 </p>
-                <div className="mt-6 border-t border-[#121a11]/12 pt-4">
-                  <p className={`text-lg text-[#121a11] ${isAmharic ? "font-ethiopic" : "font-serif font-semibold"}`}>{featured.name}</p>
-                  <p className={`mt-1 text-xs text-[#121a11]/62 ${isAmharic ? "font-ethiopic" : "font-sans uppercase tracking-[0.14em]"}`}>{featured.role}</p>
+                <div className="mt-6 border-t border-[#121a11] pt-4">
+                  <p className={`text-lg font-bold text-[#000000] ${isAmharic ? "font-ethiopic" : "font-serif font-semibold"}`}>{featured.name}</p>
+                  <p className={`mt-1 text-xs font-bold text-[#000000]/62 ${isAmharic ? "font-ethiopic" : "font-sans uppercase tracking-[0.14em]"}`}>{featured.role}</p>
                 </div>
               </motion.div>
             </AnimatePresence>

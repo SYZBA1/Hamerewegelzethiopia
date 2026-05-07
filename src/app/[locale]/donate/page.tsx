@@ -7,6 +7,13 @@ import HomeFooter from "@/components/home/Footer";
 import DonateClient from "@/components/DonateClient";
 import type { Locale } from "@/context/LanguageContext";
 
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'am' }
+  ];
+}
+
 export default async function DonatePage({ params }: { params: Promise<{ locale: string }> | { locale: string } }) {
   const { locale } = await Promise.resolve(params) as { locale: Locale };
   const t = await getTranslations({ locale, namespace: "donate" });

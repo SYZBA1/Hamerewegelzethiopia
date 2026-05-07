@@ -109,7 +109,6 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
           subtitle: lang === "am" ? "ዲጂታል ምንጮች" : "Digital resources",
           links: [
             { label: lang === "am" ? "የመጽሐፍት ፖርታል" : "Open Library Portal", href: `${base}/education/library/books` },
-            { label: lang === "am" ? "ኢ-መጻሕፍት" : "Browse eBooks", href: `${base}/library` },
           ],
         },
         {
@@ -168,8 +167,8 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
             mobile
               ? "relative left-0 right-0 -mx-4 w-[calc(100%+2rem)] overflow-hidden border-t border-white/30 bg-[rgba(255,255,255,0.42)] px-4 py-4 backdrop-blur-[18px]"
               : clsx(
-                  "absolute top-[calc(100%+0.5rem)] z-50 w-[calc(100vw-1.5rem)] max-w-[860px] overflow-hidden rounded-2xl border border-white/30 bg-[rgba(255,255,255,0.26)] shadow-[0_24px_52px_rgba(10,28,22,.24)] backdrop-blur-[18px]",
-                  isEducation ? "left-1/2 -translate-x-1/2" : "left-0"
+                  "absolute top-[calc(100%+0.5rem)] z-50 w-[calc(100vw-1.5rem)] overflow-hidden rounded-2xl border border-white/30 bg-[rgba(255,255,255,0.26)] shadow-[0_24px_52px_rgba(10,28,22,.24)] backdrop-blur-[18px]",
+                  isEducation ? "left-1/2 -translate-x-1/2 max-w-[760px]" : "left-0 max-w-[860px]"
                 )
           )}
         >
@@ -224,7 +223,7 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
                     <h3 className="mt-3 font-serif text-3xl font-semibold text-[#1c2f3b]">{activeItem.title}</h3>
                     <p className="mt-2 max-w-xl font-sans text-sm text-[#3e4f5b]">{activeItem.subtitle}</p>
 
-                    <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3">
+                    <div className={clsx("mt-6 gap-y-3", isEducation ? "grid grid-cols-1" : "grid grid-cols-2 gap-x-6")}>
                       {activeItem.links.map((link) => (
                         <Link
                           key={`${activeItem.href}-${link.href}-${link.label}`}

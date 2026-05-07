@@ -8,6 +8,13 @@ import HierarchyTree from "@/components/HierarchyTree";
 import InfoCard from "@/components/InfoCard";
 import CTASection from "@/components/CTASection";
 
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'am' }
+  ];
+}
+
 const hierarchyLevels = [
   { title: "Headquarters (HQ)", icon: "🏢", description: "Central decision-making office that sets strategy, policy, and operational direction for the entire ministry." },
   { title: "Diocese", icon: "⛪", description: "Regional leadership tier providing guidance and support to zone directors and ensuring mission alignment." },

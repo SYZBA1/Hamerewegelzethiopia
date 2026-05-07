@@ -1,6 +1,13 @@
 import { redirect } from "next/navigation";
 import type { Locale } from "@/context/LanguageContext";
 
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'am' }
+  ];
+}
+
 export default async function EducationLibraryBookPage({
   params,
 }: {

@@ -84,11 +84,11 @@ export default function PricingSection({ locale }: PricingSectionProps) {
         <div className="mt-9 grid grid-cols-1 gap-5 lg:grid-cols-3">
           {copy.plans.map((plan) => (
             <article key={plan.name} className="rounded-2xl border border-[#d7e6b5] bg-[#bccf8a] p-6 shadow-[0_18px_28px_rgba(0,0,0,0.22)]">
-              <p className={`text-[#2e4110] text-[10px] ${isAmharic ? "font-ethiopic" : "font-sans uppercase tracking-[0.18em]"}`}>{plan.name}</p>
-              <h3 className={`mt-3 text-2xl text-[#1b2a0e] ${isAmharic ? "font-ethiopic leading-[1.35]" : "font-serif font-semibold leading-snug"}`}>{plan.headline}</h3>
+              <p className={`text-[#000000] text-[10px] ${isAmharic ? "font-ethiopic" : " font-bold font-sans uppercase tracking-[0.18em]"}`}>{plan.name}</p>
+              <h3 className={`mt-3 text-2xl font-bold text-[#000000] ${isAmharic ? "font-ethiopic leading-[1.35]" : "font-serif font-bold leading-snug"}`}>{plan.headline}</h3>
               <ul className="mt-5 space-y-2">
                 {plan.points.map((point) => (
-                  <li key={point} className={`text-sm text-[#2f430f]/90 ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
+                  <li key={point} className={`text-sm font-bold text-[#000000] ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
                     • {point}                   
                   </li>
                 ))}

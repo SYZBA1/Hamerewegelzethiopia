@@ -178,7 +178,8 @@ export default function SermonsClient({ locale, c }: { locale: string; c: Conten
               style={{ padding: ".38rem 1.1rem", borderRadius: 50, cursor: "pointer", transition: "all .2s",
                 border: `1px solid ${activeFilter === i ? "#A6FF4D" : "rgba(214,255,0,.22)"}`,
                 background: activeFilter === i ? "linear-gradient(90deg,#D6FF00,#A6FF4D)" : "transparent",
-                color: activeFilter === i ? "#1B1B1B" : "rgba(51,51,51,.6)" }}>
+                color: "#000000",
+                fontWeight: "bold" }}>
               {f}
             </button>
           ))}

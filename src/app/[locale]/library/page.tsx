@@ -33,3 +33,7 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
     </LanguageProvider>
   );
 }
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'am' }];
+}
