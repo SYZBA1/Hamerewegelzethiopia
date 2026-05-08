@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/hamereux/repositories/Hamerewogelzethiopia
+    - /bin/cp -R out/* $DEPLOYPATH
