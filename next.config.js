@@ -6,6 +6,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig = {
   output: 'export', // Temporarily disabled for build testing
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
