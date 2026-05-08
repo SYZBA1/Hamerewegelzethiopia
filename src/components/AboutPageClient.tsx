@@ -556,60 +556,60 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
   const heroImage = "https://images.unsplash.com/photo-1580320209809-a0c51e645872?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   const activitySlides = [
     {
-      src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/worship.jpg",
       title: isAm ? "የቤተ ክርስቲያን አገልግሎት" : "Church Services",
       subtitle: isAm ? "ህብረት እና አምልኮ" : "Worship & Fellowship",
     },
     {
-      src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/outreach.jpg",
       title: isAm ? "የማህበረሰብ ድርሻ" : "Community Outreach",
       subtitle: isAm ? "ድጋፍ እና መድረስ" : "Support & Care",
     },
     {
-      src: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/leaders.jpg",
       title: isAm ? "የመሪነት ስልጠና" : "Leadership Training",
       subtitle: isAm ? "ማብቃት እና ስልጠና" : "Formation & Training",
     },
     {
-      src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/youth.jpg",
       title: isAm ? "የወጣቶች አገልግሎት" : "Youth Ministry",
       subtitle: isAm ? "ትውልድ ማበረታታት" : "Next Generation",
     },
   ];
   const leadershipSlides = [
     {
-      src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/muse.jpg",
       title: isAm ? "መሪጌታ ሙሴ መንበሩ" : "Merigeta Muse Menberu",
       subtitle: isAm ? "ዋና ሥራ አስኪያጅ" : "General Manager",
     },
     {
-      src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/diyakon.jpg",
       title: isAm ? "መሪጌታ ኤርምያስ ሙሉቀን" : "Merigeta Ermias Muluken",
       subtitle: isAm ? "ምክትል ሥራ አስኪያጅ" : "Deputy General Manager",
     },
     {
-      src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/dawit.jpg",
       title: isAm ? "መሪጌታ ዳዊት ሙሉዬ" : "Merigeta Dawit Muluye",
       subtitle: isAm ? "የስብከተ ወንጌል መምሪያ ኃላፊ" : "Head of Gospel Outreach Department",
     },
     {
-      src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/deqemezmur.jpg",
       title: isAm ? "መምህር እስመለዓለም ሀብቱ" : "Memhir Ismelealem Habtu",
       subtitle: isAm ? "የትምህርትና ስልጠና መምሪያ ኃላፊ" : "Head of Education and Training Department",
     },
     {
-      src: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/siyum.jpg",
       title: isAm ? "ዲያቆን/ዶክተር ስዩም ተረፈ" : "Deacon/Dr. Siyoum Terefe",
       subtitle: isAm ? "የሚዲያና ሕዝብ ግንኙነት ኃላፊ" : "Head of Media and Public Relations",
     },
     {
-      src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+      src: "/assets/leadership/memhir-berhanu-abegaz.jpg",
       title: isAm ? "መምህር ብርሃኑ አበጋዝ" : "Memhir Berhanu Abegaz",
       subtitle: isAm ? "የቅዱስ ቄርሎስ ኮሌጅ ዲን" : "Dean of St. Cyril College",
     },
     {
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop",
-      title: isAm ? "ወንድም ብርሃን በቀለ" : "Brother Berhan Bekele",
+      src: "/assets/leadership/siltanu.jpg",
+      title: isAm ? "ዲያቆን ስልጣኑ" : "Diakon Siltanu",
       subtitle: isAm ? "አስተዳደርና ፋይናንስ መምሪያ ኃላፊ" : "Head of Administration and Finance Department",
     },
   ];
