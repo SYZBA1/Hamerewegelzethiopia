@@ -8,8 +8,15 @@ import LMSAuthShell from "@/components/lms/AuthShell";
 const MOCK_USERS = [
   { role: "Student", email: "student@example.com", password: "Password123!", name: "Samuel (Student)" },
   { role: "Teacher", email: "teacher@example.com", password: "Teacher123!", name: "Eleni (Teacher)" },
-  { role: "Administrator", email: "admin@example.com", password: "Admin123!", name: "Amanuel (Admin)" },
+  { role: "Super Admin", email: "admin@example.com", password: "Admin123!", name: "Amanuel (Super Admin)" },
 ];
+
+function normalizeRoleKey(role: string): "student" | "teacher" | "administrator" {
+  const r = String(role || "").trim().toLowerCase();
+  if (r === "super admin" || r === "super-admin" || r === "administrator") return "administrator";
+  if (r === "teacher") return "teacher";
+  return "student";
+}
 
 const steps = [
   { title: "Sign up your account", active: true },
@@ -56,16 +63,18 @@ export default function LMSLoginPage() {
       savedUsers = [];
     }
 
+    const roleKey = normalizeRoleKey(role);
+
     const existing = savedUsers.find(
       (u: any) =>
         String(u?.email || "").trim().toLowerCase() === normalizedEmail &&
         String(u?.password || "").trim() === normalizedPassword &&
-        String(u?.role || "") === role,
+        normalizeRoleKey(String(u?.role || "")) === roleKey,
     );
 
     const currentMock = MOCK_USERS.find(
       (u) =>
-        u.role === role &&
+        normalizeRoleKey(u.role) === roleKey &&
         u.email.trim().toLowerCase() === normalizedEmail &&
         u.password.trim() === normalizedPassword,
     );
@@ -73,8 +82,16 @@ export default function LMSLoginPage() {
     const loggedInUser = existing || currentMock;
 
     if (loggedInUser) {
-      localStorage.setItem("lmsAuth", JSON.stringify({ token: "mock-jwt-token", user: loggedInUser }));
-      router.push(`/${locale}/lms/dashboard/${role.toLowerCase()}`);
+      const sessionUser = {
+        ...loggedInUser,
+        role: roleKey,
+      };
+      localStorage.setItem("lmsAuth", JSON.stringify({ token: "mock-jwt-token", user: sessionUser }));
+      if (roleKey === "administrator") {
+        router.push(`/${locale}/admin/dashboard-selector`);
+      } else {
+        router.push(`/${locale}/lms/dashboard/${roleKey}`);
+      }
       return;
     }
 
@@ -158,7 +175,7 @@ export default function LMSLoginPage() {
       </div>
 
       <div className="mb-6 grid grid-cols-3 gap-3">
-        {['Student', 'Teacher', 'Administrator'].map((item) => (
+        {["Student", "Teacher", "Super Admin"].map((item) => (
           <button
             key={item}
             type="button"
@@ -236,7 +253,7 @@ export default function LMSLoginPage() {
         <p className="lms-auth-note-title font-semibold">Test credentials</p>
         <p className="mt-2">Student - student@example.com / Password123!</p>
         <p>Teacher - teacher@example.com / Teacher123!</p>
-        <p>Administrator - admin@example.com / Admin123!</p>
+        <p>Super Admin - admin@example.com / Admin123!</p>
       </div>
     </LMSAuthShell>
   );

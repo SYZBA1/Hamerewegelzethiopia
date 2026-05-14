@@ -29,7 +29,7 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
   return (
     <LanguageProvider initialLocale={locale}>
       <ScrollProgress /><Navbar />
-      <LocaleFadeWrapper><main className="pt-20"><LibraryClient locale={locale} c={c} /></main><HomeFooter locale={locale} /></LocaleFadeWrapper>
+      <LocaleFadeWrapper><main className="min-h-screen" style={{ background: "#1B1B1B" }}><LibraryClient locale={locale} c={c} /></main><HomeFooter locale={locale} /></LocaleFadeWrapper>
     </LanguageProvider>
   );
 }

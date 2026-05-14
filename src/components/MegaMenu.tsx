@@ -78,6 +78,12 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
 
   const mobileEducationItems = [
     {
+      href: `${base}/education/lms/admissions`,
+      icon: "📋",
+      title: lang === "am" ? "Admissions" : "Admissions",
+      subtitle: lang === "am" ? "ምዝገባ እና መቀበያ" : "Registration & enrollment",
+    },
+    {
       href: `${base}/education/library/books`,
       icon: "📚",
       title: lang === "am" ? "Library" : "Library",
@@ -102,6 +108,16 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
   const desktopItems = useMemo<DesktopEntry[]>(() => {
     if (isEducation) {
       return [
+        {
+          href: `${base}/education/lms/admissions`,
+          icon: "📋",
+          title: lang === "am" ? "Admissions" : "Admissions",
+          subtitle: lang === "am" ? "ምዝገባ እና መቀበያ" : "Registration & enrollment",
+          links: [
+            { label: lang === "am" ? "ምዝገባ ጀምር" : "Start Application", href: `${base}/education/lms/admissions` },
+            { label: lang === "am" ? "ወደ ምዝገባ ሂድ" : "Register Account", href: `${base}/education/lms/register` },
+          ],
+        },
         {
           href: `${base}/education/library/books`,
           icon: "📚",
@@ -195,7 +211,7 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
                 ))}
               </div>
             </motion.div>
-          ) : (
+          ) : isEducation ? (
             <motion.div variants={colV} className="grid grid-cols-12">
               <div className="col-span-4 border-r border-white/35 bg-[rgba(255,255,255,0.72)] p-2.5 backdrop-blur-[14px]">
                 {desktopItems.map((item, index) => (
@@ -218,12 +234,12 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
                 {activeItem && (
                   <>
                     <p className="font-sans text-xs uppercase tracking-[0.16em] text-[#51606b]">
-                      {isEducation ? (lang === "am" ? "ትምህርት ምናሌ" : "Education Menu") : (lang === "am" ? "የክፍሎች ምናሌ" : "Departments Menu")}
+                      {lang === "am" ? "ትምህርት ምናሌ" : "Education Menu"}
                     </p>
                     <h3 className="mt-3 font-serif text-3xl font-semibold text-[#1c2f3b]">{activeItem.title}</h3>
                     <p className="mt-2 max-w-xl font-sans text-sm text-[#3e4f5b]">{activeItem.subtitle}</p>
 
-                    <div className={clsx("mt-6 gap-y-3", isEducation ? "grid grid-cols-1" : "grid grid-cols-2 gap-x-6")}>
+                    <div className="mt-6 grid grid-cols-1 gap-y-3">
                       {activeItem.links.map((link) => (
                         <Link
                           key={`${activeItem.href}-${link.href}-${link.label}`}
@@ -243,6 +259,24 @@ export default function MegaMenu({ isOpen, locale, kind, onMouseEnter, onMouseLe
                     </Link>
                   </>
                 )}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div variants={colV} className="bg-[rgba(255,255,255,0.72)] p-5 backdrop-blur-[14px]">
+              <p className="mb-4 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#1a3d22]/70">
+                {lang === "am" ? "የክፍሎች ምናሌ" : "Departments Menu"}
+              </p>
+              <div className="grid grid-cols-3 gap-x-8 gap-y-2">
+                {desktopItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center gap-2 rounded-lg px-2 py-1.5 font-sans text-[0.84rem] text-[#1e313b] transition hover:bg-white/80 hover:text-[#4c8525]"
+                  >
+                    <span className="text-base">{item.icon}</span>
+                    <span>{item.title}</span>
+                  </Link>
+                ))}
               </div>
             </motion.div>
           )}

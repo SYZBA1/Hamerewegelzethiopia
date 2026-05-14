@@ -390,7 +390,7 @@ export default function LMSRegisterPage() {
           >
             <option>Student</option>
             <option>Teacher</option>
-            <option>Administrator</option>
+            <option>Super Admin</option>
           </select>
         </div>
 

@@ -15,14 +15,25 @@ export default function LMSLayout({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  const isAuthRoute = ["/lms/login", "/lms/register", "/lms/forgot-password"].some((route) =>
-    pathname.endsWith(route),
-  );
+  const isAuthRoute = [
+    "/lms/login",
+    "/lms/register",
+    "/lms/forgot-password",
+  ].some((route) => pathname.endsWith(route));
+
+  const isAdmissionsRoute = [
+    "/lms/admissions",
+    "/lms/admissions/requirements",
+    "/lms/admissions/how-to-apply",
+    "/lms/admissions/tuition-fees",
+    "/lms/admissions/scholarships",
+  ].some((route) => pathname.endsWith(route));
 
   const title = useMemo(() => {
     if (pathname.endsWith("/lms/login")) return "Sign In";
     if (pathname.endsWith("/lms/register")) return "Register";
     if (pathname.endsWith("/lms/forgot-password")) return "Forgot Password";
+    if (pathname.endsWith("/lms/admissions")) return "Admissions";
     if (pathname.includes("/lms/dashboard")) return "Dashboard";
     if (pathname.includes("/lms/courses")) return "Courses";
     return "LMS";
@@ -30,19 +41,12 @@ export default function LMSLayout({ children }: { children: ReactNode }) {
 
   return (
     <AuthProvider>
-      <div className="relative min-h-screen text-softWhite">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1800&q=80')",
-          }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(5,148,74,0.78),rgba(51,183,79,0.62),rgba(214,255,0,0.45))] backdrop-blur-sm" />
-
-        <div className="relative z-10 min-h-screen">
+      <div className="min-h-screen bg-white text-charcoal">
+        <div className="min-h-screen">
           {isAuthRoute ? (
             <main className="flex min-h-screen items-center justify-center p-4">{children}</main>
+          ) : isAdmissionsRoute ? (
+            <main className="min-h-screen">{children}</main>
           ) : (
             <div className="flex min-h-screen">
               {/* Desktop Sidebar */}

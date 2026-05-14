@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Reveal } from "@/components/PageComponents";
+import { Reveal, PageHero, SectionTitle } from "@/components/PageComponents";
 import clsx from "clsx";
 
 interface Content {
@@ -18,20 +18,19 @@ interface Content {
 function Label({ text, isAm }: { text: string; isAm: boolean }) {
   return (
     <label className={clsx("block mb-1.5", isAm ? "font-ethiopic text-[.78rem]" : "font-sans text-[.65rem] uppercase tracking-[.14em]")}
-      style={{ color: "#ffffff", fontWeight: "bold" }}>{text}</label>
+      style={{ color: "#000000", fontWeight: "bold" }}>{text}</label>
   );
 }
 
 const inputStyle = {
   width: "100%", padding: ".75rem 1rem",
-  background: "color-mix(in srgb, var(--light-bg) 92%, transparent)", border: "1.5px solid color-mix(in srgb, var(--color-primary-light) 24%, transparent)",
-  borderRadius: 8, color: "var(--charcoal)", outline: "none",
+  background: "color-mix(in srgb, #ffffff 84%, var(--light-bg) 16%)", border: "1.5px solid rgba(27,27,27,.2)",
+  borderRadius: 8, color: "#111111", outline: "none",
   fontSize: ".9rem", transition: "border-color .2s, box-shadow .2s",
 };
 
 export default function ContactClient({ locale, c }: { locale: string; c: Content }) {
   const isAm = locale === "am";
-  const heroImage = "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1600&auto=format&fit=crop";
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ first: "", last: "", email: "", phone: "", subject: "", message: "" });
 
@@ -41,24 +40,20 @@ export default function ContactClient({ locale, c }: { locale: string; c: Conten
   };
 
   return (
-    <div style={{ background: "linear-gradient(180deg, color-mix(in srgb, var(--light-bg) 96%, transparent), color-mix(in srgb, var(--color-bg-end) 8%, transparent))" }}>
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${heroImage}')` }} />
-        <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(7,12,9,0.84)_0%,rgba(7,12,9,0.58)_42%,rgba(7,12,9,0.82)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(8,13,10,0.68))]" />
-        <div className="relative mx-auto max-w-6xl px-6 md:px-10 pt-24 md:pt-28 pb-14 md:pb-16">
-          <p className={clsx("mb-4 text-[#d6ff00]", isAm ? "font-ethiopic text-[0.82rem]" : "font-sans text-[0.72rem] uppercase tracking-[0.2em]")}>{c.heroTag}</p>
-          <h1 className={clsx("font-bold leading-[1.15] text-white", isAm ? "font-ethiopic text-[clamp(1.5rem,4vw,2.8rem)]" : "font-serif text-[clamp(1.8rem,4vw,3.3rem)]")}>{c.heroTitle}</h1>
-          <p className={clsx("mt-6 max-w-2xl text-white", isAm ? "font-ethiopic text-[0.94rem] leading-[1.9]" : "font-sans text-[0.95rem] leading-[1.9]")}>{c.heroSub}</p>
-        </div>
-      </section>
+    <div style={{ background: "#1B1B1B" }}>
+      <PageHero tag={c.heroTag} title={c.heroTitle} sub={c.heroSub} />
 
-      <section style={{ padding: "5rem 2.5rem" }}>
+      <section style={{ padding: "5rem 2.5rem 6rem" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <Reveal>
+            <SectionTitle light>{isAm ? "ተገናኝተው ይወያዩ" : "Send a Message & Contact Details"}</SectionTitle>
+          </Reveal>
+
         <div className="contact-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
 
           {/* Form */}
           <Reveal direction="left">
-            <div style={{ background: "linear-gradient(180deg, color-mix(in srgb, var(--color-accent-bright) 14%, transparent), color-mix(in srgb, var(--color-primary-light) 10%, transparent))", borderRadius: 20, padding: "2.5rem", border: "1px solid color-mix(in srgb, var(--color-primary-light) 16%, transparent)", boxShadow: "0 18px 40px color-mix(in srgb, var(--charcoal) 8%, transparent)" }}>
+            <div style={{ background: "linear-gradient(180deg, rgba(0,208,132,.12), rgba(166,255,77,.10))", borderRadius: 20, padding: "2.5rem", border: "1px solid color-mix(in srgb, var(--color-primary-light) 16%, transparent)", boxShadow: "0 18px 40px color-mix(in srgb, var(--charcoal) 8%, transparent)" }}>
               <h2 className={clsx("font-serif font-semibold mb-6", isAm && "font-ethiopic")}
                 style={{ fontSize: "1.6rem", color: "#000000", fontWeight: "bold" }}>{c.formTitle}</h2>
 
@@ -153,7 +148,7 @@ export default function ContactClient({ locale, c }: { locale: string; c: Conten
 
           {/* Info panel */}
           <Reveal direction="right">
-            <div>
+            <div style={{ background: "linear-gradient(180deg, rgba(0,208,132,.12), rgba(166,255,77,.10))", borderRadius: 20, padding: "2.5rem", border: "1px solid color-mix(in srgb, var(--color-primary-light) 16%, transparent)", boxShadow: "0 18px 40px color-mix(in srgb, var(--charcoal) 8%, transparent)" }}>
               {/* Contact details */}
               <h2 className={clsx("font-serif font-semibold mb-6", isAm && "font-ethiopic")}
                 style={{ fontSize: "1.6rem", color: "var(--charcoal)" }}>{c.infoTitle}</h2>
@@ -208,6 +203,7 @@ export default function ContactClient({ locale, c }: { locale: string; c: Conten
               </div>
             </div>
           </Reveal>
+        </div>
         </div>
       </section>
 

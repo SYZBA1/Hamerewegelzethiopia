@@ -26,6 +26,11 @@ export default async function EducationPage({
 
   const cards = [
     {
+      title: isAm ? "ምዝገባ" : "Admissions",
+      subtitle: isAm ? "ከLMS ምዝገባ በፊት ፕሮግራሞቻችንን ይወቁ" : "Explore programs and register before signing in to LMS",
+      href: `${base}/lms/admissions`,
+    },
+    {
       title: isAm ? "ቤተ መጻሕፍት" : "Library",
       subtitle: isAm ? "ዲጂታል መጻሕፍት እና ምንጮች" : "Digital books and resources",
       href: `${base}/education/library/books`,
@@ -63,14 +68,14 @@ export default async function EducationPage({
                 <h1 className="mt-3 text-4xl font-bold text-[#FFFDEE] md:text-5xl">{isAm ? "የሐመረ ወንጌል ትምህርት" : "Hamere Wengel Education"}</h1>
                 <p className="mt-5 max-w-4xl leading-relaxed text-white">
                   {isAm
-                    ? "ቤተ መጻሕፍት፣ LMS እና የምረቃ አገልግሎቶችን በአንድ ቦታ ያግኙ።"
-                    : "Core education services with direct access to Library, LMS, and Graduation guidance."}
+                    ? "ምዝገባ፣ ቤተ መጻሕፍት፣ LMS እና የምረቃ አገልግሎቶችን በአንድ ቦታ ያግኙ።"
+                    : "Core education services with direct access to Admissions, Library, LMS, and Graduation guidance."}
                 </p>
               </div>
             </div>
           </section>
 
-          <section className="mx-auto mt-10 grid max-w-6xl gap-5 px-4 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="mx-auto mt-10 grid max-w-6xl gap-5 px-4 sm:grid-cols-2 lg:grid-cols-4">
             {cards.map((item) => (
               <article
                 key={item.href}

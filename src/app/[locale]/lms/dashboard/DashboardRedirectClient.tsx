@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
+function normalizeRole(role: string) {
+  const r = String(role || "").trim().toLowerCase();
+  if (r === "super admin" || r === "super-admin" || r === "administrator") return "administrator";
+  if (r === "teacher") return "teacher";
+  return "student";
+}
+
 export default function DashboardRedirectClient() {
   const router = useRouter();
   const pathname = usePathname() || "";
@@ -18,9 +25,9 @@ export default function DashboardRedirectClient() {
 
     try {
       const parsed = JSON.parse(auth);
-      const role = parsed?.user?.role?.toLowerCase();
-      if (!role) {
-        router.replace(`/${locale}/lms/login`);
+      const role = normalizeRole(parsed?.user?.role || "");
+      if (role === "administrator") {
+        router.replace(`/${locale}/admin/dashboard-selector`);
         return;
       }
       router.replace(`/${locale}/lms/dashboard/${role}`);

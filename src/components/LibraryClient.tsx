@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useLang } from "@/context/LanguageContext";
-import { Reveal, PageHero, StatChip, SectionTitle } from "@/components/PageComponents";
+import { Reveal, StatChip } from "@/components/PageComponents";
 import clsx from "clsx";
 
 interface Stat { val: string; label: string }
@@ -40,37 +39,47 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
   const [query, setQuery]       = useState("");
   const [activeCat, setActiveCat] = useState(0);
   const [openReader, setOpenReader] = useState(false);
+  const libraryHeroImage = "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1600&auto=format&fit=crop";
+  const buyActionLabel = c.buyBtn.split("—")[0].trim() || c.buyBtn;
 
   return (
     <div>
       {/* Hero with search */}
-      <PageHero tag={c.heroTag} title={c.heroTitle} sub={c.heroSub}>
-        <div style={{ position: "relative", maxWidth: 560, marginTop: "2rem" }}>
-          <span style={{ position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)", opacity: .45, pointerEvents: "none", fontSize: "1rem" }}>🔍</span>
-          <input
-            type="text" value={query} onChange={e => setQuery(e.target.value)}
-            placeholder={c.searchPlaceholder}
-            className={clsx(isAm ? "font-ethiopic text-[.86rem]" : "font-sans text-[.88rem]")}
-            style={{ width: "100%", padding: ".9rem 1rem .9rem 2.8rem", background: "rgba(247,247,247,.1)", border: "1px solid rgba(214,255,0,.22)", borderRadius: 10, color: "#F7F7F7", outline: "none", transition: "border-color .2s" }}
-            onFocus={e => (e.target.style.borderColor = "#D6FF00")}
-            onBlur={e => (e.target.style.borderColor = "rgba(214,255,0,.22)")}
-          />
+      <section className="relative overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${libraryHeroImage}')` }} />
+        <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(7,12,9,0.84)_0%,rgba(7,12,9,0.58)_42%,rgba(7,12,9,0.82)_100%)]" />
+        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-28 md:pb-16 md:pt-32">
+          <p className={clsx("text-[#d6ff00]", isAm ? "font-ethiopic text-[0.82rem]" : "text-xs uppercase tracking-[0.28em]")}>{c.heroTag}</p>
+          <h1 className={clsx("mt-3 text-[#FFFDEE]", isAm ? "font-ethiopic text-4xl leading-[1.35]" : "text-4xl font-bold md:text-5xl")}>{c.heroTitle}</h1>
+          <p className={clsx("mt-4 max-w-3xl text-white", isAm ? "font-ethiopic text-[0.95rem] leading-[1.85]" : "text-sm leading-relaxed md:text-base")}>{c.heroSub}</p>
+
+          <div style={{ position: "relative", maxWidth: 560, marginTop: "2rem" }}>
+            <span style={{ position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)", opacity: .45, pointerEvents: "none", fontSize: "1rem" }}>🔍</span>
+            <input
+              type="text" value={query} onChange={e => setQuery(e.target.value)}
+              placeholder={c.searchPlaceholder}
+              className={clsx(isAm ? "font-ethiopic text-[.86rem]" : "font-sans text-[.88rem]")}
+              style={{ width: "100%", padding: ".9rem 1rem .9rem 2.8rem", background: "rgba(247,247,247,.1)", border: "1px solid rgba(214,255,0,.22)", borderRadius: 10, color: "#F7F7F7", outline: "none", transition: "border-color .2s" }}
+              onFocus={e => (e.target.style.borderColor = "#D6FF00")}
+              onBlur={e => (e.target.style.borderColor = "rgba(214,255,0,.22)")}
+            />
+          </div>
         </div>
-      </PageHero>
+      </section>
 
       {/* Stats band */}
-      <div style={{ background: "linear-gradient(180deg, #1B1B1B, #00D084)", borderBottom: "1px solid rgba(214,255,0,.07)", padding: "2.5rem 2.5rem" }}>
+      <div style={{ background: "linear-gradient(180deg, rgba(247,247,247,.94), rgba(227,239,38,.08))", borderBottom: "1px solid rgba(166,255,77,.14)", padding: "2.5rem 2.5rem" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "1.5rem" }}>
-          {c.stats.map((s, i) => <StatChip key={i} val={s.val} label={s.label} light />)}
+          {c.stats.map((s, i) => <StatChip key={i} val={s.val} label={s.label} />)}
         </div>
       </div>
 
       {/* Category filters + free grid */}
-      <section style={{ background: "linear-gradient(180deg, #1B1B1B, #00D084)", padding: "4rem 2.5rem" }}>
+      <section style={{ background: "linear-gradient(180deg, rgba(247,247,247,.94), rgba(227,239,38,.08))", padding: "4rem 2.5rem 3rem" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal>
             <h2 className={clsx("font-serif font-semibold mb-6", isAm && "font-ethiopic")}
-              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#F7F7F7" }}>{c.freeTitle}</h2>
+              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#1B1B1B" }}>{c.freeTitle}</h2>
           </Reveal>
           {/* Filters */}
           <Reveal>
@@ -88,30 +97,38 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
             </div>
           </Reveal>
           {/* Free resource cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))", gap: "1rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: "1rem" }}>
             {FREE_RESOURCES.filter(r => !query || r.title.toLowerCase().includes(query.toLowerCase())).map((r, i) => (
               <Reveal key={i} delay={i * 0.05}>
-                <div style={{ background: "rgba(27,27,27,.56)", borderRadius: 12, padding: "1.4rem", border: "1px solid rgba(214,255,0,.1)", transition: "all .25s", cursor: "pointer" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = "rgba(7,102,83,.4)"; (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(214,255,0,.28)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = "rgba(27,27,27,.56)"; (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(214,255,0,.1)"; }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: ".8rem" }}>
-                    <span style={{ fontSize: "1.4rem", opacity: .65 }}>{r.icon}</span>
-                    <span className="font-sans" style={{ fontSize: ".52rem", letterSpacing: ".08em", textTransform: "uppercase", color: "#D6FF00", background: "rgba(214,255,0,.1)", padding: ".15rem .5rem", borderRadius: 20, border: "1px solid rgba(214,255,0,.2)" }}>{r.type}</span>
+                <article style={{ background: "rgba(27,27,27,.64)", borderRadius: 16, padding: "1.2rem", border: "1px solid rgba(214,255,0,.12)", transition: "all .25s", minHeight: 260, display: "flex", flexDirection: "column", gap: ".95rem" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(7,102,83,.4)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(214,255,0,.28)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(27,27,27,.64)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(214,255,0,.12)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: ".75rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: ".75rem" }}>
+                      <span style={{ width: 44, height: 44, borderRadius: 12, display: "grid", placeItems: "center", background: "rgba(214,255,0,.08)", fontSize: "1.25rem" }}>{r.icon}</span>
+                      <div>
+                        <p className="font-sans" style={{ fontSize: ".58rem", letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(247,247,247,.55)" }}>{r.type}</p>
+                        <p className="font-sans" style={{ fontSize: ".72rem", color: "#D6FF00", marginTop: ".2rem", fontWeight: 700 }}>{isAm ? "ነፃ መዳረሻ" : "Free Access"}</p>
+                      </div>
+                    </div>
+                    <span className="font-sans" style={{ fontSize: ".52rem", letterSpacing: ".08em", textTransform: "uppercase", color: "#D6FF00", background: "rgba(214,255,0,.1)", padding: ".2rem .55rem", borderRadius: 20, border: "1px solid rgba(214,255,0,.2)" }}>{r.type}</span>
                   </div>
-                  <h4 className="font-serif font-semibold" style={{ fontSize: ".95rem", color: "#F7F7F7", lineHeight: 1.3, marginBottom: ".4rem" }}>{r.title}</h4>
-                  <p className="font-sans text-[.65rem]" style={{ color: "rgba(247,247,247,.45)", lineHeight: 1.5, marginBottom: ".9rem" }}>{r.meta}</p>
-                  <div style={{ display: "flex", gap: ".5rem" }}>
-                    <Link href={`/${locale}/library/book/${r.slug}`} className={clsx(isAm ? "font-ethiopic text-[.7rem]" : "font-sans text-[.64rem] uppercase tracking-[.08em]", "flex-1 rounded-[0.45rem] bg-forest text-[#111] text-center font-bold px-3 py-2 transition duration-200 hover:bg-[#c0ff7f]")}>
+                  <div style={{ flex: 1 }}>
+                    <h4 className="font-serif font-semibold" style={{ fontSize: "1.05rem", color: "#F7F7F7", lineHeight: 1.35, marginBottom: ".45rem" }}>{r.title}</h4>
+                    <p className="font-sans text-[.7rem]" style={{ color: "rgba(247,247,247,.56)", lineHeight: 1.6 }}>{r.meta}</p>
+                  </div>
+                  <div style={{ borderTop: "1px solid rgba(214,255,0,.12)", paddingTop: ".85rem", display: "grid", gap: ".55rem" }}>
+                    <Link href={`/${locale}/library/book/${r.slug}`} className={clsx(isAm ? "font-ethiopic text-[.76rem]" : "font-sans text-[.66rem] uppercase tracking-[.08em]", "rounded-[0.7rem] bg-forest text-[#111] text-center font-bold px-3 py-2.5 transition duration-200 hover:bg-[#c0ff7f]")}>
                       {c.readMore}
                     </Link>
-                    <button className="font-sans text-[.64rem]"
-                      style={{ padding: ".45rem .8rem", borderRadius: 7, background: "transparent", color: "rgba(247,247,247,.6)", border: "1px solid rgba(214,255,0,.2)", cursor: "pointer", transition: "all .2s" }}
+                    <button className={clsx(isAm ? "font-ethiopic text-[.72rem]" : "font-sans text-[.64rem] uppercase tracking-[.08em]")}
+                      style={{ padding: ".7rem .9rem", borderRadius: 10, background: "transparent", color: "rgba(247,247,247,.72)", border: "1px solid rgba(214,255,0,.2)", cursor: "pointer", transition: "all .2s" }}
                       onMouseEnter={e => { e.currentTarget.style.color = "#D6FF00"; e.currentTarget.style.borderColor = "#D6FF00"; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(247,247,247,.6)"; e.currentTarget.style.borderColor = "rgba(214,255,0,.2)"; }}>
-                      ↓
+                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(247,247,247,.72)"; e.currentTarget.style.borderColor = "rgba(214,255,0,.2)"; }}>
+                      {c.downloadBtn}
                     </button>
                   </div>
-                </div>
+                </article>
               </Reveal>
             ))}
           </div>
@@ -119,35 +136,46 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
       </section>
 
       {/* Paid Books */}
-      <section style={{ background: "linear-gradient(180deg, #00D084, #1B1B1B)", padding: "4rem 2.5rem", borderTop: "1px solid rgba(214,255,0,.07)" }}>
+      <section style={{ background: "linear-gradient(180deg, rgba(247,247,247,.94), rgba(227,239,38,.08))", padding: "4rem 2.5rem", borderTop: "1px solid rgba(166,255,77,.14)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal><h2 className={clsx("font-serif font-semibold mb-8", isAm && "font-ethiopic")}
-            style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#F7F7F7" }}>{c.paidTitle}</h2></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))", gap: "1.2rem" }}>
+            style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#1B1B1B" }}>{c.paidTitle}</h2></Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: "1.2rem" }}>
             {PAID_RESOURCES.map((r, i) => (
               <Reveal key={i} delay={i * 0.07}>
-                <div style={{ background: "rgba(27,27,27,.58)", borderRadius: 14, padding: "1.6rem", border: "1px solid rgba(214,255,0,.1)", transition: "all .3s" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(214,255,0,.3)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(214,255,0,.1)"; (e.currentTarget as HTMLDivElement).style.transform = "none"; }}>
-                  <span style={{ fontSize: "2rem", display: "block", marginBottom: ".8rem", opacity: .7 }}>{r.icon}</span>
-                  <h3 className="font-serif font-semibold" style={{ fontSize: "1rem", color: "#F7F7F7", lineHeight: 1.25, marginBottom: ".4rem" }}>{r.title}</h3>
-                  <p className="font-sans text-[.65rem]" style={{ color: "rgba(247,247,247,.45)", marginBottom: "1.2rem" }}>{r.meta}</p>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span className="font-serif font-semibold" style={{ fontSize: "1.1rem", color: "#D6FF00" }}>{r.price}</span>
-                    <div style={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
-                      <Link href={`/${locale}/library/book/${r.slug}`} className={clsx("font-sans text-[.65rem] uppercase tracking-[.08em] bg-[#F7F7F7] text-[#111] rounded-full px-3 py-2 font-semibold transition duration-200 hover:bg-[#e7f0c2]")}>
-                        {c.readMore}
-                      </Link>
-                      <button className={clsx("font-sans text-[.65rem] uppercase tracking-[.08em]", isAm ? "font-ethiopic" : "font-sans")}
-                        style={{ padding: ".45rem .8rem", borderRadius: 7, background: "transparent", color: "rgba(247,247,247,.65)", border: "1px solid rgba(214,255,0,.2)", cursor: "pointer", transition: "all .2s" }}
-                        onMouseEnter={e => { e.currentTarget.style.color = "#D6FF00"; e.currentTarget.style.borderColor = "#D6FF00"; }}
-                        onMouseLeave={e => { e.currentTarget.style.color = "rgba(247,247,247,.65)"; e.currentTarget.style.borderColor = "rgba(214,255,0,.2)"; }}
-                      >
-                        {c.buyBtn}
-                      </button>
+                <article style={{ background: "rgba(27,27,27,.62)", borderRadius: 16, padding: "1.3rem", border: "1px solid rgba(214,255,0,.1)", transition: "all .3s", minHeight: 270, display: "flex", flexDirection: "column", gap: "1rem" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(214,255,0,.3)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(214,255,0,.1)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: ".75rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: ".8rem" }}>
+                      <span style={{ width: 46, height: 46, borderRadius: 12, display: "grid", placeItems: "center", background: "rgba(214,255,0,.08)", fontSize: "1.35rem" }}>{r.icon}</span>
+                      <div>
+                        <p className="font-sans" style={{ fontSize: ".58rem", letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(247,247,247,.5)" }}>{r.type}</p>
+                        <p className="font-sans" style={{ fontSize: ".74rem", color: "#D6FF00", marginTop: ".2rem", fontWeight: 700 }}>{isAm ? "የሚከፈልበት" : "Premium Access"}</p>
+                      </div>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      <p className="font-sans" style={{ fontSize: ".54rem", letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(247,247,247,.42)" }}>{isAm ? "ዋጋ" : "Price"}</p>
+                      <p className="font-serif font-semibold" style={{ fontSize: "1.25rem", color: "#D6FF00" }}>{r.price}</p>
                     </div>
                   </div>
-                </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 className="font-serif font-semibold" style={{ fontSize: "1.08rem", color: "#F7F7F7", lineHeight: 1.3, marginBottom: ".45rem" }}>{r.title}</h3>
+                    <p className="font-sans text-[.7rem]" style={{ color: "rgba(247,247,247,.48)", lineHeight: 1.6 }}>{r.meta}</p>
+                  </div>
+                  <div style={{ borderTop: "1px solid rgba(214,255,0,.12)", paddingTop: ".9rem", display: "grid", gridTemplateColumns: "1fr auto", gap: ".6rem", alignItems: "center" }}>
+                    <Link href={`/${locale}/library/book/${r.slug}`} className={clsx(isAm ? "font-ethiopic text-[.74rem]" : "font-sans text-[.66rem] uppercase tracking-[.08em]", "rounded-[0.7rem] bg-[#F7F7F7] text-[#111] text-center font-semibold px-3 py-2.5 transition duration-200 hover:bg-[#e7f0c2]")}>
+                      {c.readMore}
+                    </Link>
+                    <button className={clsx(isAm ? "font-ethiopic text-[.72rem]" : "font-sans text-[.64rem] uppercase tracking-[.08em]")}
+                      style={{ minWidth: 110, padding: ".7rem .9rem", borderRadius: 10, background: "transparent", color: "rgba(247,247,247,.75)", border: "1px solid rgba(214,255,0,.24)", cursor: "pointer", transition: "all .2s" }}
+                      onMouseEnter={e => { e.currentTarget.style.color = "#D6FF00"; e.currentTarget.style.borderColor = "#D6FF00"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(247,247,247,.75)"; e.currentTarget.style.borderColor = "rgba(214,255,0,.24)"; }}
+                      >
+                      {buyActionLabel}
+                    </button>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>
@@ -155,11 +183,11 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
       </section>
 
       {/* PDF Reader */}
-      <section style={{ background: "linear-gradient(180deg, #1B1B1B, #00D084)", padding: "4rem 2.5rem", borderTop: "1px solid rgba(214,255,0,.07)" }}>
+      <section style={{ background: "linear-gradient(180deg, rgba(247,247,247,.94), rgba(227,239,38,.08))", padding: "4rem 2.5rem 5rem", borderTop: "1px solid rgba(166,255,77,.14)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal>
             <h2 className={clsx("font-serif font-semibold mb-6 text-center", isAm && "font-ethiopic")}
-              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#F7F7F7" }}>{c.readerTitle}</h2>
+              style={{ fontSize: "clamp(1.4rem,2.8vw,2rem)", color: "#1B1B1B" }}>{c.readerTitle}</h2>
           </Reveal>
           <Reveal delay={0.1}>
             <div style={{ background: "rgba(27,27,27,.58)", borderRadius: 16, border: "1px solid rgba(214,255,0,.12)", overflow: "hidden" }}>
@@ -191,7 +219,7 @@ export default function LibraryClient({ locale, c }: { locale: string; c: Conten
           </Reveal>
           <Reveal delay={0.2}>
             <p className={clsx("text-center mt-5", isAm ? "font-ethiopic text-[.75rem]" : "font-sans text-[.68rem]")}
-              style={{ color: "rgba(247,247,247,.35)" }}>{c.registerNote}</p>
+              style={{ color: "rgba(51,51,51,.52)" }}>{c.registerNote}</p>
           </Reveal>
         </div>
       </section>

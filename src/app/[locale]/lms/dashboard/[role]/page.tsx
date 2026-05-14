@@ -1,7 +1,7 @@
 import DashboardRoleClient from "./DashboardRoleClient";
 
 export function generateStaticParams() {
-  const roles = ["student", "teacher", "administrator"];
+  const roles = ["student", "teacher"];
   const locales = ["en", "am"];
   const params = [];
   for (const locale of locales) {

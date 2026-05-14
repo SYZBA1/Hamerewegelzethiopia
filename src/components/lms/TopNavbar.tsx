@@ -1,11 +1,51 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useMemo } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Bell, Globe2, Search, UserCircle2, Menu } from "lucide-react";
+import TeacherNavbar from "@/components/lms/teacher/TeacherNavbar";
 
 const TopNavbar = memo(function TopNavbar({ title, onMobileMenuToggle }: { title: string; onMobileMenuToggle?: () => void }) {
+  const pathname = usePathname() || "";
+  const router = useRouter();
+
+  const locale = useMemo(() => {
+    const segment = pathname.split("/")[1];
+    return segment === "am" ? "am" : "en";
+  }, [pathname]);
+
+  const userRole = useMemo(() => {
+    try {
+      const auth = localStorage.getItem("lmsAuth");
+      if (!auth) return "student";
+      const parsed = JSON.parse(auth);
+      return parsed?.user?.role?.toLowerCase() || "student";
+    } catch {
+      return "student";
+    }
+  }, []);
+
+  const handleNotifications = () => {
+    router.push(`/${locale}/lms/notifications`);
+  };
+
+  const handleLocaleToggle = () => {
+    const nextLocale = locale === "en" ? "am" : "en";
+    const segments = pathname.split("/");
+    const rest = segments.slice(2).join("/");
+    router.push(`/${nextLocale}/${rest || "lms/dashboard"}`);
+  };
+
+  const handleProfile = () => {
+    router.push(`/${locale}/lms/dashboard/${userRole}/profile`);
+  };
+
+  if (userRole === "teacher") {
+    return <TeacherNavbar title={title} onMobileMenuToggle={onMobileMenuToggle} />;
+  }
+
   return (
-    <header className="sticky top-0 z-20 border-b border-charcoal/10 bg-softWhite/95 backdrop-blur-md">
+    <header className="sticky top-0 z-20 border-b border-[#d2e4d5] bg-[#eef6ef] backdrop-blur-md">
       <div className="flex items-center justify-between gap-4 px-4 py-3">
         <div className="flex items-center gap-4">
           {/* Mobile Menu Button */}
@@ -31,13 +71,28 @@ const TopNavbar = memo(function TopNavbar({ title, onMobileMenuToggle }: { title
         </div>
 
         <div className="flex items-center gap-2">
-          <button className="rounded-lg p-2 text-charcoal hover:bg-primaryBg/50 hover:text-charcoal" aria-label="notifications">
+          <button
+            type="button"
+            onClick={handleNotifications}
+            className="rounded-lg p-2 text-charcoal hover:bg-primaryBg/50 hover:text-charcoal"
+            aria-label="notifications"
+          >
             <Bell size={18} />
           </button>
-          <button className="rounded-lg p-2 text-charcoal hover:bg-primaryBg/50 hover:text-charcoal" aria-label="language toggle">
+          <button
+            type="button"
+            onClick={handleLocaleToggle}
+            className="rounded-lg p-2 text-charcoal hover:bg-primaryBg/50 hover:text-charcoal"
+            aria-label="language toggle"
+          >
             <Globe2 size={18} />
           </button>
-          <button className="card-ui flex items-center gap-1 px-2 py-1 text-sm text-charcoal">
+          <button
+            type="button"
+            onClick={handleProfile}
+            className="card-ui flex items-center gap-1 px-2 py-1 text-sm text-charcoal"
+            aria-label="open profile"
+          >
             <UserCircle2 size={16} />
             <span className="hidden sm:inline">Student</span>
           </button>

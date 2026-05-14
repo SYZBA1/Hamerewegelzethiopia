@@ -4,7 +4,6 @@ import Link from "next/link";
 
 interface StudentDashboardProps {
   userName: string;
-  onLogout: () => void;
 }
 
 const statItems = [
@@ -36,7 +35,7 @@ const assignmentItems = [
   { title: "Basic Machen learning", time: "02:00 PM - 06:00 PM", status: "Upcoming", color: "bg-amber-400/15 text-amber-200" },
 ];
 
-export default function StudentDashboard({ userName, onLogout }: StudentDashboardProps) {
+export default function StudentDashboard({ userName }: StudentDashboardProps) {
   return (
     <div className="space-y-6">
       <section className="rounded-[2rem] border border-white/10 bg-[#101714]/80 p-6 shadow-2xl shadow-[#0b1c12]/60 backdrop-blur-xl">
@@ -48,10 +47,10 @@ export default function StudentDashboard({ userName, onLogout }: StudentDashboar
           </div>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {statItems.map((stat) => (
-              <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl shadow-[#00000024]">
-                <p className="text-xs uppercase tracking-[0.28em] text-slate-400">{stat.label}</p>
-                <p className="mt-3 text-3xl font-semibold text-white">{stat.value}</p>
-                <p className="mt-2 text-xs text-slate-500">{stat.note}</p>
+              <div key={stat.label} className="flex min-h-[10rem] flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl shadow-[#00000024]">
+                <p className="text-[0.68rem] uppercase tracking-[0.22em] text-slate-400 break-words">{stat.label}</p>
+                <p className="mt-3 text-2xl font-semibold leading-none text-white sm:text-[2.1rem]">{stat.value}</p>
+                <p className="mt-2 text-xs leading-tight text-slate-500 break-words">{stat.note}</p>
               </div>
             ))}
           </div>
@@ -153,13 +152,6 @@ export default function StudentDashboard({ userName, onLogout }: StudentDashboar
           <section className="rounded-[2rem] border border-white/10 bg-[#111f16]/95 p-6 shadow-2xl shadow-[#0b1c12]/40 backdrop-blur-xl">
             <div className="flex items-center justify-between">
               <p className="text-sm uppercase tracking-[0.28em] text-[#d6ff00]">Education</p>
-              <button
-                type="button"
-                onClick={onLogout}
-                className="rounded-2xl bg-[#d6ff00]/10 px-4 py-2 text-sm font-semibold text-[#d6ff00] transition hover:bg-[#d6ff00]/20"
-              >
-                Logout
-              </button>
             </div>
             <p className="mt-4 text-sm text-slate-300">Keep tracking your learning goals every day and check assignments for deadlines.</p>
           </section>
