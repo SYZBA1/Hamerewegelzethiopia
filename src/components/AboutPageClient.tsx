@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -928,9 +929,11 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
                 <div
                   className="mt-6 block w-full overflow-hidden rounded-2xl border border-[#17351f]/18 bg-white/65 shadow-[0_14px_28px_rgba(23,53,31,0.1)]"
                 >
-                  <img
+                  <Image
                     src={structureImageSrc}
                     alt={isAm ? "የአስተዳደር መዋቅር ምስል" : "Administrative structure chart"}
+                    width={1600}
+                    height={1000}
                     className="h-auto w-full object-contain"
                     onError={() => setStructureImageSrc("/assets/structure.png")}
                   />

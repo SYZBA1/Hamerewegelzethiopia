@@ -17,6 +17,12 @@ interface Content {
 }
 
 const ROLE_ICONS = ["👨‍🎓", "👩‍🏫", "⚙️"];
+const ROLE_KEYS = ["student", "teacher", "admin"] as const;
+const MOCK_USERS = {
+  student: { email: "student@hamerewongel.org", password: "password123" },
+  teacher: { email: "teacher@hamerewongel.org", password: "password123" },
+  admin: { email: "admin@hamerewongel.org", password: "password123" },
+} as const;
 
 const LMSClient = memo(function LMSClient({ locale, c }: { locale: string; c: Content }) {
   const router = useRouter();
@@ -30,23 +36,16 @@ const LMSClient = memo(function LMSClient({ locale, c }: { locale: string; c: Co
 
   const roles = [c.studentLabel, c.teacherLabel, c.adminLabel];
 
-  // Mock users
-  const mockUsers = {
-    student: { email: "student@hamerewongel.org", password: "password123" },
-    teacher: { email: "teacher@hamerewongel.org", password: "password123" },
-    admin: { email: "admin@hamerewongel.org", password: "password123" }
-  };
-
   const handleLogin = useCallback(() => {
-    const roleKey = ['student', 'teacher', 'admin'][role] as keyof typeof mockUsers;
-    const user = mockUsers[roleKey];
+    const roleKey = ROLE_KEYS[role];
+    const user = MOCK_USERS[roleKey];
     if (email === user.email && password === user.password) {
       login({ role: roleKey, email });
       router.push(`/${locale}/lms/dashboard`);
     } else {
       setError(isAm ? "ትክክለኛ ኢሜል ወይም የይለፍ ቃል አልሆነም" : "Invalid email or password");
     }
-  }, [role, email, password, login, router, locale, isAm, mockUsers]);
+  }, [role, email, password, login, router, locale, isAm]);
 
   const inputSt = {
     width: "100%", padding: ".8rem 1rem",

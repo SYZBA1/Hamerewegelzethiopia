@@ -1,5 +1,25 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, DM_Sans, Noto_Serif_Ethiopic } from "next/font/google";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-dm-sans",
+});
+
+const notoSerifEthiopic = Noto_Serif_Ethiopic({
+  subsets: ["ethiopic"],
+  weight: ["300", "400", "600"],
+  variable: "--font-ethiopic",
+});
 
 export const metadata: Metadata = {
   title: "Hamere Wengel Zethiopia | ሐመረ ወንጌል ዘኢትዮጵያ",
@@ -13,13 +33,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Noto+Serif+Ethiopic:wght@300;400;600&display=swap"
-        />
-      </head>
-      <body className="theme-light">{children}</body>
+      <body className={`theme-light ${cormorant.variable} ${dmSans.variable} ${notoSerifEthiopic.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

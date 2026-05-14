@@ -171,6 +171,18 @@
     "hours_saturday": "ቅዳሜ: 9:00 – 1:00",
     "hours_sunday": "እሑድ: ዝጉ"
   },
+  "integration": {
+    "eyebrow": "ውህደት",
+    "title": "ቤተ-መጻሕፍት፣ LMS እና ምረቃ",
+    "subtitle": "ምንጮችን ለማግኘት፣ ኮርሶችዎን ለመድረስ እና ስለ ምረቃ መንገዶች ለማወቅ አንድ ቦታ።",
+    "card_library_title": "ቤተ-መጻሕፍት",
+    "card_library_body": "በዲጂታል ቤተ-መጻሕፍት ውስጥ የተደረጉ ጥንታዊ ጽሑፎችን፣ መጻሕፍትን እና ሚዲያን ይመልከቱ።",
+    "card_lms_title": "LMS",
+    "card_lms_body": "ለኮርሶች፣ ስራዎች እና ምስክር ወረቀቶች ይግቡ።",
+    "card_grad_title": "ምረቃ",
+    "card_grad_body": "ለማጠናቀቂያ መስፈርቶች እና ሥነ-ሥርዓቶች ከሬጅስትራሩ ጋር ይገናኙ።",
+    "cta": "ክፈት"
+  },
   "zsections": {
     "heritage": {
       "tag": "ቅዱስ ቅርሳችን",

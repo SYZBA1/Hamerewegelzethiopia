@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Course } from "./courseData";
 import ProgressBar from "./ProgressBar";
 import EnrollButton from "./EnrollButton";
@@ -11,9 +12,11 @@ interface CourseCardProps {
 export default function CourseCard({ course, locale }: CourseCardProps) {
   return (
     <article className="group rounded-3xl border border-white/15 bg-[#162b1d] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d6ff00]/30 hover:shadow-lg hover:shadow-black/30">
-      <img
+      <Image
         src={course.thumbnail}
         alt={course.title}
+        width={720}
+        height={320}
         className="mb-4 h-36 w-full rounded-2xl object-cover ring-1 ring-white/10"
       />
 
