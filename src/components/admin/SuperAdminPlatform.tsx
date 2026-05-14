@@ -251,7 +251,7 @@ export default function SuperAdminPlatform({ platform, section }: { platform: Pl
   const items = platform === "hamere-wengel" ? hamereSidebar : saintSidebar;
   const contentMap = platform === "hamere-wengel" ? hamereContent : saintContent;
   const current = section && contentMap[section] ? section : "dashboard";
-  const module = contentMap[current];
+  const currentModule = contentMap[current];
 
   const title = platform === "hamere-wengel" ? "Hamere Wengel Ethiopia" : "Saint Cyril College";
   const subtitle = platform === "hamere-wengel"
@@ -313,12 +313,12 @@ export default function SuperAdminPlatform({ platform, section }: { platform: Pl
 
         <main className="min-w-0 flex-1 space-y-6">
           <section className="rounded-3xl border border-[#d7e4db] bg-white p-6">
-            <h2 className="text-2xl font-bold text-[#183625]">{module.title}</h2>
-            <p className="mt-2 text-sm text-[#4d6457]">{module.subtitle}</p>
+            <h2 className="text-2xl font-bold text-[#183625]">{currentModule.title}</h2>
+            <p className="mt-2 text-sm text-[#4d6457]">{currentModule.subtitle}</p>
           </section>
 
           <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {module.cards.map((card) => (
+            {currentModule.cards.map((card) => (
               <article key={card.title} className="rounded-2xl border border-[#d7e4db] bg-white p-4">
                 <p className="text-xs uppercase tracking-[0.18em] text-[#5d7266]">{card.title}</p>
                 {card.value ? <p className="mt-2 text-2xl font-bold text-[#193726]">{card.value}</p> : null}
@@ -330,7 +330,7 @@ export default function SuperAdminPlatform({ platform, section }: { platform: Pl
           <section className="rounded-3xl border border-[#d7e4db] bg-white p-6">
             <h3 className="text-lg font-bold text-[#183625]">Features</h3>
             <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-              {module.features.map((feature) => (
+              {currentModule.features.map((feature) => (
                 <div key={feature} className="rounded-xl bg-[#f0f7f2] px-3 py-2 text-sm text-[#244635]">
                   {feature}
                 </div>

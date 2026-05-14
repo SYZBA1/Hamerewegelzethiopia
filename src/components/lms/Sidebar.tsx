@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo, useCallback, memo } from "react";
+import { memo } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import {
@@ -49,13 +49,13 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
   const { logout } = useAuth();
   const router = useRouter();
   const activePath = pathname || "/en/lms/dashboard";
-  const locale = useMemo<LocaleKey>(() => {
+  const locale: LocaleKey = (() => {
     const segment = (pathname || "").split("/")[1];
     return segment === "am" ? "am" : "en";
-  }, [pathname]);
+  })();
   const base = `/${locale}`;
 
-  const getUserRole = useCallback(() => {
+  const getUserRole = () => {
     try {
       const auth = localStorage.getItem("lmsAuth");
       if (auth) {
@@ -66,19 +66,19 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
       // fallback
     }
     return "student";
-  }, []);
+  };
 
   const userRole = getUserRole() as RoleKey;
   if (userRole === "teacher") {
     return <TeacherSidebar isCollapsed={isCollapsed} onToggle={onToggle} />;
   }
 
-  const items = useMemo(() => navItemsByRole[userRole] || navItemsByRole.student, [userRole]);
+  const items = navItemsByRole[userRole] || navItemsByRole.student;
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     logout();
     router.push(`${base}/lms/login`);
-  }, [base, logout, router]);
+  };
 
   return (
     <nav className={`flex h-full flex-col ${isCollapsed ? "w-20" : "w-64"} bg-[#08120f] border-r border-white/10 transition-all duration-300`}>

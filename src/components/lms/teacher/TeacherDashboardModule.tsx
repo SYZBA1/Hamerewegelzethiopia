@@ -54,7 +54,7 @@ export default function TeacherDashboardModule({ teacherName }: { teacherName: s
           {classesToday.map((item) => (
             <div key={item.title} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white/5 p-4">
               <div>
-                <p className="font-semibold text-white">Today's Classes: {item.title}</p>
+                <p className="font-semibold text-white">Today&apos;s Classes: {item.title}</p>
                 <p className="text-xs text-slate-400">Meeting Time: {item.time}</p>
               </div>
               <button className="rounded-xl border border-white/20 px-3 py-1.5 text-xs font-semibold text-slate-100">{item.link}</button>
