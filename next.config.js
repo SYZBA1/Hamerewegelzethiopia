@@ -4,7 +4,8 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Temporarily disabled for build testing
+  // Static export is required for this project deployment mode.
+  output: 'export',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -14,10 +15,12 @@ const nextConfig = {
       },
     ],
   },
-  webpack(config) {
-    config.parallelism = 1;
-    // Disable webpack cache to prevent memory issues
-    config.cache = false;
+  webpack(config, { dev }) {
+    // Keep dev fast; apply memory-safe settings only for production builds.
+    if (!dev) {
+      config.parallelism = 1;
+      config.cache = false;
+    }
     return config;
   },
 };
