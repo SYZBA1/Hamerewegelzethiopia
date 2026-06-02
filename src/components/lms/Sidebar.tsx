@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { memo } from "react";
+import { useMemo, useCallback, memo } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import {
@@ -10,17 +10,19 @@ import {
   BookOpen,
   Layers,
   MessageCircle,
+  Bell,
   Calendar,
+  Users,
   Settings,
   User,
   LogOut,
   Menu,
+  ClipboardList,
   FileText,
   Award,
 } from "lucide-react";
-import TeacherSidebar from "@/components/lms/teacher/TeacherSidebar";
 
-type RoleKey = "student" | "teacher";
+type RoleKey = "student" | "teacher" | "administrator";
 type LocaleKey = "en" | "am";
 
 const navItemsByRole: Record<RoleKey, Array<{ path: string; label: string; icon: any; exact?: boolean }>> = {
@@ -40,22 +42,36 @@ const navItemsByRole: Record<RoleKey, Array<{ path: string; label: string; icon:
     { path: "/lms/courses", label: "Courses", icon: BookOpen },
     { path: "/lms/classes", label: "Classes", icon: Layers },
     { path: "/lms/messages", label: "Message", icon: MessageCircle },
+    { path: "/lms/notifications", label: "Notifications", icon: Bell },
     { path: "/lms/calendar", label: "Calendar", icon: Calendar },
+    { path: "/lms/community", label: "Community", icon: Users },
+    { path: "/lms/settings", label: "Settings", icon: Settings },
+  ],
+  administrator: [
+    { path: "/lms/dashboard", label: "Home", icon: Home },
+    { path: "/lms/admissions", label: "Admissions", icon: ClipboardList },
+    { path: "/lms/courses", label: "Courses", icon: BookOpen },
+    { path: "/lms/classes", label: "Classes", icon: Layers },
+    { path: "/lms/messages", label: "Message", icon: MessageCircle },
+    { path: "/lms/notifications", label: "Notifications", icon: Bell },
+    { path: "/lms/calendar", label: "Calendar", icon: Calendar },
+    { path: "/lms/community", label: "Community", icon: Users },
     { path: "/lms/settings", label: "Settings", icon: Settings },
   ],
 };
+
 const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: boolean; onToggle: () => void }) {
   const pathname = usePathname();
   const { logout } = useAuth();
   const router = useRouter();
   const activePath = pathname || "/en/lms/dashboard";
-  const locale: LocaleKey = (() => {
+  const locale = useMemo<LocaleKey>(() => {
     const segment = (pathname || "").split("/")[1];
     return segment === "am" ? "am" : "en";
-  })();
+  }, [pathname]);
   const base = `/${locale}`;
 
-  const getUserRole = () => {
+  const getUserRole = useCallback(() => {
     try {
       const auth = localStorage.getItem("lmsAuth");
       if (auth) {
@@ -66,19 +82,15 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
       // fallback
     }
     return "student";
-  };
+  }, []);
 
   const userRole = getUserRole() as RoleKey;
-  if (userRole === "teacher") {
-    return <TeacherSidebar isCollapsed={isCollapsed} onToggle={onToggle} />;
-  }
+  const items = useMemo(() => navItemsByRole[userRole] || navItemsByRole.student, [userRole]);
 
-  const items = navItemsByRole[userRole] || navItemsByRole.student;
-
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout();
     router.push(`${base}/lms/login`);
-  };
+  }, [base, logout, router]);
 
   return (
     <nav className={`flex h-full flex-col ${isCollapsed ? "w-20" : "w-64"} bg-[#08120f] border-r border-white/10 transition-all duration-300`}>
@@ -86,10 +98,10 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
         {!isCollapsed && (
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-[#d6ff00] text-[#0f1e13] shadow-[0_10px_30px_rgba(214,255,0,.18)]">
-              SC
+              E
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#a5ff63]/80">Saint Cyril</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-[#a5ff63]/80">eLearner</p>
               <p className="text-sm font-semibold text-white">Student Hub</p>
             </div>
           </div>
@@ -129,15 +141,21 @@ const Sidebar = memo(function Sidebar({ isCollapsed, onToggle }: { isCollapsed: 
         </ul>
       </div>
 
-      <div className="border-t border-[#1d3a26] p-4">
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#d6ff00] px-3 py-3 text-sm font-semibold text-[#08120f] transition hover:bg-[#b3dd00]"
-        >
-          <LogOut size={16} />
-          {!isCollapsed ? "Logout" : "Out"}
-        </button>
+      <div className="mt-auto border-t border-white/10 p-4">
+        <div className="rounded-[1.8rem] bg-[#112416] p-4 shadow-[0_18px_60px_rgba(0,0,0,.22)]">
+          <p className="text-xs uppercase tracking-[0.24em] text-[#a9ff7b]/80">Go Premium</p>
+          {!isCollapsed && (
+            <p className="mt-3 text-sm leading-5 text-[#e9f8de]">
+              Explore 250+ courses with lifetime membership.
+            </p>
+          )}
+          <Link
+            href={`${base}/lms/courses`}
+            className="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-[#d6ff00] px-3 py-3 text-sm font-semibold text-[#08120f] transition hover:bg-[#b3dd00]"
+          >
+            Explore Plans
+          </Link>
+        </div>
       </div>
     </nav>
   );

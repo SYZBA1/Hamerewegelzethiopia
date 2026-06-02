@@ -24,6 +24,30 @@ const steps = [
   { title: "Set up your profile", active: false },
 ];
 
+const admissionGuideSlides = [
+  {
+    title: "Admission Guide",
+    heading: "Start With Admissions",
+    text: "Review requirements, tuition, scholarships, and application steps before sign in.",
+    cta: "Open Admissions",
+    href: "admissions",
+  },
+  {
+    title: "Admission Guide",
+    heading: "Complete Your Registration",
+    text: "Create your account after reviewing the admission criteria and required documents.",
+    cta: "Register Account",
+    href: "register",
+  },
+  {
+    title: "Admission Guide",
+    heading: "Then Continue to LMS",
+    text: "Once admitted, sign in and continue with your courses, classes, and certificates.",
+    cta: "Go to LMS Login",
+    href: "login",
+  },
+];
+
 export default function LMSLoginPage() {
   const router = useRouter();
   const pathname = usePathname() || "";
@@ -36,6 +60,13 @@ export default function LMSLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [guideIndex, setGuideIndex] = useState(0);
+
+  const activeGuide = admissionGuideSlides[guideIndex];
+
+  function nextGuideSlide() {
+    setGuideIndex((prev) => (prev + 1) % admissionGuideSlides.length);
+  }
 
   const canSubmit = useMemo(
     () => email.trim().length > 0 && password.trim().length > 0,
@@ -104,31 +135,56 @@ export default function LMSLoginPage() {
       landingPath={landingPath}
       sideContent={
         <>
-          <div className="space-y-6">
-            <div className="max-w-xl space-y-3">
-              <p className="lms-auth-kicker text-sm uppercase tracking-[0.35em]">Welcome to LMS</p>
-              <h1 className="lms-auth-title text-4xl font-semibold sm:text-5xl">Get Started with Us</h1>
-              <p className="lms-auth-copy max-w-xl text-sm leading-7 sm:text-base">
-                Complete these easy steps to register your account and begin your learning journey.
-              </p>
-            </div>
+          <div className="space-y-7">
+            <div className="rounded-[2rem] border border-white/25 bg-white/12 p-6 backdrop-blur-xl">
+              <p className="lms-auth-kicker text-xs uppercase tracking-[0.35em]">{activeGuide.title}</p>
+              <h1 className="lms-auth-title mt-2 text-3xl font-semibold sm:text-4xl">{activeGuide.heading}</h1>
+              <p className="lms-auth-copy mt-3 text-sm leading-7 sm:text-base">{activeGuide.text}</p>
 
-            <div className="grid gap-4 sm:grid-cols-3">
-              {steps.map((step, index) => (
-                <div
-                  key={step.title}
-                  className={`lms-auth-feature rounded-3xl p-5 backdrop-blur-md transition-all duration-300 ${
-                    step.active
-                      ? "ring-1 ring-[rgba(121,185,63,0.22)]"
-                      : "hover:-translate-y-0.5"
-                  }`}
+              <div className="mt-6 grid grid-cols-3 gap-3">
+                {steps.map((step, index) => (
+                  <div
+                    key={step.title}
+                    className={`lms-auth-feature rounded-2xl p-4 text-center backdrop-blur-md transition-all duration-300 ${
+                      guideIndex === index
+                        ? "ring-1 ring-[rgba(121,185,63,0.22)]"
+                        : "opacity-85"
+                    }`}
+                  >
+                    <span className="lms-auth-feature-badge inline-flex h-9 w-9 items-center justify-center rounded-xl text-xs font-semibold">
+                      {index + 1}
+                    </span>
+                    <p className="lms-auth-feature-title mt-2 text-[0.72rem] font-semibold leading-4">{step.title}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex items-center justify-between gap-3">
+                <Link
+                  href={`/${locale}/lms/${activeGuide.href}`}
+                  className="rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-[#0f3fbe] transition hover:bg-[#f1f6ff]"
                 >
-                  <span className="lms-auth-feature-badge inline-flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-semibold">
-                    {index + 1}
-                  </span>
-                  <p className="lms-auth-feature-title mt-4 text-sm font-semibold">{step.title}</p>
-                </div>
-              ))}
+                  {activeGuide.cta}
+                </Link>
+                <button
+                  type="button"
+                  onClick={nextGuideSlide}
+                  className="rounded-2xl border border-white/45 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+                >
+                  Next
+                </button>
+              </div>
+
+              <div className="mt-4 flex items-center justify-center gap-2">
+                {admissionGuideSlides.map((_, index) => (
+                  <span
+                    key={`dot-${index}`}
+                    className={`h-2 rounded-full transition-all ${
+                      guideIndex === index ? "w-6 bg-white" : "w-2 bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
@@ -143,9 +199,9 @@ export default function LMSLoginPage() {
     >
       <div className="mb-8 space-y-3 text-center sm:text-left">
         <p className="lms-auth-kicker text-sm uppercase tracking-[0.35em]">Welcome back</p>
-        <h1 className="lms-auth-title text-3xl font-bold sm:text-4xl">Sign In</h1>
+        <h1 className="lms-auth-title text-3xl font-bold sm:text-4xl">Log in to your account</h1>
         <p className="lms-auth-copy text-sm leading-6">
-          Access your learning dashboard with your registered account.
+          Select a method to continue and access your dashboard.
         </p>
       </div>
 
@@ -161,10 +217,10 @@ export default function LMSLoginPage() {
         <button
           type="button"
           className="lms-auth-social flex items-center justify-center gap-2 rounded-3xl px-4 py-3 text-sm transition"
-          onClick={() => alert('GitHub login placeholder')}
+          onClick={() => alert('Facebook login placeholder')}
         >
-          <span className="text-base">GH</span>
-          GitHub
+          <span className="text-base">f</span>
+          Facebook
         </button>
       </div>
 
