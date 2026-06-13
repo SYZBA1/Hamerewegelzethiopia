@@ -10,15 +10,16 @@ export interface Lesson {
 }
 
 export interface Course {
+  _id?: string;
   id: string;
   title: string;
   category: string;
-  instructor: string;
+  instructor: string | { _id: string; username: string };
   description: string;
   outcomes: string[];
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   duration: string;
-  lessonsCount: number;
+  lessonsCount?: number;
   progress: number;
   enrolled: boolean;
   isNew?: boolean;

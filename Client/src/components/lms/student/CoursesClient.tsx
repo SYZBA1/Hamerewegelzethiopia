@@ -1,52 +1,100 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 import CourseGrid from "./courses/CourseGrid";
-import { courses } from "./courses/courseData";
+import type { Course } from "./courses/courseData";
+
+const API_URL = "http://localhost:5000/api/v1";
 
 export default function CoursesClient() {
   const pathname = usePathname() || "";
   const locale = pathname.split("/")[1] || "en";
+
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
   const [filterInstructor, setFilterInstructor] = useState("all");
   const [sortBy, setSortBy] = useState("progress");
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch(`${API_URL}/courses`);
+        const data = await res.json();
+        if (data.success) {
+          // Map _id to id and ensure all fields match the Course interface
+          const mapped: Course[] = data.data.map((c: any) => ({
+            ...c,
+            id: c._id,
+            enrolled: false,
+            progress: 0,
+            lessons: c.lessons || [],
+            outcomes: c.outcomes || []
+          }));
+          setCourses(mapped);
+        } else {
+          setError("Failed to load courses");
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError("Error connecting to server");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   const instructors = useMemo(
-    () => ["all", ...new Set(courses.map((course) => course.instructor))],
-    []
+    () => ["all", ...new Set(courses.map((course: Course) => 
+      typeof course.instructor === 'object' ? course.instructor.username : course.instructor
+    ))],
+    [courses]
   );
 
   const filteredCourses = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
-    const base = courses.filter((course) => {
+    const base = courses.filter((course: any) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
         course.title.toLowerCase().includes(normalizedSearch);
       const matchesCategory =
         filterCategory === "all" || course.category.toLowerCase() === filterCategory.toLowerCase();
       const matchesInstructor =
-        filterInstructor === "all" || course.instructor === filterInstructor;
+        filterInstructor === "all" ||
+        (typeof course.instructor === 'object' ? course.instructor.username : course.instructor) === filterInstructor;
 
       return matchesSearch && matchesCategory && matchesInstructor;
     });
 
     const sorted = [...base];
-
-    if (sortBy === "progress") {
-      sorted.sort((a, b) => b.progress - a.progress);
-    } else if (sortBy === "new") {
-      sorted.sort((a, b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)));
-    } else if (sortBy === "popular") {
-      sorted.sort((a, b) => Number(Boolean(b.isPopular)) - Number(Boolean(a.isPopular)));
-    }
-
+    // Progress sorting might not work yet since it's not in the model per student yet
     return sorted;
-  }, [filterCategory, filterInstructor, searchTerm, sortBy]);
+  }, [courses, filterCategory, filterInstructor, searchTerm, sortBy]);
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-[#d6ff00]" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-6 text-center text-red-400">
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()} className="mt-4 text-sm underline">Try again</button>
+      </div>
+    );
+  }
 
   const enrolled = filteredCourses.filter((course) => course.enrolled);
   const available = filteredCourses.filter((course) => !course.enrolled);

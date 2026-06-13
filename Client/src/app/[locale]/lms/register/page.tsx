@@ -4,6 +4,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useState, type FormEvent } from "react";
 import LMSAuthShell from "@/components/lms/AuthShell";
+import { useAuth } from "@/context/AuthContext";
+
+const API_URL = "http://localhost:5000/api/v1";
 
 type DegreeType = "diploma" | "degree" | "masters" | "courses";
 
@@ -15,6 +18,7 @@ const steps = [
 
 export default function LMSRegisterPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const pathname = usePathname() || "";
   const locale = pathname.split("/")[1] || "";
   const landingPath = locale ? `/${locale}` : "/";
@@ -67,7 +71,7 @@ export default function LMSRegisterPage() {
     return null;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
     setMessage("");
@@ -83,52 +87,42 @@ export default function LMSRegisterPage() {
       return;
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
-    const users = JSON.parse(localStorage.getItem("lmsUsers") || "[]");
-    const exists = users.find((u: any) => String(u?.email || "").trim().toLowerCase() === normalizedEmail);
-
-    if (exists) {
-      setError("This email is already registered. Please login.");
-      return;
-    }
-
-    const fullName = `${firstName.trim()} ${lastName.trim()}`;
-    const registration = {
-      degreeType,
-      ...(degreeType === "diploma" && {
-        diplomaSchool: diplomaSchool.trim(),
-        diplomaYear: diplomaYear.trim(),
-      }),
-      ...(degreeType === "degree" && {
-        degreeMajor: degreeMajor.trim(),
-        degreeEntry: degreeEntry.trim(),
-      }),
-      ...(degreeType === "masters" && {
-        mastersField: mastersField.trim(),
-        mastersInstitution: mastersInstitution.trim(),
-      }),
-      ...(degreeType === "courses" && {
-        courseTrack: courseTrack.trim(),
-        courseIntake: courseIntake.trim(),
-      }),
-    };
-
-    const newUser = {
-      name: fullName,
-      role,
-      email: normalizedEmail,
-      password: password.trim(),
-      registration,
-    };
-
-    localStorage.setItem("lmsUsers", JSON.stringify([...users, newUser]));
     setLoading(true);
-    setMessage("Account created! You will be redirected shortly.");
 
-    setTimeout(() => {
-      localStorage.setItem("lmsAuth", JSON.stringify({ token: "mock-jwt-token", user: newUser }));
-      router.push(`/${locale}/lms/dashboard/${role.toLowerCase()}`);
-    }, 1100);
+    try {
+      const username = `${firstName.trim()} ${lastName.trim()}`;
+      
+      const res = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email: email.trim().toLowerCase(),
+          password: password.trim(),
+          role: role.toLowerCase()
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setMessage("Account created! You will be redirected shortly.");
+        login(data.data || { username, email, role: role.toLowerCase() }, data.token);
+
+        setTimeout(() => {
+          router.push(`/${locale}/lms/dashboard/${role.toLowerCase()}`);
+        }, 1100);
+      } else {
+        setError(data.message || "Registration failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

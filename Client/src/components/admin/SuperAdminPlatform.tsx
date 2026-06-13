@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 type PlatformType = "hamere-wengel" | "saint-cyril";
 
@@ -17,8 +18,8 @@ type SectionContent = {
 
 function normalizeRole(role: string) {
   const r = String(role || "").trim().toLowerCase();
-  if (r === "super admin" || r === "super-admin" || r === "administrator") return "administrator";
-  if (r === "teacher") return "teacher";
+  if (r === "super admin" || r === "super-admin" || r === "administrator" || r === "admin") return "administrator";
+  if (r === "teacher" || r === "instructor") return "teacher";
   return "student";
 }
 
@@ -215,6 +216,18 @@ const saintContent: Record<string, SectionContent> = {
 export default function SuperAdminPlatform({ platform, section }: { platform: PlatformType; section?: string }) {
   const pathname = usePathname() || "";
   const router = useRouter();
+  const { user, loading, logout } = useAuth();
+  const [stats, setStats] = useState({
+    studentCount: 0,
+    teacherCount: 0,
+    courseCount: 0,
+    pendingAdmissions: 0
+  });
+
+  const [inviteModalOpen, setInviteModalOpen] = useState(false);
+  const [inviteData, setInviteData] = useState({ username: "", email: "", password: "" });
+  const [inviteLoading, setInviteLoading] = useState(false);
+  const [inviteMessage, setInviteMessage] = useState({ type: "", text: "" });
 
   const locale = useMemo(() => {
     const segment = pathname.split("/")[1];
@@ -222,36 +235,94 @@ export default function SuperAdminPlatform({ platform, section }: { platform: Pl
   }, [pathname]);
 
   useEffect(() => {
-    const auth = localStorage.getItem("lmsAuth");
-    if (!auth) {
+    if (loading) return;
+    if (!user) {
       router.replace(`/${locale}/lms/login`);
       return;
     }
+    const role = normalizeRole(user.role || "");
+    if (role !== "administrator") {
+      router.replace(`/${locale}/lms/dashboard/${role}`);
+    }
+  }, [user, loading, locale, router]);
 
-    try {
-      const parsed = JSON.parse(auth);
-      const role = normalizeRole(parsed?.user?.role || "");
-      if (role !== "administrator") {
-        router.replace(`/${locale}/lms/dashboard/${role}`);
+  useEffect(() => {
+    const fetchStats = async () => {
+      if (platform !== "saint-cyril" || !user) return;
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1'}/auth/admin/stats`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('lms_token')}`
+          }
+        });
+        const data = await res.json();
+        if (data.success) {
+          setStats(data.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch admin stats:", err);
       }
-    } catch {
-      router.replace(`/${locale}/lms/login`);
-    }
-  }, [locale, router]);
+    };
 
-  const userName = useMemo(() => {
+    fetchStats();
+  }, [platform, user]);
+
+  const handleInviteTeacher = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setInviteLoading(true);
+    setInviteMessage({ type: "", text: "" });
+
     try {
-      const parsed = JSON.parse(localStorage.getItem("lmsAuth") || "{}");
-      return parsed?.user?.name || "Super Admin";
-    } catch {
-      return "Super Admin";
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1'}/auth/admin/invite-teacher`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('lms_token')}`
+        },
+        body: JSON.stringify(inviteData)
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setInviteMessage({ type: "success", text: "Teacher invited successfully!" });
+        setInviteData({ username: "", email: "", password: "" });
+        setTimeout(() => setInviteModalOpen(false), 2000);
+        // Refresh stats
+        const statsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1'}/auth/admin/stats`, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('lms_token')}` }
+        });
+        const statsData = await statsRes.json();
+        if (statsData.success) setStats(statsData.data);
+      } else {
+        setInviteMessage({ type: "error", text: data.message || "Failed to invite teacher" });
+      }
+    } catch (err) {
+      setInviteMessage({ type: "error", text: "An error occurred. Please try again." });
+    } finally {
+      setInviteLoading(false);
     }
-  }, []);
+  };
+
+  const userName = user?.username || "Super Admin";
 
   const items = platform === "hamere-wengel" ? hamereSidebar : saintSidebar;
   const contentMap = platform === "hamere-wengel" ? hamereContent : saintContent;
   const current = section && contentMap[section] ? section : "dashboard";
-  const currentModule = contentMap[current];
+  const currentModule = useMemo(() => {
+    const base = contentMap[current];
+    if (platform === "saint-cyril" && current === "dashboard") {
+      return {
+        ...base,
+        cards: [
+          { title: "Total Students", value: stats.studentCount.toLocaleString() },
+          { title: "Total Teachers", value: stats.teacherCount.toLocaleString() },
+          { title: "Active Courses", value: stats.courseCount.toLocaleString() },
+          { title: "Pending Admissions", value: stats.pendingAdmissions.toLocaleString() },
+        ]
+      };
+    }
+    return base;
+  }, [contentMap, current, platform, stats]);
 
   const title = platform === "hamere-wengel" ? "Hamere Wengel Ethiopia" : "Saint Cyril College";
   const subtitle = platform === "hamere-wengel"
@@ -261,8 +332,7 @@ export default function SuperAdminPlatform({ platform, section }: { platform: Pl
   const prefix = `/${locale}/admin/${platform}`;
 
   const handleLogout = () => {
-    localStorage.removeItem("lmsAuth");
-    router.push(`/${locale}/lms/login`);
+    logout();
   };
 
   return (
@@ -313,9 +383,88 @@ export default function SuperAdminPlatform({ platform, section }: { platform: Pl
 
         <main className="min-w-0 flex-1 space-y-6">
           <section className="rounded-3xl border border-[#d7e4db] bg-white p-6">
-            <h2 className="text-2xl font-bold text-[#183625]">{currentModule.title}</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-[#183625]">{currentModule.title}</h2>
+              {platform === "saint-cyril" && current === "teachers" && (
+                <button
+                  onClick={() => setInviteModalOpen(true)}
+                  className="rounded-xl bg-[#d6ff00] px-4 py-2 text-sm font-semibold text-[#112014] hover:bg-[#c4eb00] transition-colors"
+                >
+                  Invite Teacher
+                </button>
+              )}
+            </div>
             <p className="mt-2 text-sm text-[#4d6457]">{currentModule.subtitle}</p>
           </section>
+
+          {/* Invitation Modal */}
+          {inviteModalOpen && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+              <div className="w-full max-w-md rounded-3xl border border-[#d7e4db] bg-white p-8 shadow-2xl">
+                <h3 className="text-xl font-bold text-[#183625]">Invite New Teacher</h3>
+                <p className="text-sm text-[#4d6457] mt-1">Create a new instructor account for Saint Cyril College.</p>
+                
+                <form onSubmit={handleInviteTeacher} className="mt-6 space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#4d6a5a]">Username</label>
+                    <input
+                      required
+                      type="text"
+                      value={inviteData.username}
+                      onChange={(e) => setInviteData({ ...inviteData, username: e.target.value })}
+                      className="mt-1 w-full rounded-xl border border-[#d8e4da] bg-[#f8fbf8] p-3 text-sm focus:border-[#d6ff00] focus:outline-none"
+                      placeholder="johndoe"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#4d6a5a]">Email Address</label>
+                    <input
+                      required
+                      type="email"
+                      value={inviteData.email}
+                      onChange={(e) => setInviteData({ ...inviteData, email: e.target.value })}
+                      className="mt-1 w-full rounded-xl border border-[#d8e4da] bg-[#f8fbf8] p-3 text-sm focus:border-[#d6ff00] focus:outline-none"
+                      placeholder="teacher@example.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#4d6a5a]">Temporary Password</label>
+                    <input
+                      required
+                      type="password"
+                      value={inviteData.password}
+                      onChange={(e) => setInviteData({ ...inviteData, password: e.target.value })}
+                      className="mt-1 w-full rounded-xl border border-[#d8e4da] bg-[#f8fbf8] p-3 text-sm focus:border-[#d6ff00] focus:outline-none"
+                      placeholder="••••••••"
+                    />
+                  </div>
+
+                  {inviteMessage.text && (
+                    <p className={`text-sm font-medium ${inviteMessage.type === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+                      {inviteMessage.text}
+                    </p>
+                  )}
+
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setInviteModalOpen(false)}
+                      className="flex-1 rounded-xl border border-[#d8e4da] py-3 text-sm font-semibold text-[#4d6a5a] hover:bg-[#f8fbf8] transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      disabled={inviteLoading}
+                      type="submit"
+                      className="flex-1 rounded-xl bg-[#d6ff00] py-3 text-sm font-semibold text-[#112014] hover:bg-[#c4eb00] transition-colors disabled:opacity-50"
+                    >
+                      {inviteLoading ? "Sending..." : "Send Invitation"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
 
           <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {currentModule.cards.map((card) => (

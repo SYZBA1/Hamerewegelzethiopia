@@ -4,12 +4,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useState, type FormEvent } from "react";
 import LMSAuthShell from "@/components/lms/AuthShell";
+import { useAuth } from "@/context/AuthContext";
 
-const MOCK_USERS = [
-  { role: "Student", email: "student@example.com", password: "Password123!", name: "Samuel (Student)" },
-  { role: "Teacher", email: "teacher@example.com", password: "Teacher123!", name: "Eleni (Teacher)" },
-  { role: "Super Admin", email: "admin@example.com", password: "Admin123!", name: "Amanuel (Super Admin)" },
-];
+const API_URL = "http://localhost:5000/api/v1";
 
 function normalizeRoleKey(role: string): "student" | "teacher" | "administrator" {
   const r = String(role || "").trim().toLowerCase();
@@ -26,6 +23,7 @@ const steps = [
 
 export default function LMSLoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const pathname = usePathname() || "";
   const locale = pathname.split("/")[1] || "";
   const landingPath = locale ? `/${locale}` : "/";
@@ -52,51 +50,39 @@ export default function LMSLoginPage() {
     }
 
     setLoading(true);
-    const normalizedEmail = email.trim().toLowerCase();
-    const normalizedPassword = password.trim();
-
-    let savedUsers: any[] = [];
+    
     try {
-      savedUsers = JSON.parse(localStorage.getItem("lmsUsers") || "[]");
-      if (!Array.isArray(savedUsers)) savedUsers = [];
-    } catch {
-      savedUsers = [];
-    }
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password
+        }),
+      });
 
-    const roleKey = normalizeRoleKey(role);
+      const data = await res.json();
 
-    const existing = savedUsers.find(
-      (u: any) =>
-        String(u?.email || "").trim().toLowerCase() === normalizedEmail &&
-        String(u?.password || "").trim() === normalizedPassword &&
-        normalizeRoleKey(String(u?.role || "")) === roleKey,
-    );
+      if (data.success) {
+        const roleKey = normalizeRoleKey(role);
+        login(data.data || { email: email, role: roleKey }, data.token);
 
-    const currentMock = MOCK_USERS.find(
-      (u) =>
-        normalizeRoleKey(u.role) === roleKey &&
-        u.email.trim().toLowerCase() === normalizedEmail &&
-        u.password.trim() === normalizedPassword,
-    );
-
-    const loggedInUser = existing || currentMock;
-
-    if (loggedInUser) {
-      const sessionUser = {
-        ...loggedInUser,
-        role: roleKey,
-      };
-      localStorage.setItem("lmsAuth", JSON.stringify({ token: "mock-jwt-token", user: sessionUser }));
-      if (roleKey === "administrator") {
-        router.push(`/${locale}/admin/dashboard-selector`);
+        if (roleKey === "administrator") {
+          router.push(`/${locale}/admin/dashboard-selector`);
+        } else {
+          router.push(`/${locale}/lms/dashboard/${roleKey}`);
+        }
       } else {
-        router.push(`/${locale}/lms/dashboard/${roleKey}`);
+        setError(data.message || "Invalid email or password");
       }
-      return;
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setError("Invalid email or password");
-    setLoading(false);
   }
 
   return (

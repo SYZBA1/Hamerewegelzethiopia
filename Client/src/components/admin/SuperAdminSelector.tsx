@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { useMemo, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 function normalizeRole(role: string) {
   const r = String(role || "").trim().toLowerCase();
-  if (r === "super admin" || r === "super-admin" || r === "administrator") return "administrator";
-  if (r === "teacher") return "teacher";
+  if (r === "super admin" || r === "super-admin" || r === "administrator" || r === "admin") return "administrator";
+  if (r === "teacher" || r === "instructor") return "teacher";
   return "student";
 }
 
 export default function SuperAdminSelector() {
   const pathname = usePathname() || "";
   const router = useRouter();
+  const { user, loading } = useAuth();
 
   const locale = useMemo(() => {
     const segment = pathname.split("/")[1];
@@ -21,22 +23,18 @@ export default function SuperAdminSelector() {
   }, [pathname]);
 
   useEffect(() => {
-    const auth = localStorage.getItem("lmsAuth");
-    if (!auth) {
+    if (loading) return;
+
+    if (!user) {
       router.replace(`/${locale}/lms/login`);
       return;
     }
 
-    try {
-      const parsed = JSON.parse(auth);
-      const role = normalizeRole(parsed?.user?.role || "");
-      if (role !== "administrator") {
-        router.replace(`/${locale}/lms/dashboard/${role}`);
-      }
-    } catch {
-      router.replace(`/${locale}/lms/login`);
+    const role = normalizeRole(user.role || "");
+    if (role !== "administrator") {
+      router.replace(`/${locale}/lms/dashboard/${role}`);
     }
-  }, [locale, router]);
+  }, [user, loading, locale, router]);
 
   return (
     <main className="mx-auto max-w-5xl space-y-6 p-6 md:p-10">

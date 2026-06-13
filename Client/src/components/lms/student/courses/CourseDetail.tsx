@@ -25,7 +25,9 @@ export default function CourseDetail({ course, locale }: CourseDetailProps) {
               <span className="rounded-full bg-white/10 px-2 py-1">{course.category}</span>
               <span className="rounded-full bg-white/10 px-2 py-1">{course.difficulty}</span>
               <span className="rounded-full bg-white/10 px-2 py-1">{course.duration}</span>
-              <span className="rounded-full bg-white/10 px-2 py-1">Instructor: {course.instructor}</span>
+              <span className="rounded-full bg-white/10 px-2 py-1">
+                Instructor: {typeof course.instructor === 'object' ? course.instructor.username : course.instructor}
+              </span>
             </div>
 
             <div className="mt-5">

@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { Lock, Globe, Moon, Bell, Shield, LogOut, ChevronRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SettingsClient() {
+  const { logout } = useAuth();
   const [language, setLanguage] = useState("en");
   const [theme, setTheme] = useState("dark");
   const [emailNotifications, setEmailNotifications] = useState(true);
@@ -11,8 +13,7 @@ export default function SettingsClient() {
   const [twoFA, setTwoFA] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("lmsAuth");
-    window.location.href = "/lms/login";
+    logout();
   };
 
   return (
