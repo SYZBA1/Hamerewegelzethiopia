@@ -16,14 +16,14 @@ connectDB();
 const auth = require('./routes/authRoutes');
 const users = require('./routes/userRoutes');
 const courses = require('./routes/courseRoutes');
+const assignments = require('./routes/assignmentRoutes');
+const chapters = require('./routes/chapterRoutes');
+const messages = require('./routes/messageRoutes');
+const stripe = require('./routes/stripeRoutes');
+const chapa = require('./routes/chapaRoutes');
+const books = require('./routes/bookRoutes');
 
 const app = express();
-
-// Body parser
-app.use(express.json());
-
-// Cookie parser
-app.use(cookieParser());
 
 // Enable CORS
 const allowedOrigins = ['http://localhost:3500', 'http://127.0.0.1:3500'];
@@ -40,6 +40,17 @@ app.use(cors({
     credentials: true,
 }));
 
+// Mount Stripe/Chapa routes BEFORE express.json() to handle raw body for webhooks
+app.use('/api/v1/stripe', stripe);
+app.use('/api/v1/chapa', chapa);
+app.use('/api/v1/books', books);
+
+// Body parser
+app.use(express.json());
+
+// Cookie parser
+app.use(cookieParser());
+
 // Logging middleware
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -49,6 +60,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', users);
 app.use('/api/v1/courses', courses);
+app.use('/api/v1/assignments', assignments);
+app.use('/api/v1/chapters', chapters);
+app.use('/api/v1/messages', messages);
 
 // Error handler
 app.use(errorHandler);

@@ -8,19 +8,32 @@ const lessonSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        required: [true, 'Please add content'],
+    },
+    videoUrl: {
+        type: String,
+    },
+    videoId: {
+        type: String,
     },
     type: {
         type: String,
-        enum: ['video', 'document', 'reading'],
+        enum: ['video', 'document', 'reading', 'material'],
         default: 'video',
     },
+    materials: [{
+        name: String,
+        url: String,
+        fileType: String // pdf, ppt, etc
+    }],
     duration: String,
-    resources: [String],
     course: {
         type: mongoose.Schema.ObjectId,
         ref: 'Course',
         required: true,
+    },
+    chapter: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Chapter',
     },
     order: {
         type: Number,

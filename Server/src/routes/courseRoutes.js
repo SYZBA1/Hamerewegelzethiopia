@@ -1,5 +1,6 @@
 const express = require('express');
-const { getCourses, getCourse, createCourse } = require('../controllers/courseController');
+const { getCourses, getCourse, createCourse, updateCourse, deleteCourse, enrollCourse } = require('../controllers/courseController');
+const { getProgress, updateProgress } = require('../controllers/progressController');
 
 // Include other resource routers
 const lessonRouter = require('./lessonRoutes');
@@ -18,6 +19,13 @@ router
 
 router
     .route('/:id')
-    .get(getCourse);
+    .get(getCourse)
+    .put(protect, authorize('instructor', 'admin'), updateCourse)
+    .delete(protect, authorize('instructor', 'admin'), deleteCourse);
+
+router.post('/:id/enroll', protect, enrollCourse);
+
+router.get('/:courseId/progress', protect, getProgress);
+router.post('/:courseId/lessons/:lessonId/complete', protect, updateProgress);
 
 module.exports = router;

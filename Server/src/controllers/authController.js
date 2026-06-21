@@ -156,6 +156,13 @@ const sendTokenResponse = (user, statusCode, res) => {
         .json({
             success: true,
             token,
+            data: {
+                _id: user._id,
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                role: user.role
+            }
         });
 };
 // @desc    Get admin statistics
@@ -174,6 +181,41 @@ exports.getAdminStats = async (req, res, next) => {
                 teacherCount,
                 courseCount,
                 pendingAdmissions: 0 // Placeholder for now
+            }
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+// @desc    Get instructor statistics
+// @route   GET /api/v1/auth/instructor/stats
+// @access  Private/Instructor
+exports.getInstructorStats = async (req, res, next) => {
+    try {
+        const Course = mongoose.model('Course');
+        const courses = await Course.find({ instructor: req.user.id });
+        const courseIds = courses.map(c => c._id);
+
+        const courseCount = courses.length;
+        
+        // Sum enrolled students across all courses (unique students)
+        const uniqueStudents = new Set();
+        courses.forEach(course => {
+            course.enrolledStudents?.forEach(studentId => uniqueStudents.add(studentId.toString()));
+        });
+        const studentCount = uniqueStudents.size;
+
+        // Count lessons across all instructor's courses
+        const lessonCount = await mongoose.model('Lesson').countDocuments({ course: { $in: courseIds } });
+
+        res.status(200).json({
+            success: true,
+            data: {
+                courseCount,
+                studentCount,
+                lessonCount,
+                curriculumProgress: 65 // Placeholder
             }
         });
     } catch (err) {
@@ -214,6 +256,7 @@ exports.inviteTeacher = async (req, res, next) => {
         res.status(201).json({
             success: true,
             data: {
+                _id: teacher._id,
                 id: teacher._id,
                 username: teacher.username,
                 email: teacher.email,

@@ -39,6 +39,14 @@ const courseSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    price: {
+        type: Number,
+        required: [true, 'Please add a course price'],
+    },
+    currency: {
+        type: String,
+        default: 'USD',
+    },
     createdAt: {
         type: Date,
         default: Date.now,

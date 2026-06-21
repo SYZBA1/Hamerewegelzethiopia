@@ -6,6 +6,7 @@ const {
     getMe,
     updateDetails,
     getAdminStats,
+    getInstructorStats,
     inviteTeacher,
 } = require('../controllers/authController');
 
@@ -22,6 +23,7 @@ router.get('/logout', logout);
 router.get('/me', protect, getMe);
 router.put('/updatedetails', protect, updateDetails);
 router.get('/admin/stats', protect, authorize('admin'), getAdminStats);
+router.get('/instructor/stats', protect, authorize('instructor'), getInstructorStats);
 router.post('/admin/invite-teacher', protect, authorize('admin'), inviteTeacher);
 
 module.exports = router;
