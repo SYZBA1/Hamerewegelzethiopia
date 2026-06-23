@@ -32,15 +32,14 @@ const ProgressSchema = new mongoose.Schema({
 });
 
 // Calculate percentage before saving
-ProgressSchema.pre('save', async function(next) {
+ProgressSchema.pre('save', async function() {
     if (this.isModified('completedLessons')) {
         const Lesson = mongoose.model('Lesson');
-        const totalLessons = await Lesson.countDocuments({ course: this.course });
+        const totalLessons = await Lesson.countDocuments({ course: this.course, status: 'published' });
         this.percentComplete = totalLessons > 0 
             ? Math.round((this.completedLessons.length / totalLessons) * 100)
             : 0;
     }
-    next();
 });
 
 module.exports = mongoose.model('Progress', ProgressSchema);

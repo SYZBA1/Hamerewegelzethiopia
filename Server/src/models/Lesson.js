@@ -39,6 +39,11 @@ const lessonSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    status: {
+        type: String,
+        enum: ['draft', 'published'],
+        default: 'draft',
+    },
     createdAt: {
         type: Date,
         default: Date.now,

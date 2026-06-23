@@ -56,11 +56,24 @@ exports.getCourse = async (req, res, next) => {
             return res.status(404).json({ success: false, message: 'Course not found' });
         }
 
-        // Fetch lessons for this course
+        // Fetch lessons, chapters, and assignments for this course
         const Lesson = require('../models/Lesson');
-        const lessons = await Lesson.find({ course: req.params.id }).sort('order');
+        const Chapter = require('../models/Chapter');
+        const Assignment = require('../models/Assignment');
 
-        res.status(200).json({ success: true, data: { ...course._doc, lessons } });
+        // If user is student, only show published content
+        let filter = { course: req.params.id };
+        if (req.user && (req.user.role === 'student' || !req.user.role)) {
+            filter.status = 'published';
+        }
+
+        const [lessons, chapters, assignments] = await Promise.all([
+            Lesson.find(filter).sort('order'),
+            Chapter.find(filter).sort('order'),
+            Assignment.find(filter).sort('dueDate')
+        ]);
+
+        res.status(200).json({ success: true, data: { ...course._doc, lessons, chapters, assignments } });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }
@@ -188,6 +201,100 @@ exports.enrollCourse = async (req, res, next) => {
         }
 
         res.status(200).json({ success: true, data: course });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+};
+
+// @desc    Get course analytics
+// @route   GET /api/v1/courses/:id/analytics
+// @access  Private (Instructor/Admin)
+exports.getCourseAnalytics = async (req, res, next) => {
+    try {
+        const course = await Course.findById(req.params.id);
+        if (!course) {
+            return res.status(404).json({ success: false, message: 'Course not found' });
+        }
+
+        // Only instructor or admin
+        if (course.instructor.toString() !== req.user.id && (req.user.role !== 'admin' && req.user.role !== 'super admin' && req.user.role !== 'administrator')) {
+            return res.status(401).json({ success: false, message: 'Not authorized' });
+        }
+
+        const Progress = require('../models/Progress');
+        const Submission = require('../models/Submission');
+        const Lesson = require('../models/Lesson');
+
+        const totalLessons = await Lesson.countDocuments({ course: req.params.id, status: 'published' });
+        const progresses = await Progress.find({ course: req.params.id }).populate('user', 'username email');
+        const submissions = await Submission.find({ course: req.params.id });
+
+        const analytics = {
+            totalEnrolled: course.enrolledStudents.length,
+            averageProgress: progresses.length > 0 
+                ? progresses.reduce((acc, curr) => acc + curr.percentComplete, 0) / progresses.length 
+                : 0,
+            completionRate: progresses.length > 0
+                ? (progresses.filter(p => p.percentComplete === 100).length / progresses.length) * 100
+                : 0,
+            studentProgress: progresses.map(p => ({
+                student: p.user,
+                percentComplete: p.percentComplete,
+                completedCount: p.completedLessons.length,
+                totalLessons
+            })),
+            submissionStats: {
+                totalSubmissions: submissions.length,
+                gradedCount: submissions.filter(s => s.status === 'reviewed').length
+            }
+        };
+
+        res.status(200).json({ success: true, data: analytics });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+};
+
+// @desc    Unenroll from a course
+// @route   POST /api/v1/courses/:id/unenroll
+// @access  Private (Student)
+exports.unenrollCourse = async (req, res, next) => {
+    try {
+        const course = await Course.findById(req.params.id);
+
+        if (!course) {
+            return res.status(404).json({ success: false, message: 'Course not found' });
+        }
+
+        // Check if student is enrolled
+        const studentIndex = course.enrolledStudents.indexOf(req.user.id);
+        if (studentIndex === -1) {
+            return res.status(400).json({ success: false, message: 'Not enrolled in this course' });
+        }
+
+        // Remove student from course
+        course.enrolledStudents.splice(studentIndex, 1);
+        await course.save();
+
+        // Delete student's progress for this course
+        const Progress = require('../models/Progress');
+        await Progress.findOneAndDelete({ user: req.user.id, course: req.params.id });
+
+        res.status(200).json({ success: true, data: {} });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+};
+
+// @desc    Get user progress for all enrolled courses
+// @route   GET /api/v1/courses/my-progress
+// @access  Private (Student)
+exports.getMyProgress = async (req, res, next) => {
+    try {
+        const Progress = require('../models/Progress');
+        const progresses = await Progress.find({ user: req.user.id }).populate('course', 'title category description thumbnail');
+        
+        res.status(200).json({ success: true, count: progresses.length, data: progresses });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }

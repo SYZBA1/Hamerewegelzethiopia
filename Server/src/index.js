@@ -22,6 +22,7 @@ const messages = require('./routes/messageRoutes');
 const stripe = require('./routes/stripeRoutes');
 const chapa = require('./routes/chapaRoutes');
 const books = require('./routes/bookRoutes');
+const uploads = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -43,7 +44,6 @@ app.use(cors({
 // Mount Stripe/Chapa routes BEFORE express.json() to handle raw body for webhooks
 app.use('/api/v1/stripe', stripe);
 app.use('/api/v1/chapa', chapa);
-app.use('/api/v1/books', books);
 
 // Body parser
 app.use(express.json());
@@ -63,6 +63,12 @@ app.use('/api/v1/courses', courses);
 app.use('/api/v1/assignments', assignments);
 app.use('/api/v1/chapters', chapters);
 app.use('/api/v1/messages', messages);
+app.use('/api/v1/books', books);
+app.use('/api/v1/upload', uploads);
+
+// Static files
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Error handler
 app.use(errorHandler);

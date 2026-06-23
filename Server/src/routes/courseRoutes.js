@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCourses, getCourse, createCourse, updateCourse, deleteCourse, enrollCourse } = require('../controllers/courseController');
+const { getCourses, getCourse, createCourse, updateCourse, deleteCourse, enrollCourse, unenrollCourse, getCourseAnalytics, getMyProgress } = require('../controllers/courseController');
 const { getProgress, updateProgress } = require('../controllers/progressController');
 
 // Include other resource routers
@@ -12,6 +12,8 @@ const { protect, authorize } = require('../middleware/authMiddleware');
 // Re-route into other resource routers
 router.use('/:courseId/lessons', lessonRouter);
 
+router.get('/my-progress', protect, getMyProgress);
+
 router
     .route('/')
     .get(getCourses)
@@ -23,7 +25,10 @@ router
     .put(protect, authorize('instructor', 'admin'), updateCourse)
     .delete(protect, authorize('instructor', 'admin'), deleteCourse);
 
+router.get('/:id/analytics', protect, authorize('instructor', 'admin'), getCourseAnalytics);
+
 router.post('/:id/enroll', protect, enrollCourse);
+router.post('/:id/unenroll', protect, unenrollCourse);
 
 router.get('/:courseId/progress', protect, getProgress);
 router.post('/:courseId/lessons/:lessonId/complete', protect, updateProgress);

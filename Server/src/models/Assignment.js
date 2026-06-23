@@ -6,25 +6,33 @@ const assignmentSchema = new mongoose.Schema({
         required: [true, 'Please add an assignment title'],
         trim: true,
     },
-    description: {
+    instructions: {
         type: String,
-        required: [true, 'Please add a description'],
     },
     dueDate: {
         type: Date,
         required: [true, 'Please add a due date'],
     },
     course: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Course',
         required: true,
     },
     instructor: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
-    attachments: [String],
+    status: {
+        type: String,
+        enum: ['draft', 'published'],
+        default: 'draft',
+    },
+    attachments: [{
+        name: String,
+        url: String,
+        fileType: String
+    }],
     createdAt: {
         type: Date,
         default: Date.now,

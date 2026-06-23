@@ -6,7 +6,14 @@ const Submission = require('../models/Submission');
 // @access  Public
 exports.getAssignments = async (req, res, next) => {
     try {
-        const assignments = await Assignment.find({ course: req.params.courseId });
+        let filter = { course: req.params.courseId };
+        
+        // If student, only show published
+        if (req.user && (req.user.role === 'student' || !req.user.role)) {
+            filter.status = 'published';
+        }
+
+        const assignments = await Assignment.find(filter);
         res.status(200).json({ success: true, count: assignments.length, data: assignments });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
@@ -50,6 +57,42 @@ exports.gradeSubmission = async (req, res, next) => {
         }, { new: true });
 
         res.status(200).json({ success: true, data: submission });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+};
+
+// @desc    Submit an assignment
+// @route   POST /api/v1/assignments/:id/submit
+// @access  Private/Student
+exports.submitAssignment = async (req, res, next) => {
+    try {
+        req.body.assignment = req.params.id;
+        req.body.student = req.user.id;
+
+        // Check if already submitted
+        const existingSubmission = await Submission.findOne({
+            assignment: req.params.id,
+            student: req.user.id
+        });
+
+        if (existingSubmission) {
+            return res.status(400).json({ success: false, message: 'You have already submitted this assignment' });
+        }
+
+        const submission = await Submission.create(req.body);
+        res.status(201).json({ success: true, data: submission });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+};
+// @desc    Get current user submissions
+// @route   GET /api/v1/assignments/submissions
+// @access  Private
+exports.getMySubmissions = async (req, res, next) => {
+    try {
+        const submissions = await Submission.find({ student: req.user.id }).populate('assignment', 'title dueDate');
+        res.status(200).json({ success: true, count: submissions.length, data: submissions });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }

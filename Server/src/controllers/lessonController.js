@@ -13,7 +13,14 @@ const extractYoutubeId = (url) => {
 // @access  Public
 exports.getLessons = async (req, res, next) => {
     try {
-        const lessons = await Lesson.find({ course: req.params.courseId }).sort('order');
+        let filter = { course: req.params.courseId };
+
+        // If student, only show published
+        if (req.user && (req.user.role === 'student' || !req.user.role)) {
+            filter.status = 'published';
+        }
+
+        const lessons = await Lesson.find(filter).sort('order');
         res.status(200).json({ success: true, count: lessons.length, data: lessons });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
