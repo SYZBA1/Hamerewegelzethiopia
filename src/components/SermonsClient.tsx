@@ -19,10 +19,10 @@ const ICONS = ["🕊", "📖", "✝", "🙏", "⛪", "📜"];
 const COLORS = ["#A6FF4D", "#D6FF00", "#D6FF00", "#A6FF4D", "#D6FF00", "#D6FF00"];
 
 const videoMeta = [
-  {
+    {
     src: "https://www.youtube.com/embed/_cFKVblYA64",
     title: "ብርሃን:፦ ከጨለማ ያመለጥንው ብርሃን በሆነው በክርስቶስ ነው። ሐመረ ወንጌል ዘኢትዮጲያ",
-    program: "Hamere Wengel Zethiopia",
+    program: "Hamere Wengel ZE Ethiopia",
   },
   {
     src: "https://www.youtube.com/embed/csGRAsYg9NU",

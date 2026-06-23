@@ -150,10 +150,10 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-8 lg:px-10 py-4 max-w-[1440px] mx-auto">
 
         {/* Logo */}
-        <Link href={h("/")} className="flex flex-shrink-0 items-center" aria-label="Hamere Wengel Zethiopia">
+        <Link href={h("/")} className="flex flex-shrink-0 items-center" aria-label="Hamere Wengel ZE Ethiopia">
           <Image
             src="/assets/logos.png"
-            alt="Hamere Wengel Zethiopia logo"
+            alt="Hamere Wengel ZE Ethiopia logo"
             width={52}
             height={52}
             priority

@@ -36,10 +36,10 @@ export default function HeroSection({ locale }: HeroSectionProps) {
           { title: "ተጨማሪ ይመልከቱ", href: `${base}/about`, primary: false },
         ],
       }
-    : {
+        : {
         badge: "KEEP FAITH IN ACTION",
         headingA: "Welcome to",
-        headingB: "Hamere Wengel Zethiopia",
+        headingB: "Hamere Wengel ZE Ethiopia",
         subtext:
           "Hamere Wengel is a mission platform advancing teaching, evangelism, and compassionate service so families and communities can grow in hope and purpose.",
         event: {

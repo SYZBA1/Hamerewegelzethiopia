@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Hamere Wengel Zethiopia | ሐመረ ወንጌል ዘኢትዮጵያ",
+  title: "Hamere Wengel ZE Ethiopia | ሐመረ ወንጌል ዘኢትዮጵያ",
   description: "Living by Faith, known by Love, and a voice of Hope",
 };
 

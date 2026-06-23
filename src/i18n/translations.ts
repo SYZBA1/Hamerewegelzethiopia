@@ -111,7 +111,7 @@ export const translations: Record<Lang, Translations> = {
       cta_learn: enMessages.hero.cta_learn,
     },
     footer: {
-      title: "Hamere Wengel Zethiopia",
+      title: "Hamere Wengel ZE Ethiopia",
       motto: enMessages.footer.motto,
       links: {
         home: enMessages.footer.links.home,
@@ -125,7 +125,7 @@ export const translations: Record<Lang, Translations> = {
         lms: enMessages.footer.links.lms,
         donate: enMessages.footer.links.donate,
       },
-      copyright: "© 2026 Hamere Wengel Zethiopia",
+      copyright: "© 2026 Hamere Wengel ZE Ethiopia",
       followUs: "Follow Us",
     },
     mission: {

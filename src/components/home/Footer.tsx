@@ -7,7 +7,7 @@ type HomeFooterProps = {
 
 const content = {
   en: {
-    title: "Hamere Wengel Zethiopia",
+    title: "Hamere Wengel ZE Ethiopia",
     blurb: "A modern ministry platform for teaching, outreach, charity, and long-term community formation.",
     contactLabel: "Contact",
     navLabel: "Navigation",
@@ -19,7 +19,7 @@ const content = {
       { title: "Donate", href: "/donate" },
     ],
     socials: ["Facebook", "YouTube", "Telegram"],
-    copyright: "© 2026 Hamere Wengel Zethiopia. All rights reserved.",
+    copyright: "© 2026 Hamere Wengel ZE Ethiopia. All rights reserved.",
   },
   am: {
     title: "ሐመረ ወንጌል ዘኢትዮጵያ",
