@@ -1,35 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { Reveal, SectionTitle } from "@/components/PageComponents";
+import { Reveal } from "@/components/PageComponents";
 import clsx from "clsx";
 
-interface Cause { title: string; desc: string; amount: string }
 interface Content {
   heroTag: string; heroTitle: string; heroSub: string;
   amountLabel: string; customLabel: string;
   freqs: string[]; intlTitle: string; localTitle: string;
-  causes: Cause[]; methodsTitle: string;
+  causes: { title: string; desc: string; amount: string }[];
+  methodsTitle: string;
   btnDonate: string; secureNote: string;
   stripeLabel: string; paypalLabel: string;
   telebirrLabel: string; chapaLabel: string;
 }
 
-const AMOUNTS = ["$10", "$25", "$50", "$100", "$250", "$500"];
-const CAUSE_ICONS = ["🎓", "📜", "🌱"];
+// Admin-configurable donation causes (prices set via admin portal)
+const DONATION_CAUSES = [
+  { am: "የወንጌል ልዑካን ቀለብ ድጋፍ",  en: "Evangelists' Stipend Support",    icon: "📢", amount: "ETB 500" },
+  { am: "የተማሪ ስፖንሰር ሺፕ ድጋፍ",   en: "Student Sponsorship Support",      icon: "🎓", amount: "ETB 1,200" },
+  { am: "የመጽሐፍ ቅዱስ ድጋፍ",         en: "Bible Provision Support",           icon: "📖", amount: "ETB 150" },
+  { am: "የመልሶ ማቋቋሚያ ድጋፍ",       en: "Rehabilitation Support",             icon: "🏥", amount: "ETB 2,000" },
+  { am: "የአጋዥ መጻሕፍት ድጋፍ",       en: "Reference Books Support",            icon: "📚", amount: "ETB 300" },
+];
 
 export default function DonateClient({ locale, c }: { locale: string; c: Content }) {
   const isAm = locale === "am";
   const heroImage = "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=1600&auto=format&fit=crop";
   const [activeFreq, setActiveFreq] = useState(0);
-  const [activeAmt, setActiveAmt] = useState(2);
+  const [activeCause, setActiveCause] = useState(0);
   const [custom, setCustom] = useState("");
   const [tab, setTab] = useState<"intl" | "local">("intl");
 
-  const inputBase = "w-full rounded-lg border outline-none transition-all duration-200";
-
   return (
     <div>
+      {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${heroImage}')` }} />
         <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(7,12,9,0.84)_0%,rgba(7,12,9,0.58)_42%,rgba(7,12,9,0.82)_100%)]" />
@@ -41,23 +46,30 @@ export default function DonateClient({ locale, c }: { locale: string; c: Content
         </div>
       </section>
 
-      {/* Cause cards */}
       <section style={{ background: "#F7F7F7", padding: "5rem 2.5rem" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <Reveal><SectionTitle>{c.amountLabel}</SectionTitle></Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: "1.4rem", marginBottom: "4rem" }}>
-            {c.causes.map((cause, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div style={{ background: "#F7F7F7", borderRadius: 16, padding: "2rem", border: "1.5px solid transparent", transition: "all .3s", display: "flex", flexDirection: "column" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(27,27,27,.35)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px rgba(27,27,27,.12)"; }}
+
+          {/* Cause overview cards */}
+          <Reveal>
+            <h2 className={clsx("font-serif font-semibold mb-6", isAm && "font-ethiopic")}
+              style={{ fontSize: "clamp(1.4rem,2.5vw,1.9rem)", color: "#1B1B1B" }}>
+              {isAm ? "ድጋፍ ዓላማዎች" : "Donation Causes"}
+            </h2>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: "1.2rem", marginBottom: "4rem" }}>
+            {DONATION_CAUSES.map((cause, i) => (
+              <Reveal key={i} delay={i * 0.08}>
+                <div style={{ background: "#fff", borderRadius: 16, padding: "1.6rem", border: "1.5px solid transparent", transition: "all .3s", display: "flex", flexDirection: "column" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(166,255,77,.5)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px rgba(27,27,27,.1)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "transparent"; (e.currentTarget as HTMLDivElement).style.transform = "none"; (e.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}>
-                  <span style={{ fontSize: "2rem", marginBottom: "1rem", opacity: .7 }}>{CAUSE_ICONS[i]}</span>
-                  <h3 className={clsx("font-serif font-semibold", isAm && "font-ethiopic")}
-                    style={{ fontSize: "1.1rem", color: "#1B1B1B", marginBottom: ".4rem" }}>{cause.title}</h3>
-                  <p className={clsx(isAm ? "font-ethiopic text-[.82rem]" : "font-sans text-[.84rem]")}
-                    style={{ color: "rgba(5,31,32,.6)", lineHeight: 1.7, flex: 1, marginBottom: "1.2rem" }}>{cause.desc}</p>
-                  <div style={{ paddingTop: ".8rem", borderTop: "1px solid rgba(27,27,27,.1)" }}>
-                    <span className="font-serif font-semibold" style={{ fontSize: "1.05rem", color: "#1B1B1B" }}>{cause.amount}</span>
+                  <span style={{ fontSize: "2rem", marginBottom: ".8rem", opacity: .75 }}>{cause.icon}</span>
+                  <p className="font-ethiopic font-semibold" style={{ fontSize: ".95rem", color: "#1B1B1B", marginBottom: ".2rem" }}>{cause.am}</p>
+                  <p className="font-sans" style={{ fontSize: ".78rem", color: "#555", marginBottom: "1rem", flex: 1 }}>{cause.en}</p>
+                  <div style={{ paddingTop: ".6rem", borderTop: "1px solid rgba(27,27,27,.08)" }}>
+                    <span className="font-sans font-semibold" style={{ fontSize: ".85rem", color: "#17351f" }}>{cause.amount}</span>
+                    <span className="font-sans" style={{ fontSize: ".65rem", color: "#999", marginLeft: ".4rem" }}>
+                      {isAm ? "ተጠቃሚ" : "suggested"}
+                    </span>
                   </div>
                 </div>
               </Reveal>
@@ -66,7 +78,7 @@ export default function DonateClient({ locale, c }: { locale: string; c: Content
 
           {/* Donation form */}
           <Reveal delay={0.12}>
-            <div style={{ maxWidth: 660, margin: "0 auto", background: "linear-gradient(135deg, #1B1B1B, #1B1B1B 50%, #1B1B1B)", borderRadius: 20, padding: "2.5rem", border: "1px solid rgba(0,208,132,.12)", boxShadow: "0 20px 60px rgba(27,27,27,.25)" }}>
+            <div style={{ maxWidth: 660, margin: "0 auto", background: "linear-gradient(135deg, #1B1B1B, #1B1B1B)", borderRadius: 20, padding: "2.5rem", border: "1px solid rgba(0,208,132,.12)", boxShadow: "0 20px 60px rgba(27,27,27,.25)" }}>
 
               {/* International / Local tab */}
               <div style={{ display: "flex", borderRadius: 10, overflow: "hidden", border: "1px solid rgba(0,208,132,.2)", marginBottom: "1.6rem" }}>
@@ -97,23 +109,34 @@ export default function DonateClient({ locale, c }: { locale: string; c: Content
                 ))}
               </div>
 
-              {/* Amount grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: ".5rem", marginBottom: "1rem" }}>
-                {AMOUNTS.map((a, i) => (
-                  <button key={i} onClick={() => { setActiveAmt(i); setCustom(""); }}
-                    className="font-sans font-semibold text-[.9rem]"
-                    style={{ padding: ".65rem", borderRadius: 8, cursor: "pointer", transition: "all .2s",
-                      background: activeAmt === i && !custom ? "#1B1B1B" : "transparent",
-                      border: `1px solid ${activeAmt === i && !custom ? "#00D084" : "rgba(0,208,132,.2)"}`,
-                      color: activeAmt === i && !custom ? "#F7F7F7" : "rgba(247,247,247,.5)" }}>
-                    {a}
+              {/* Cause selection (replaces dollar amount grid) */}
+              <p className={clsx("mb-2", isAm ? "font-ethiopic text-[.76rem]" : "font-sans text-[.62rem] uppercase tracking-[.14em]")}
+                style={{ color: "rgba(247,247,247,.48)" }}>
+                {isAm ? "ድጋፍ ዓላማ ይምረጡ" : "Select Donation Cause"}
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: ".45rem", marginBottom: "1.1rem" }}>
+                {DONATION_CAUSES.map((cause, i) => (
+                  <button key={i} onClick={() => { setActiveCause(i); setCustom(""); }}
+                    style={{ padding: ".7rem 1rem", borderRadius: 10, cursor: "pointer", transition: "all .2s",
+                      textAlign: "left", display: "flex", alignItems: "center", gap: ".75rem",
+                      background: activeCause === i && !custom ? "rgba(0,208,132,.1)" : "transparent",
+                      border: `1px solid ${activeCause === i && !custom ? "#00D084" : "rgba(0,208,132,.2)"}`,
+                      color: "#F7F7F7" }}>
+                    <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{cause.icon}</span>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span className="font-ethiopic block" style={{ fontSize: ".8rem", fontWeight: activeCause === i && !custom ? 700 : 500 }}>{cause.am}</span>
+                      <span className="font-sans block" style={{ fontSize: ".68rem", color: "rgba(247,247,247,.5)", marginTop: ".1rem" }}>{cause.en}</span>
+                    </span>
+                    <span className="font-sans" style={{ fontSize: ".68rem", color: activeCause === i && !custom ? "#00D084" : "rgba(247,247,247,.32)", flexShrink: 0 }}>
+                      {cause.amount}
+                    </span>
                   </button>
                 ))}
               </div>
 
-              {/* Custom */}
-              <input type="text" value={custom} onChange={e => { setCustom(e.target.value); setActiveAmt(-1); }}
-                placeholder={`$ ${c.customLabel}`}
+              {/* Custom amount */}
+              <input type="text" value={custom} onChange={e => { setCustom(e.target.value); }}
+                placeholder={`ETB / $ — ${c.customLabel}`}
                 className={clsx(isAm ? "font-ethiopic text-[.86rem]" : "font-sans text-[.86rem]")}
                 style={{ width: "100%", padding: ".7rem 1rem", borderRadius: 8, border: `1px solid ${custom ? "#00D084" : "rgba(0,208,132,.2)"}`, background: custom ? "rgba(27,27,27,.3)" : "rgba(255,255,255,.05)", color: "#F7F7F7", outline: "none", marginBottom: "1.4rem", transition: "all .2s" }}
               />
@@ -124,7 +147,7 @@ export default function DonateClient({ locale, c }: { locale: string; c: Content
 
               {tab === "intl" ? (
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: ".7rem", marginBottom: "1.4rem" }}>
-                  {[{ icon: "💳", label: c.stripeLabel, color: "#00D084" }, { icon: "🅿", label: c.paypalLabel, color: "#00D084" }].map((m, i) => (
+                  {[{ icon: "💳", label: c.stripeLabel }, { icon: "🅿", label: c.paypalLabel }].map((m, i) => (
                     <button key={i}
                       className={clsx(isAm ? "font-ethiopic text-[.82rem]" : "font-sans text-[.78rem]")}
                       style={{ padding: ".75rem", borderRadius: 10, border: "1px solid rgba(0,208,132,.2)", background: "rgba(255,255,255,.04)", color: "#F7F7F7", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: ".5rem", transition: "all .2s", fontWeight: 600 }}

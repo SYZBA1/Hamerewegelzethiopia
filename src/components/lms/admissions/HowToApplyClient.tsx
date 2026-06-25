@@ -11,8 +11,8 @@ const steps = [
     icon: BookOpen,
     title: "Explore Programs",
     duration: "~10 min",
-    desc: "Visit the Admissions overview page and read through available programs — Diploma, Degree, Masters, or Short Courses. Choose the program that best aligns with your calling and educational background.",
-    tips: ["Read each program description carefully", "Check duration and curriculum highlights", "Note the entry requirements for your level"],
+    desc: "Visit the Admissions overview page and read through available programs. Choose the program that best aligns with your calling and educational background.",
+    tips: ["Read each program description carefully", "Check duration and curriculum highlights"],
   },
   {
     step: "02",
@@ -42,9 +42,9 @@ const steps = [
     step: "05",
     icon: Clock,
     title: "Await Review",
-    duration: "5–7 business days",
-    desc: "Our admissions committee reviews all applications within 5–7 business days. You will receive an email notification with your status and next steps.",
-    tips: ["Check your email (including spam/junk folder)", "Log in to your LMS account to track status", "Contact the admissions office if no response after 7 days"],
+    duration: "Processing",
+    desc: "Our admissions committee will review your application. You will receive an email notification with your status and next steps.",
+    tips: ["Check your email (including spam/junk folder)", "Log in to your LMS account to track status"],
   },
   {
     step: "06",
@@ -53,6 +53,73 @@ const steps = [
     duration: "~2 min",
     desc: "If approved, you will receive an acceptance letter and enrollment instructions. Log in and follow the steps to confirm your enrollment and access your courses.",
     tips: ["Complete enrollment within the deadline provided", "Review your course schedule", "Attend orientation if scheduled"],
+  },
+];
+
+const courseCategories = [
+  {
+    category: "የመጽሐፍ ቅዱስ",
+    courses: [
+      "የመጽሐፍ ቅደስ ብዛት",
+      "የመጽሐፍ ቅደስ ዲሰሳ",
+      "ስነ አፈታት",
+      "የመጽሐፍ ቅደስ ትርጓሜ",
+      "የመጽሐፍ ቅደስ ነገረ መለኮት",
+      "ዕዝራና ነህምያ",
+      "ሮሜ",
+      "ዕብራውያን",
+    ],
+  },
+  {
+    category: "ተልዕኮ",
+    courses: [
+      "የቤተ ክርስቲያን ተልዕኮና ቤተ ክርስቲያን ተከላ",
+      "ወንጌል ሥርጭትና ተግባቦት",
+      "ዯቀመዝሙር ማዴረግ",
+      "ስብከት ዘዳ",
+      "የማስተማር ጥበብ (ጴዲጎጂ)",
+      "ትምህርት",
+    ],
+  },
+  {
+    category: "ሃይማኖት (ድግማ)",
+    courses: [
+      "ትምህርተ እግዚአብሔር",
+      "ትምህርተ ክርስቶስ",
+      "ትምህርተ መንፈስ ቅደስ",
+    ],
+  },
+  {
+    category: "አምልኮ",
+    courses: [
+      "ክርስቶስን ማእከል ያዯረገ አምልኮ",
+      "ወንጌልን ማዕከል ያዯረገ ሕይወት",
+    ],
+  },
+  {
+    category: "ታሪክ",
+    courses: [
+      "አጠቃላይ የቤተ ክርስቲያን ታሪክ",
+      "የኢ/ኦ/ተ/ቤ.ክ ታሪክና ኦርቶድክሳዊ ተሐዴሶ",
+    ],
+  },
+  {
+    category: "መሪነት",
+    courses: [
+      "መጽሐፍ ቅደሳዊ ሥነ አመራር",
+      "ትምህርተ ኖሎት (እረኝነት)",
+    ],
+  },
+  {
+    category: "ክርስቲያናዊ ኑሮ",
+    courses: [
+      "ጋብቻና ቤተሰብ",
+      "ርህራሔና ፍትህ",
+    ],
+  },
+  {
+    category: "ዕቅበተ እምነት",
+    courses: [],
   },
 ];
 
@@ -72,22 +139,21 @@ export default function HowToApplyClient() {
         <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#d6ff00] text-[#0f1e13] text-2xl font-bold mb-6 shadow-[0_10px_30px_rgba(214,255,0,.25)]">
           📝
         </div>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#a5ff63]/80 mb-2">Admissions</p>
-        <h2 className="font-serif text-3xl font-bold text-white leading-tight mb-4">How to Apply</h2>
-        <p className="text-white/70 text-sm leading-relaxed">
-          Follow our simple 6-step process to complete your application. Most applications
-          are reviewed within 5–7 business days.
+        <p className="text-xs uppercase tracking-[0.3em] text-black mb-2">Admissions</p>
+        <h2 className="font-serif text-3xl font-bold text-black leading-tight mb-4">How to Apply</h2>
+        <p className="text-black text-sm leading-relaxed">
+          Follow our simple 6-step process to complete your application.
         </p>
       </div>
       <div className="space-y-2">
         {intakeDates.map((d) => (
           <div key={d.semester} className="rounded-2xl bg-white/10 px-4 py-3">
-            <p className="text-xs font-semibold text-[#d6ff00]">{d.semester} — {d.start}</p>
-            <p className="text-xs text-white/70 mt-0.5">Application deadline: {d.deadline}</p>
+            <p className="text-xs font-semibold text-black">{d.semester} — {d.start}</p>
+            <p className="text-xs text-black mt-0.5">Application deadline: {d.deadline}</p>
           </div>
         ))}
-        <div className="rounded-2xl bg-white/10 px-4 py-3 text-xs text-white/80">
-          ✉️ Decisions emailed within 5–7 business days
+        <div className="rounded-2xl bg-white/10 px-4 py-3 text-xs text-black">
+          ✉️ Decisions emailed after review
         </div>
       </div>
     </div>
@@ -127,20 +193,39 @@ export default function HowToApplyClient() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <span className="text-[0.65rem] font-bold text-[#2e7d52] uppercase tracking-widest">{s.step}</span>
-                      <h3 className="text-sm font-bold text-[var(--charcoal)]">{s.title}</h3>
-                      <span className="ml-auto rounded-full bg-[#d6ff00]/60 px-2 py-0.5 text-[0.6rem] font-semibold text-[#0f1e13]">
+                      <span className="text-[0.65rem] font-bold text-black uppercase tracking-widest">{s.step}</span>
+                      <h3 className="text-sm font-bold text-black">{s.title}</h3>
+                      <span className="ml-auto rounded-full bg-[#d6ff00]/60 px-2 py-0.5 text-[0.6rem] font-semibold text-black">
                         {s.duration}
                       </span>
                     </div>
-                    <p className="text-xs text-[var(--muted)] leading-relaxed mb-2">{s.desc}</p>
+                    <p className="text-xs text-black leading-relaxed mb-2">{s.desc}</p>
                     <ul className="space-y-1">
                       {s.tips.map((tip) => (
-                        <li key={tip} className="flex items-center gap-1.5 text-xs text-[var(--charcoal)]/70">
+                        <li key={tip} className="flex items-center gap-1.5 text-xs text-black">
                           <CheckCircle size={10} className="flex-shrink-0 text-[#2e7d52]" /> {tip}
                         </li>
                       ))}
                     </ul>
+                    {s.step === "01" && (
+                      <div className="mt-4 border-t border-[var(--charcoal)]/10 pt-4 space-y-3">
+                        <p className="text-[0.65rem] font-bold text-black uppercase tracking-widest">Available Courses</p>
+                        {courseCategories.map((cat) => (
+                          <div key={cat.category}>
+                            <p className="font-ethiopic text-xs font-bold text-black mb-1">{cat.category}</p>
+                            {cat.courses.length > 0 ? (
+                              <ul className="space-y-0.5 pl-3">
+                                {cat.courses.map((course) => (
+                                  <li key={course} className="font-ethiopic text-xs text-black leading-relaxed">• {course}</li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="font-ethiopic text-xs text-black pl-3">• ...</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

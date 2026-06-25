@@ -9,6 +9,7 @@ const labels = {
   en: {
     eyebrow: "Services and Programs",
     title: "Our main services are designed to build people, strengthen faith, and serve communities.",
+    subtitle: "At the heart of everything we do is a commitment to vital renewal. Our services and programs are strategically structured to drive systemic reformation.",
     cta: "Explore Departments",
     services: [
       {
@@ -20,7 +21,7 @@ const labels = {
         text: "Mission-focused outreach that connects the Gospel with real people, real questions, and real communities.",
       },
       {
-        title: "Charity Work",
+        title: "Development and Relief",
         text: "Compassionate support initiatives that address practical needs and strengthen dignity at the local level.",
       },
       {
@@ -32,6 +33,7 @@ const labels = {
   am: {
     eyebrow: "አገልግሎቶች እና ፕሮግራሞች",
     title: "ለለውጥ፣ ለእድገት እና ለጠንካራ የአገልግሎት ማህበረሰብ የተነደፉ ፕሮግራሞች።",
+    subtitle: "At the heart of everything we do is a commitment to vital renewal. Our services and programs are strategically structured to drive systemic reformation.",
     cta: "ክፍሎችን ያስሱ",
     services: [
       {
@@ -71,6 +73,9 @@ export default function ServicesSection({ locale }: ServicesSectionProps) {
             <h2 className={`mt-4 text-3xl text-[#121a11] sm:text-4xl lg:text-5xl ${isAmharic ? "font-ethiopic leading-[1.4]" : "font-serif font-semibold leading-tight"}`}>
               {copy.title}
             </h2>
+            <p className={`mt-4 text-sm leading-7 text-[#121a11] ${isAmharic ? "font-ethiopic" : "font-sans"}`}>
+              {copy.subtitle}
+            </p>
           </div>
         </div>
 

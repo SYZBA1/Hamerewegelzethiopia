@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { LanguageProvider } from "@/context/LanguageContext";
 import LocaleFadeWrapper from "@/components/LocaleFadeWrapper";
 import Navbar from "@/components/Navbar";
@@ -29,6 +30,7 @@ export default async function DepartmentDetailPage({
   const contactPerson = {
     name: department?.headName ?? "Dn. Samuel Tesfaye",
     role: department?.headRole ?? "Department Liaison Officer",
+    image: department?.headImage,
     email: "admin@hamerewengel.org",
     phone: "+251 11 123 4567",
     office: "Bole Sub-City, Addis Ababa, Ethiopia",
@@ -95,23 +97,47 @@ export default async function DepartmentDetailPage({
               <h2 className="text-xl font-semibold text-[#FFFDEE]">Contact Person</h2>
               <p className="mt-3 !text-white">For department questions, coordination, or updates, contact:</p>
 
-              <div className="mt-4 space-y-3 rounded-xl border border-white/10 bg-white/5 p-4 !text-white">
-                <p className="!text-white"><span className="font-semibold !text-white">Name:</span> <span className="!text-white">{contactPerson.name}</span></p>
-                <p className="!text-white"><span className="font-semibold !text-white">Role:</span> <span className="!text-white">{contactPerson.role}</span></p>
-                <p className="!text-white">
-                  <span className="font-semibold !text-white">Email:</span>{" "}
-                  <a href={`mailto:${contactPerson.email}`} className="!text-white underline underline-offset-4 hover:!text-white/90">
-                    {contactPerson.email}
-                  </a>
-                </p>
-                <p className="!text-white">
-                  <span className="font-semibold !text-white">Phone:</span>{" "}
-                  <a href={`tel:${contactPerson.phone.replace(/\s+/g, "")}`} className="!text-white underline underline-offset-4 hover:!text-white/90">
-                    {contactPerson.phone}
-                  </a>
-                </p>
-                <p className="!text-white"><span className="font-semibold !text-white">Office:</span> <span className="!text-white">{contactPerson.office}</span></p>
-                <p className="!text-white"><span className="font-semibold !text-white">Availability:</span> <span className="!text-white">{contactPerson.availability}</span></p>
+              <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4">
+                {/* Photo + name/role header */}
+                <div className="flex items-center gap-4 pb-4 border-b border-white/10">
+                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#9be9ff]/50 bg-white/10 shadow-[0_0_18px_rgba(155,233,255,0.18)]">
+                    {contactPerson.image ? (
+                      <Image
+                        src={contactPerson.image}
+                        alt={contactPerson.name}
+                        fill
+                        className="object-cover"
+                        sizes="80px"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-3xl text-white/40">
+                        👤
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white leading-snug">{contactPerson.name}</p>
+                    <p className="mt-1 text-sm text-[#9be9ff]/80 leading-snug">{contactPerson.role}</p>
+                  </div>
+                </div>
+
+                {/* Contact details */}
+                <div className="mt-3 space-y-3 !text-white">
+                  <p className="!text-white">
+                    <span className="font-semibold !text-white">Email:</span>{" "}
+                    <a href={`mailto:${contactPerson.email}`} className="!text-white underline underline-offset-4 hover:!text-white/90">
+                      {contactPerson.email}
+                    </a>
+                  </p>
+                  <p className="!text-white">
+                    <span className="font-semibold !text-white">Phone:</span>{" "}
+                    <a href={`tel:${contactPerson.phone.replace(/\s+/g, "")}`} className="!text-white underline underline-offset-4 hover:!text-white/90">
+                      {contactPerson.phone}
+                    </a>
+                  </p>
+                  <p className="!text-white"><span className="font-semibold !text-white">Office:</span> <span className="!text-white">{contactPerson.office}</span></p>
+                  <p className="!text-white"><span className="font-semibold !text-white">Availability:</span> <span className="!text-white">{contactPerson.availability}</span></p>
+                </div>
               </div>
             </article>
 

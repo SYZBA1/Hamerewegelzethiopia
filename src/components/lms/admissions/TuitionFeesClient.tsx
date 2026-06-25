@@ -9,37 +9,19 @@ const feeSchedule = [
   {
     program: "Diploma Program",
     duration: "2 Years",
-    applicationFee: "500 ETB",
-    tuitionPerSemester: "2,800 ETB",
-    registrationFee: "400 ETB",
-    materialsFee: "300 ETB / semester",
+    applicationFee: "500 ETB (≈ $4 USD — same for all programs)",
+    tuition: "2,800 ETB / semester",
+    courseBreakdown: "500 ETB per course",
+    delivery: ["In-Person", "Online"],
     totalEstimate: "~13,200 ETB",
-  },
-  {
-    program: "Bachelor's Degree",
-    duration: "4 Years",
-    applicationFee: "700 ETB",
-    tuitionPerSemester: "4,200 ETB",
-    registrationFee: "600 ETB",
-    materialsFee: "400 ETB / semester",
-    totalEstimate: "~37,200 ETB",
-  },
-  {
-    program: "Master's Degree",
-    duration: "2 Years",
-    applicationFee: "900 ETB",
-    tuitionPerSemester: "6,500 ETB",
-    registrationFee: "800 ETB",
-    materialsFee: "500 ETB / semester",
-    totalEstimate: "~30,600 ETB",
   },
   {
     program: "Short Courses",
     duration: "Flexible",
-    applicationFee: "200 ETB",
-    tuitionPerSemester: "1,200 ETB / course",
-    registrationFee: "200 ETB",
-    materialsFee: "150 ETB / course",
+    applicationFee: "500 ETB (≈ $4 USD — same for all programs)",
+    tuition: "500 ETB per course",
+    courseBreakdown: null,
+    delivery: ["In-Person", "Online"],
     totalEstimate: "Varies",
   },
 ];
@@ -70,21 +52,21 @@ export default function TuitionFeesClient() {
         <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#d6ff00] text-[#0f1e13] text-2xl font-bold mb-6 shadow-[0_10px_30px_rgba(214,255,0,.25)]">
           💳
         </div>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#a5ff63]/80 mb-2">Admissions</p>
-        <h2 className="font-serif text-3xl font-bold text-white leading-tight mb-4">Tuition & Fees</h2>
-        <p className="text-white/70 text-sm leading-relaxed">
+        <p className="text-xs uppercase tracking-[0.3em] text-black mb-2">Admissions</p>
+        <h2 className="font-serif text-3xl font-bold text-black leading-tight mb-4">Tuition & Fees</h2>
+        <p className="text-black text-sm leading-relaxed">
           We are committed to making theological education accessible. Our fees are structured
           to reflect the quality of education while remaining affordable.
         </p>
       </div>
       <div className="space-y-2">
-        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-white/90">
+        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-black">
           💰 Installment payment plans available
         </div>
-        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-white/90">
+        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-black">
           🎓 Scholarships available — see next page
         </div>
-        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-white/90">
+        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-black">
           📞 Finance office open Mon–Fri, 8AM–5PM
         </div>
       </div>
@@ -109,7 +91,7 @@ export default function TuitionFeesClient() {
             Tuition & Fees
           </h1>
           <p className="mt-2 text-sm text-[var(--muted)] leading-relaxed">
-            All amounts are in Ethiopian Birr (ETB). Fees are per academic year unless otherwise noted.
+            Amounts in Ethiopian Birr (ETB). USD equivalents shown for reference. Fees apply per program unless noted.
           </p>
         </div>
 
@@ -122,27 +104,32 @@ export default function TuitionFeesClient() {
             >
               <div className="mb-3 flex items-center justify-between gap-2 flex-wrap">
                 <h3 className="text-sm font-bold text-[var(--charcoal)]">{prog.program}</h3>
-                <span className="rounded-full bg-[#d6ff00]/70 px-2 py-0.5 text-[0.6rem] font-semibold text-[#0f1e13]">
-                  {prog.duration}
-                </span>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="rounded-full bg-[#d6ff00]/70 px-2 py-0.5 text-[0.6rem] font-semibold text-[#0f1e13]">
+                    {prog.duration}
+                  </span>
+                  {prog.delivery.map((mode) => (
+                    <span key={mode} className="rounded-full bg-[#2e7d52]/15 px-2 py-0.5 text-[0.6rem] font-semibold text-[#2e7d52]">
+                      {mode}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
-                <div>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between gap-4">
                   <p className="text-[var(--muted)] uppercase tracking-wider text-[0.6rem]">Application Fee</p>
-                  <p className="font-semibold text-[var(--charcoal)]">{prog.applicationFee}</p>
+                  <p className="font-semibold text-[var(--charcoal)] text-right">{prog.applicationFee}</p>
                 </div>
-                <div>
-                  <p className="text-[var(--muted)] uppercase tracking-wider text-[0.6rem]">Tuition / Semester</p>
-                  <p className="font-semibold text-[var(--charcoal)]">{prog.tuitionPerSemester}</p>
+                <div className="flex justify-between gap-4">
+                  <p className="text-[var(--muted)] uppercase tracking-wider text-[0.6rem]">Tuition</p>
+                  <p className="font-semibold text-[var(--charcoal)] text-right">{prog.tuition}</p>
                 </div>
-                <div>
-                  <p className="text-[var(--muted)] uppercase tracking-wider text-[0.6rem]">Registration Fee</p>
-                  <p className="font-semibold text-[var(--charcoal)]">{prog.registrationFee}</p>
-                </div>
-                <div>
-                  <p className="text-[var(--muted)] uppercase tracking-wider text-[0.6rem]">Materials Fee</p>
-                  <p className="font-semibold text-[var(--charcoal)]">{prog.materialsFee}</p>
-                </div>
+                {prog.courseBreakdown && (
+                  <div className="flex justify-between gap-4">
+                    <p className="text-[var(--muted)] uppercase tracking-wider text-[0.6rem]">Per Course</p>
+                    <p className="font-semibold text-[var(--charcoal)] text-right">{prog.courseBreakdown}</p>
+                  </div>
+                )}
               </div>
               <div className="mt-3 flex items-center gap-2 rounded-xl bg-[#2e7d52]/10 px-3 py-2">
                 <span className="text-[0.65rem] uppercase tracking-wider text-[#2e7d52] font-semibold">Total Estimate:</span>

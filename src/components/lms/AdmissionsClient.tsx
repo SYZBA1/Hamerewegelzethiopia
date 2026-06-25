@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Clock, CheckCircle, ArrowRight, Users, FileText, ClipboardList, HelpCircle, CreditCard, Award } from "lucide-react";
 import LMSAuthShell from "@/components/lms/AuthShell";
@@ -13,22 +14,6 @@ const programs = [
     duration: "2 Years",
     description: "Foundational theological studies with practical ministry training.",
     highlights: ["Biblical Studies", "Ministry Foundations", "Practical Training"],
-  },
-  {
-    icon: "📖",
-    level: "Degree",
-    title: "Bachelor's Degree",
-    duration: "4 Years",
-    description: "Comprehensive undergraduate program in theology and church ministry.",
-    highlights: ["Systematic Theology", "Church History", "Pastoral Care"],
-  },
-  {
-    icon: "🏆",
-    level: "Masters",
-    title: "Master's Degree",
-    duration: "2 Years",
-    description: "Advanced graduate study for ministry leadership and academic depth.",
-    highlights: ["Advanced Theology", "Research Methods", "Leadership Development"],
   },
   {
     icon: "💡",
@@ -79,14 +64,14 @@ export default function AdmissionsClient() {
   const sideContent = (
     <div className="flex h-full flex-col justify-between">
       <div>
-        <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#d6ff00] text-[#0f1e13] shadow-[0_10px_30px_rgba(214,255,0,.25)] text-2xl font-bold mb-6">
-          A
+        <div className="relative h-14 w-14 overflow-hidden rounded-3xl shadow-[0_10px_30px_rgba(214,255,0,.25)] mb-6">
+          <Image src="/assets/logos.png" alt="ቅዱስ ቄርሎስ ነገረ መለኮት ኮሌጅ" fill className="object-contain" sizes="56px" />
         </div>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#a5ff63]/80 mb-2">Hamere Wengel</p>
-        <h2 className="font-serif text-3xl font-bold text-white leading-tight mb-4">
+        <p className="text-xs uppercase tracking-[0.3em] text-black mb-2">ቅዱስ ቄርሎስ ነገረ መለኮት ኮሌጅ</p>
+        <h2 className="font-serif text-3xl font-bold text-black leading-tight mb-4">
           Admissions
         </h2>
-        <p className="text-white/70 text-sm leading-relaxed">
+        <p className="text-black text-sm leading-relaxed">
           Begin your journey toward theological excellence and ministry leadership.
           Our programs are designed to equip you with the knowledge, skills, and
           spiritual depth to serve effectively.
@@ -96,15 +81,15 @@ export default function AdmissionsClient() {
       <div className="space-y-3">
         <div className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3">
           <Users size={18} className="text-[#d6ff00]" />
-          <span className="text-sm text-white/90">Open to all qualified applicants</span>
+          <span className="text-sm text-black">Open to all qualified applicants</span>
         </div>
         <div className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3">
           <Clock size={18} className="text-[#d6ff00]" />
-          <span className="text-sm text-white/90">Intake: September & February</span>
+          <span className="text-sm text-black">Intake: September & February</span>
         </div>
         <div className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3">
           <FileText size={18} className="text-[#d6ff00]" />
-          <span className="text-sm text-white/90">Applications reviewed within 7 days</span>
+          <span className="text-sm text-black">Applications reviewed within 7 days</span>
         </div>
       </div>
     </div>

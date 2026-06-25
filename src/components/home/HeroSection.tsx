@@ -41,7 +41,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         headingA: "Welcome to",
         headingB: "Hamere Wengel ZE Ethiopia",
         subtext:
-          "Hamere Wengel is a mission platform advancing teaching, evangelism, and compassionate service so families and communities can grow in hope and purpose.",
+          "The primary vision of Hamere Wongel Ze-Ethiopia is 'to see the Ethiopian Mother Church renewed through the Word of the Gospel.",
         event: {
           title: "College Service Orientation",
           date: "June 14, 2026",

@@ -298,13 +298,13 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
           },
           {
             year: "የመስፋፋት ዘመን",
-            title: "ክልላዊ መዋቅሮች እና 28 ሞጁሎች",
-            body: "ወደ ክልል መዋቅሮች ተስፋፍቶ 28 የአገልግሎት ሞጁሎችን አዘጋጀ።",
+            title: "ክልላዊ እድገት",
+            body: "ወደ ክልል መዋቅሮች ተስፋፍቷል።",
           },
           {
             year: "አሁን",
-            title: "ኮሌጅ እና ሙሉ ጊዜ አገልጋዮች",
-            body: "የሥነ መለኮት ኮሌጅ ተጀምሮ ሙሉ ጊዜ አገልጋዮች ተልከዋል።",
+            title: "ቅዱስ ቄርሎስ የሥነ-መለኮት ኮሌጅ",
+            body: "ማኅበሩ አሁን የሥነ-መለኮት ትምህርት ጀምሯል።",
           },
         ],
         activitiesTitle: "እንቅስቃሴዎቻችን በተግባር",
@@ -328,21 +328,21 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
               "The Standing Synod is a delegated body that ensures continuity in leadership, handling ongoing decisions and maintaining alignment with the Synod's direction.",
           },
           {
-            title: "ጠቅላላ ጽሕፈት ቤት",
+            title: "ብሔራዊ ጽ/ቤት",
             description: "ዕለታዊ አስተዳደርን እና የክፍሎች መስራት ያስተባብራል።",
             translationTitle: "General Secretariat",
             translationDescription:
               "The General Secretariat oversees daily operations, coordination, and administration, ensuring that the ministry's vision is implemented effectively across all levels.",
           },
           {
-            title: "ክልላዊ ጽሕፈት ቤቶች",
+            title: "ሀገረ ስብከት",
             description: "በክልል ደረጃ ፕሮግራሞችን ያስፈጽማሉ እና ክርክሮችን ይተባበራሉ።",
             translationTitle: "Regional Offices",
             translationDescription:
               "Regional Offices manage and support ministry activities within specific geographic areas, facilitating communication and coordination between central leadership and local churches.",
           },
           {
-            title: "አካባቢ ቤተ ክርስቲያናት እና ኅብረቶች",
+            title: "አጥቢያ ቤተክርስቲያን",
             description: "ተልእኮውን በቀጥታ በማህበረሰብ ውስጥ የሚያገለግሉ መሠረታዊ ክፍሎች ናቸው።",
             translationTitle: "Local Churches & Fellowships",
             translationDescription:
@@ -358,7 +358,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
           { title: "ልማት እና እርዳታ", href: href("/departments/charity-and-development") },
           { title: "የሥነ መለኮት ኮሌጅ", href: href("/departments") },
         ],
-        leadershipTitle: "አመራር",
+        leadershipTitle: "መስራች የቦርድ አባላት",
         leadership: [
           { role: "ጠቅላላ ሥራ አስኪያጅ", focus: "መንፈሳዊ ክትትል" },
           { role: "ምክትል ሥራ አስኪያጅ", focus: "ስትራቴጂካዊ ኦፕሬሽን" },
@@ -467,13 +467,13 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
           },
           {
             year: "Expansion Phase",
-            title: "Regional growth and 28 ministry modules",
-            body: "The work expanded into regional structures and developed 28 ministry modules for sustained service.",
+            title: "Regional growth",
+            body: "The work expanded into regional structures.",
           },
           {
             year: "Present",
-            title: "Theological college and full-time ministers",
-            body: "The association now launches theological education and deploys full-time ministers into active service.",
+            title: "Saint Cyril Theological College",
+            body: "The association now launches theological education.",
           },
         ],
         activitiesTitle: "Our Activities in Action",
@@ -500,21 +500,21 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
             title: "General Secretariat",
             description:
               "The General Secretariat oversees daily operations, coordination, and administration, ensuring that the ministry's vision is implemented effectively across all levels.",
-            translationTitle: "ጠቅላላ ጽሕፈት ቤት",
+            translationTitle: "ብሔራዊ ጽ/ቤት",
             translationDescription: "ዕለታዊ አስተዳደርን እና የክፍሎች መስራት ያስተባብራል።",
           },
           {
             title: "Regional Offices",
             description:
               "Regional Offices manage and support ministry activities within specific geographic areas, facilitating communication and coordination between central leadership and local churches.",
-            translationTitle: "ክልላዊ ጽሕፈት ቤቶች",
+            translationTitle: "ሀገረ ስብከት",
             translationDescription: "በክልል ደረጃ ፕሮግራሞችን ያስፈጽማሉ እና ክርክሮችን ይተባበራሉ።",
           },
           {
             title: "Local Churches & Fellowships",
             description:
               "Local Churches and Fellowships are the grassroots expression of the ministry, where believers gather for worship, discipleship, outreach, and community impact.",
-            translationTitle: "አካባቢ ቤተ ክርስቲያናት እና ኅብረቶች",
+            translationTitle: "አጥቢያ ቤተክርስቲያን",
             translationDescription: "ተልእኮውን በቀጥታ በማህበረሰብ ውስጥ የሚያገለግሉ መሠረታዊ ክፍሎች ናቸው።",
           },
         ],
@@ -527,7 +527,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
           { title: "Development & Relief", href: href("/departments/charity-and-development") },
           { title: "Theological College", href: href("/departments") },
         ],
-        leadershipTitle: "Our Leadership",
+        leadershipTitle: "Founding Board Members",
         leadership: [
           { role: "General Manager", focus: "Spiritual Oversight" },
           { role: "Deputy Manager", focus: "Strategic Operations" },
@@ -557,24 +557,34 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
   const heroImage = "https://images.unsplash.com/photo-1580320209809-a0c51e645872?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   const activitySlides = [
     {
-      src: "/assets/leadership/worship.jpg",
-      title: isAm ? "የቤተ ክርስቲያን አገልግሎት" : "Church Services",
-      subtitle: isAm ? "ህብረት እና አምልኮ" : "Worship & Fellowship",
-    },
-    {
-      src: "/assets/leadership/outreach.jpg",
-      title: isAm ? "የማህበረሰብ ድርሻ" : "Community Outreach",
-      subtitle: isAm ? "ድጋፍ እና መድረስ" : "Support & Care",
+      src: "/assets/leadership/leaders.jpg",
+      title: isAm ? "የሲኖዶስ ስብሰባ" : "Synod Meeting",
+      subtitle: isAm ? "Synod Meeting" : "የሲኖዶስ ስብሰባ",
     },
     {
       src: "/assets/leadership/leaders.jpg",
-      title: isAm ? "የመሪነት ስልጠና" : "Leadership Training",
-      subtitle: isAm ? "ማብቃት እና ስልጠና" : "Formation & Training",
+      title: isAm ? "የአገልጋች ስልጠና" : "Leaders Training",
+      subtitle: isAm ? "Leaders Training" : "የአገልጋች ስልጠና",
     },
     {
       src: "/assets/leadership/youth.jpg",
-      title: isAm ? "የወጣቶች አገልግሎት" : "Youth Ministry",
-      subtitle: isAm ? "ትውልድ ማበረታታት" : "Next Generation",
+      title: isAm ? "የመስክ ጉብኝት" : "Youth Ministry",
+      subtitle: isAm ? "Youth Ministry" : "የመስክ ጉብኝት",
+    },
+    {
+      src: "/assets/leadership/worship.jpg",
+      title: isAm ? "የቤተ.ክ ሥርዓተ አምልኮ" : "Church Service",
+      subtitle: isAm ? "Church Service" : "የቤተ.ክ ሥርዓተ አምልኮ",
+    },
+    {
+      src: "/assets/leadership/outreach.jpg",
+      title: isAm ? "የቅዱስ ቄርሎስ ት/ቤት ተማሪዎች" : "Community Care",
+      subtitle: isAm ? "Community Care" : "የቅዱስ ቄርሎስ ት/ቤት ተማሪዎች",
+    },
+    {
+      src: "/assets/leadership/outreach.jpg",
+      title: isAm ? "የመጽሐፍ ቅዱስ ሥርጭት" : "Community Outreach",
+      subtitle: isAm ? "Community Outreach" : "የመጽሐፍ ቅዱስ ሥርጭት",
     },
   ];
   const leadershipSlides = [
@@ -591,7 +601,7 @@ export default function AboutPageClient({ locale, content }: AboutPageClientProp
     {
       src: "/assets/leadership/dawit.jpg",
       title: isAm ? "መሪጌታ ዳዊት ሙሉዬ" : "Merigeta Dawit Muluye",
-      subtitle: isAm ? "የስብከተ ወንጌል መምሪያ ኃላፊ" : "Head of Gospel Outreach Department",
+      subtitle: isAm ? "የስብከተ ወንጌልና ሐዋሪያዊ ተልዕኮ መምሪያ ኃላፊ" : "Head of Evangelism and Apostolic Mission",
     },
     {
       src: "/assets/leadership/deqemezmur.jpg",

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -9,6 +10,16 @@ import HomeFooter from "@/components/home/Footer";
 import type { Locale } from "@/context/LanguageContext";
 
 const BLOG_POST_SLUGS = ["p1", "p2", "p3", "p4", "p5", "p6"] as const;
+
+// Cover images per post — admin can update these paths in the admin portal
+const POST_COVER_IMAGES: Record<string, string> = {
+  p1: "https://images.unsplash.com/photo-1507692049790-de58290a4334?q=80&w=1200&auto=format&fit=crop",
+  p2: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop",
+  p3: "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=1200&auto=format&fit=crop",
+  p4: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=1200&auto=format&fit=crop",
+  p5: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop",
+  p6: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=80&w=1200&auto=format&fit=crop",
+};
 
 type BlogPostSlug = (typeof BLOG_POST_SLUGS)[number];
 
@@ -64,9 +75,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <span className="text-sm text-slate-500">{post.readMin} {t("min_read")}</span>
             </div>
             <h1 className="font-serif text-4xl font-semibold tracking-tight text-[#101010] sm:text-5xl">{post.title}</h1>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-slate-700">{post.excerpt}</p>
 
-            <article className="mt-12 space-y-8 text-base leading-8 text-slate-700">
+            {POST_COVER_IMAGES[slug] && (
+              <div className="mt-8 overflow-hidden rounded-2xl">
+                <Image
+                  src={POST_COVER_IMAGES[slug]}
+                  alt={post.title}
+                  width={1000}
+                  height={460}
+                  className="w-full object-cover"
+                  priority
+                />
+              </div>
+            )}
+
+            <p className="mt-8 max-w-3xl text-base leading-8 text-slate-700">{post.excerpt}</p>
+
+            <article className="mt-10 space-y-8 text-base leading-8 text-slate-700">
               {post.body.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}

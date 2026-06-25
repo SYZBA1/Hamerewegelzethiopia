@@ -103,7 +103,7 @@ export default function SocialProof({ locale }: SocialProofProps) {
         <h2 className={`mx-auto mt-5 max-w-3xl text-3xl text-[#121a11] sm:text-4xl lg:text-5xl ${isAmharic ? "font-ethiopic leading-[1.34]" : "font-serif font-semibold leading-tight"}`}>
           {locale === "am"
             ? "የእምነት መፍትሄ በማቅረብ ችግኝቶችን በግልፅ እና በፈጠራ እንዲቀንስ እንርዳለን"
-            : "A ministry that clarifies challenges and advances Gospel-centered solutions for our community."}
+            : "Community Recognition"}
         </h2>
 
         <div className="mx-auto mt-10 max-w-md rounded-2xl border border-[#121a11]/12 bg-[#f7f8ef] p-5 shadow-[0_12px_24px_rgba(18,26,17,0.08)]">

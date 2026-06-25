@@ -44,7 +44,7 @@ export default function LMSAuthShell({ landingPath, sideContent, children }: Aut
           href={landingPath}
           className="lms-auth-home absolute right-5 top-5 z-20 px-4 py-2 text-sm font-semibold"
         >
-          Hamere Wengel
+          Back to Home
         </Link>
 
         <div className="relative z-10 mx-auto w-full max-w-md">{children}</div>

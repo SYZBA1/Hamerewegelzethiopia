@@ -12,8 +12,7 @@ const documentsByProgram = [
     docs: [
       "Valid National ID or Passport (clear copy, front and back)",
       "Recent passport-size photograph (white background, within 6 months)",
-      "Personal statement of faith and ministry calling (min. 300 words)",
-      "Two reference letters — one pastoral, one academic or professional",
+      "የኦርቶዶክስ እምነት ተከታይ የሆኑ ዲያቆን እና ከዛ በላይ ማዕረግ ያላቸው | Orthodox faith follower who holds the rank of Deacon or above",
       "Completed admission application form",
     ],
   },
@@ -24,25 +23,6 @@ const documentsByProgram = [
       "Grade 10 or Grade 12 completion certificate or equivalent",
       "Official school transcripts",
       "Statement of previous church involvement or ministry experience",
-    ],
-  },
-  {
-    program: "Bachelor's Degree",
-    required: true,
-    docs: [
-      "Diploma certificate or equivalent (Grade 12 / TVET Level 4+)",
-      "Official academic transcripts",
-      "Medical fitness certificate",
-    ],
-  },
-  {
-    program: "Master's Degree",
-    required: true,
-    docs: [
-      "Bachelor's degree certificate (theology or related field preferred)",
-      "Official undergraduate transcripts",
-      "Research proposal or academic writing sample (min. 500 words)",
-      "Proof of ordination or pastoral appointment (if applicable)",
     ],
   },
   {
@@ -74,21 +54,21 @@ export default function RequirementsClient() {
         <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#d6ff00] text-[#0f1e13] text-2xl font-bold mb-6 shadow-[0_10px_30px_rgba(214,255,0,.25)]">
           📋
         </div>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#a5ff63]/80 mb-2">Admissions</p>
-        <h2 className="font-serif text-3xl font-bold text-white leading-tight mb-4">Requirements</h2>
-        <p className="text-white/70 text-sm leading-relaxed">
+        <p className="text-xs uppercase tracking-[0.3em] text-black mb-2">Admissions</p>
+        <h2 className="font-serif text-3xl font-bold text-black leading-tight mb-4">Requirements</h2>
+        <p className="text-black text-sm leading-relaxed">
           Review all required documents before you begin your application. Having everything prepared
           in advance speeds up the review process.
         </p>
       </div>
       <div className="space-y-3">
-        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-white/90">
+        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-black">
           📄 Submit documents as PDF or high-res images
         </div>
-        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-white/90">
+        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-black">
           🌐 Foreign docs need certified translation
         </div>
-        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-white/90">
+        <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-black">
           🔒 All information is kept strictly confidential
         </div>
       </div>

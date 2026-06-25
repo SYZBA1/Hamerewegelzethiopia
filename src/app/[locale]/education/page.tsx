@@ -65,7 +65,7 @@ export default async function EducationPage({
                 }}
               >
                 <p className="text-xs uppercase tracking-[0.28em] text-white">{isAm ? "ትምህርት" : "Education"}</p>
-                <h1 className="mt-3 text-4xl font-bold text-[#FFFDEE] md:text-5xl">{isAm ? "የሐመረ ወንጌል ትምህርት" : "Hamere Wengel Education"}</h1>
+                <h1 className="mt-3 text-4xl font-bold text-[#FFFDEE] md:text-5xl">{"ቅዱስ ቄርሎስ ነገረ መለኮት ኮሌጅ"}</h1>
                 <p className="mt-5 max-w-4xl leading-relaxed text-white">
                   {isAm
                     ? "ምዝገባ፣ ቤተ መጻሕፍት፣ LMS እና የምረቃ አገልግሎቶችን በአንድ ቦታ ያግኙ።"

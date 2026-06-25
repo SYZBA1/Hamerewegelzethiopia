@@ -4,6 +4,7 @@ export type Department = {
   amharic: string;
   headName: string;
   headRole: string;
+  headImage?: string;
   description: string;
   mission: string;
   activities: string[];
@@ -17,6 +18,7 @@ export const DEPARTMENTS: Department[] = [
     amharic: "የሚዲያና የሕዝብ ግንኙነት መምሪያ",
     headName: "ዲያቆን/ዶክተር ስዩም ተረፈ | Deacon/Dr. Siyoum Terefe",
     headRole: "የሚዲያና ሕዝብ ግንኙነት ኃላፊ | Head of Media and Public Relations",
+    headImage: "/assets/leadership/siyum.jpg",
     description:
       "ይህ ክፍል የኤሌክትሮኒክስና የሕትመት ውጤቶችን በመጠቀም የወንጌል ብርሃን ለሕዝባችን የሚደርስበትን መንገድ ያመቻቻል። መምሪያው ትምህርቶች፣ መልእክቶችና መግለጫዎች ተዘጋጅተው በወቅቱ እንዲተላለፉ ያደርጋል። በተጨማሪም በተለያዩ መምሪያዎች የሚዘጋጁ ጥናታዊና ትምህርታዊ ጽሑፎች ታትመው ለተዘጋጁበት ዓላማ እንዲውሉ የማድረግ ኃላፊነት አለበት።",
     mission:
@@ -34,6 +36,7 @@ export const DEPARTMENTS: Department[] = [
     amharic: "የአስተዳደርና ፋይናንስ መምሪያ",
     headName: "ወንድም ብርሃን በቀለ | Brother Berhan Bekele",
     headRole: "አስተዳደርና ፋይናንስ መምሪያ ኃላፊ | Head of Administration and Finance Department",
+    headImage: "/assets/leadership/siltanu.jpg",
     description:
       "በዚህ መምሪያ ስር የተቋሙ ጊዜያዊና ቋሚ ንብረቶች፣ እንዲሁም የሰው ኃይል በሕግና በሥርዓት ተመዝግበው እንዲያዙ ይደረጋል። መምሪያው የአገልግሎቱን የገንዘብና የንብረት ፍሰት በግልጽነትና በተጠያቂነት በመምራት፣ ለወንጌል ሥራው መሳካት አስፈላጊ የሆነውን አስተዳደራዊ መሠረት ያደራጃል።",
     mission:
@@ -51,6 +54,7 @@ export const DEPARTMENTS: Department[] = [
     amharic: "የጥናትና ምርምር መምሪያ",
     headName: "መምህር ብርሃኑ አበጋዝ | Memhir Berhanu Abegaz",
     headRole: "የቅዱስ ቄርሎስ ኮሌጅ ዲን | Dean of St. Cyril College",
+    headImage: "/assets/leadership/memhir-berhanu-abegaz.jpg",
     description:
       "ይህ መምሪያ ለአገልግሎቱ መጠናከርና መስፋፋት ጠቃሚ የሆኑ ርእሰ ጉዳዮችን በመለየት ጥናታዊ ጽሑፎችን ያዘጋጃል። በተገኙት የጥናት ውጤቶች መሠረት አገልግሎቱ ይበልጥ ውጤታማ የሚሆንባቸውን አቅጣጫዎች የሚቀይስ ሲሆን፣ የወደፊት የአገልግሎት ጉዞው በዕውቀትና በመረጃ ላይ የተመሠረተ እንዲሆን ትልቅ አስተዋጽኦ ያበረክታል።",
     mission:
@@ -85,23 +89,25 @@ export const DEPARTMENTS: Department[] = [
     amharic: "የትምህርትና ሥልጠና መምሪያ",
     headName: "መምህር እስመለዓለም ሀብቱ | Memhir Ismelealem Habtu",
     headRole: "የትምህርትና ስልጠና መምሪያ ኃላፊ | Head of Education and Training Department",
+    headImage: "/assets/leadership/deqemezmur.jpg",
     description:
       "በዚህ መምሪያ ስር ምእመናን ወጥና ተከታታይነት ያለው ትምህርተ ክርስትና እንዲያገኙ የሚያስችሉ የትምህርት ማቴሪያሎች ይዘጋጃሉ። መምሪያው ከስብከተ ወንጌል ክፍል ጋር በመተባበር ልዑካንን ለተልእኮ ከማብቃቱም በላይ፣ የቤተ ክርስቲያን አስተምህሮ በባዕዳንና በሐሰተኛ ትምህርቶች እንዳይበረዝ የመከላከልና የመጠበቅ ታላቅ ኃላፊነት ይወጣል።",
     mission:
-      "Under this department, educational materials are prepared to ensure believers receive consistent and continuous Christian teachings. In collaboration with the Gospel Outreach Department, it empowers envoys for the mission and carries the great responsibility of protecting and preserving the Church's doctrine from being diluted by alien and false teachings.",
+      "Under this department, educational materials are prepared to ensure believers receive consistent and continuous Christian teachings. In collaboration with the Evangelism and Apostolic Mission Department, it empowers envoys for the mission and carries the great responsibility of protecting and preserving the Church's doctrine from being diluted by alien and false teachings.",
     activities: [
       "Preparing consistent and continuous Christian educational materials for believers",
-      "Collaborating with Gospel Outreach to equip envoys for mission service",
+      "Collaborating with Evangelism and Apostolic Mission to equip envoys for mission service",
       "Protecting and preserving Church doctrine from alien and false teachings",
     ],
     icon: "📘",
   },
   {
     slug: "evangelism",
-    title: "Gospel Outreach Department",
-    amharic: "የስብከተ ወንጌል መምሪያ",
+    title: "Evangelism and Apostolic Mission",
+    amharic: "ስብከተ ወንጌልና ሐዋሪያዊ ተልዕኮ መምሪያ",
     headName: "መሪጌታ ዳዊት ሙሉዬ | Merigeta Dawit Muluye",
-    headRole: "የስብከተ ወንጌል መምሪያ ኃላፊ | Head of Gospel Outreach Department",
+    headRole: "የስብከተ ወንጌልና ሐዋሪያዊ ተልዕኮ መምሪያ ኃላፊ | Head of Evangelism and Apostolic Mission",
+    headImage: "/assets/leadership/dawit.jpg",
     description:
       "የዚህ መምሪያ ዋነኛ ተልእኮ በማቴዎስ ወንጌል (28፥19-20) መሠረት የወንጌል ሥርጭት ተልእኮን ማስፈጸምና ማጠናከር ነው። መምሪያው የወንጌል ጥሪ ያላቸውን አገልጋዮች የመመልመል፣ የማብቃትና ለተልእኮ የማሰማራት ሥራን ይሠራል። በተጨማሪም በቃለ ወንጌሉ አምነው ወደ ማኅበሩ የሚቀላቀሉ ምእመናን ተገቢውን የደቀ መዝሙርነት ትምህርት እንዲያገኙና በመንፈሳዊ ሕይወታቸው እንዲያድጉ በቅርበት ይከታተላል።",
     mission:
