@@ -1,6 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findCourseById } from "@/components/lms/student/courses/courseData";
+import { findCourseById, courses } from "@/components/lms/student/courses/courseData";
+
+export async function generateStaticParams() {
+  const locales = ["en", "am"];
+  return locales.flatMap(locale =>
+    courses.flatMap(course =>
+      course.lessons.map(lesson => ({
+        locale,
+        courseId: course.id,
+        lessonId: lesson.id,
+      }))
+    )
+  );
+}
 
 export default function StudentLessonPage({
   params,

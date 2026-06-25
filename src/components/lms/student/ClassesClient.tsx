@@ -34,7 +34,7 @@ export default function ClassesClient() {
     <div className="space-y-6">
       {/* Today's Classes */}
       <div className="rounded-3xl border border-white/10 bg-[#111f16]/95 p-6 shadow-xl backdrop-blur-xl">
-        <h2 className="text-xl font-bold text-white mb-4">Today's Classes</h2>
+        <h2 className="text-xl font-bold text-white mb-4">Today&apos;s Classes</h2>
         {todaysClasses.length > 0 ? (
           <div className="space-y-3">
             {todaysClasses.map((cls) => (
